@@ -46,5 +46,5 @@
 - **Sub-auditor**: encontró 5 errores menores (líneas, conteo migraciones 315→317, mecanismo del script). Corregidos. Conclusión central confirmada 100%.
 - **Veredicto sub-auditor**: "FAIL inicial → correcciones aplicadas → conclusión central correcta: no existe integración QBO"
 - **Modelo objetivo**: 12 capacidades, TODAS etiquetadas A CONSTRUIR (nada que rescatar)
-- **Hash commit**: *(pendiente)*
+- **Hash commit**: `cf6f6ba`
 
