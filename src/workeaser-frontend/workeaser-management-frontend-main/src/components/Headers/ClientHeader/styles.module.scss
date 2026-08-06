@@ -1,0 +1,46 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.tabNavigation {
+  ul {
+    list-style: none;
+
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $color-gray-300;
+
+    li {
+      max-width: 160px;
+      font-size: h.toRem(14);
+      font-weight: $font-semibold;
+      padding: 0 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      // text-overflow: ellipsis;
+
+      a {
+        display: inline-block;
+        position: relative;
+        height: 45px;
+        line-height: 45px;
+
+        transition: color 0.3s;
+
+        &:hover {
+          color: $color-blue-100;
+        }
+
+        &.active::after {
+          content: "";
+          position: absolute;
+          left: -10px;
+          right: -10px;
+          bottom: 0;
+          height: 3px;
+          background: $color-blue-200;
+          border-radius: 3px 3px 0 0;
+        }
+      }
+    }
+  }
+}

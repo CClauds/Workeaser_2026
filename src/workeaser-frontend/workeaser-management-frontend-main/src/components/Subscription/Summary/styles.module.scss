@@ -1,0 +1,16 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: $color-dark-gray;
+
+  p {
+    font-size: 14px;
+
+    strong {
+      font-weight: $font-black;
+    }
+  }
+}

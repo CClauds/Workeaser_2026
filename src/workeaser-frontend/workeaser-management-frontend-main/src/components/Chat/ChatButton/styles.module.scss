@@ -1,0 +1,37 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 12px;
+  font-weight: $font-regular;
+
+  padding: 0 10px;
+
+  background-color: $color-gray-200;
+  border-radius: 5px;
+
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  & + button {
+    margin-left: 3px;
+  }
+
+  p {
+    margin-left: 5px;
+  }
+
+  span {
+    &::before {
+      color: $color-blue-800;
+    }
+  }
+}

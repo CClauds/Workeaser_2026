@@ -1,0 +1,30 @@
+node_modules
+coverage
+.vscode
+.DS_STORE
+
+# Environment files — only .env.example may be committed
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+
+# Secrets / private keys — NEVER commit. Use env vars or secret manager.
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*_rsa
+*_rsa.pub
+*_dsa
+*_dsa.pub
+**/docusign_private.key
+**/private_keys/
+
+# Build artefacts
+tmp
+build
+ClientExport.xlsx
+test.json

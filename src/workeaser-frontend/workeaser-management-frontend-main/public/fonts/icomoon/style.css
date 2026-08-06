@@ -1,0 +1,350 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?b6u1pj');
+  src:  url('fonts/icomoon.eot?b6u1pj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?b6u1pj') format('truetype'),
+    url('fonts/icomoon.woff?b6u1pj') format('woff'),
+    url('fonts/icomoon.svg?b6u1pj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mothers-room:before {
+  content: "\e950";
+}
+.icon-parking-sign:before {
+  content: "\e951";
+}
+.icon-coffee-cup:before {
+  content: "\e952";
+}
+.icon-Add-Employee:before {
+  content: "\e900";
+  color: #ee2737;
+}
+.icon-at-1:before {
+  content: "\e901";
+  color: #ee2737;
+}
+.icon-Attachment:before {
+  content: "\e902";
+  color: #ee2737;
+}
+.icon-Bell:before {
+  content: "\e903";
+  color: #ee2737;
+}
+.icon-Bigger-Size:before {
+  content: "\e904";
+  color: #ee2737;
+}
+.icon-Bike-Parking:before {
+  content: "\e905";
+}
+.icon-Bookmarked:before {
+  content: "\e906";
+  color: #ee2737;
+}
+.icon-Calendar:before {
+  content: "\e907";
+  color: #ee2737;
+}
+.icon-Chat:before {
+  content: "\e908";
+  color: #ee2737;
+}
+.icon-circle-chart-4:before {
+  content: "\e909";
+  color: #ee2737;
+}
+.icon-clock-2:before {
+  content: "\e90a";
+  color: #ee2737;
+}
+.icon-Close:before {
+  content: "\e90b";
+  color: #ee2737;
+}
+.icon-Comment:before {
+  content: "\e90c";
+  color: #ee2737;
+}
+.icon-Community:before {
+  content: "\e90d";
+  color: #ee2737;
+}
+.icon-Connections:before {
+  content: "\e90e";
+  color: #ee2737;
+}
+.icon-Delete-Employee:before {
+  content: "\e90f";
+  color: #ee2737;
+}
+.icon-Disability-Infrastructure:before {
+  content: "\e910";
+}
+.icon-Down-Arrow:before {
+  content: "\e911";
+  color: #ee2737;
+}
+.icon-Employee-Board:before {
+  content: "\e912";
+  color: #ee2737;
+}
+.icon-Event:before {
+  content: "\e913";
+  color: #ee2737;
+}
+.icon-Explore:before {
+  content: "\e914";
+  color: #ee2737;
+}
+.icon-eye-1-pupil-1:before {
+  content: "\e915";
+  color: #ee2737;
+}
+.icon-file-text-2:before {
+  content: "\e916";
+  color: #ee2737;
+}
+.icon-Filter:before {
+  content: "\e917";
+  color: #ee2737;
+}
+.icon-gears-2:before {
+  content: "\e918";
+  color: #ee2737;
+}
+.icon-Get-Location:before {
+  content: "\e919";
+  color: #ee2737;
+}
+.icon-Globe:before {
+  content: "\e91a";
+  color: #ee2737;
+}
+.icon-Group-Size:before {
+  content: "\e91b";
+  color: #ee2737;
+}
+.icon-Heart:before {
+  content: "\e91c";
+  color: #ee2737;
+}
+.icon-Help:before {
+  content: "\e91d";
+  color: #ee2737;
+}
+.icon-image:before {
+  content: "\e91e";
+  color: #ee2737;
+}
+.icon-Kitchen:before {
+  content: "\e91f";
+}
+.icon-layout-1:before {
+  content: "\e920";
+  color: #ee2737;
+}
+.icon-Like:before {
+  content: "\e921";
+  color: #ee2737;
+}
+.icon-Lock:before {
+  content: "\e922";
+  color: #ee2737;
+}
+.icon-Map:before {
+  content: "\e923";
+  color: #ee2737;
+}
+.icon-Marketplace:before {
+  content: "\e924";
+  color: #ee2737;
+}
+.icon-Membership:before {
+  content: "\e925";
+  color: #ee2737;
+}
+.icon-Microwave:before {
+  content: "\e926";
+  color: #ee2737;
+}
+.icon-Minus:before {
+  content: "\e927";
+  color: #ee2737;
+}
+.icon-money-1:before {
+  content: "\e928";
+  color: #ee2737;
+}
+.icon-Monitor-and-TV:before {
+  content: "\e929";
+  color: #ee2737;
+}
+.icon-more-4-large:before {
+  content: "\e92a";
+  color: #ee2737;
+}
+.icon-Mute:before {
+  content: "\e92b";
+  color: #ee2737;
+}
+.icon-Navigation-Arrow:before {
+  content: "\e92c";
+  color: #ee2737;
+}
+.icon-Outdoor-Space:before {
+  content: "\e92d";
+  color: #ee2737;
+}
+.icon-Pet-Friendly:before {
+  content: "\e92e";
+}
+.icon-Phone-Line:before {
+  content: "\e92f";
+  color: #ee2737;
+}
+.icon-phone1-call:before {
+  content: "\e930";
+  color: #ee2737;
+}
+.icon-piggybank-1:before {
+  content: "\e931";
+  color: #ee2737;
+}
+.icon-player-control-next:before {
+  content: "\e932";
+  color: #ee2737;
+}
+.icon-Player-Control-Pause:before {
+  content: "\e933";
+  color: #ee2737;
+}
+.icon-Player-Control-Play:before {
+  content: "\e934";
+  color: #ee2737;
+}
+.icon-Player-Control-Prev:before {
+  content: "\e935";
+  color: #ee2737;
+}
+.icon-Plus:before {
+  content: "\e936";
+  color: #ee2737;
+}
+.icon-Printer:before {
+  content: "\e937";
+  color: #ee2737;
+}
+.icon-Private-Area:before {
+  content: "\e938";
+  color: #ee2737;
+}
+.icon-Refrigerator:before {
+  content: "\e939";
+  color: #ee2737;
+}
+.icon-Restaurant:before {
+  content: "\e93a";
+}
+.icon-Retangular-Layout:before {
+  content: "\e93b";
+  color: #ee2737;
+}
+.icon-Search:before {
+  content: "\e93c";
+  color: #ee2737;
+}
+.icon-Send:before {
+  content: "\e93d";
+  color: #ee2737;
+}
+.icon-Settings:before {
+  content: "\e93e";
+  color: #ee2737;
+}
+.icon-Share:before {
+  content: "\e93f";
+  color: #ee2737;
+}
+.icon-Shower:before {
+  content: "\e940";
+  color: #ee2737;
+}
+.icon-Side-Menu:before {
+  content: "\e941";
+  color: #ee2737;
+}
+.icon-Single-Location:before {
+  content: "\e942";
+  color: #ee2737;
+}
+.icon-Smaller-Size:before {
+  content: "\e943";
+  color: #ee2737;
+}
+.icon-Speaker:before {
+  content: "\e944";
+  color: #ee2737;
+}
+.icon-Square-Layout:before {
+  content: "\e945";
+  color: #ee2737;
+}
+.icon-Standing-Desk:before {
+  content: "\e946";
+  color: #ee2737;
+}
+.icon-Star:before {
+  content: "\e947";
+  color: #ee2737;
+}
+.icon-translate:before {
+  content: "\e948";
+}
+.icon-trash-lines-2-closed:before {
+  content: "\e949";
+  color: #ee2737;
+}
+.icon-Unlocked:before {
+  content: "\e94a";
+  color: #ee2737;
+}
+.icon-User:before {
+  content: "\e94b";
+  color: #ee2737;
+}
+.icon-video:before {
+  content: "\e94c";
+  color: #ee2737;
+}
+.icon-wallet-1-coins:before {
+  content: "\e94d";
+  color: #ee2737;
+}
+.icon-Weekend-Access:before {
+  content: "\e94e";
+  color: #ee2737;
+}
+.icon-Write:before {
+  content: "\e94f";
+  color: #ee2737;
+}

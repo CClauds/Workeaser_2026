@@ -1,0 +1,24 @@
+@use "../../../../styles/utils/variables" as *;
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  height: calc(100vh - 175px);
+
+  & > div:not(:first-child) {
+    &:last-child {
+      header > span {
+        display: none;
+      }
+
+      & > div {
+        border-right: 2px solid $color-light-gray;
+      }
+    }
+  }
+}
+
+.droppable {
+  height: 100%;
+}

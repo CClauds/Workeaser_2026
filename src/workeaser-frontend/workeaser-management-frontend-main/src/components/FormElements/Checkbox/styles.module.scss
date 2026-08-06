@@ -1,0 +1,38 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: inline-block;
+  height: 14px;
+
+  user-select: none;
+  cursor: pointer;
+
+  input {
+    position: relative;
+
+    width: 14px;
+    height: 14px;
+
+    border: 1px solid $color-blue-800;
+    border-radius: 4px;
+
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:checked::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      width: 10px;
+      height: 10px;
+      margin: auto;
+
+      background: $color-blue-200;
+      border-radius: 3px;
+      z-index: 1;
+    }
+  }
+}

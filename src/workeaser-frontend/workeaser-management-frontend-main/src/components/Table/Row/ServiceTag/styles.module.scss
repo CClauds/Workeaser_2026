@@ -1,0 +1,26 @@
+@use "../../../../styles/utils/variables" as *;
+
+.container {
+  position: relative;
+  cursor: default;
+
+  span {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    background: $color-dark-gray;
+
+    &.inactive {
+      opacity: 0.25;
+    }
+  }
+}

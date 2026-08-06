@@ -1,0 +1,33 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  border-bottom: 1px solid $color-light-gray;
+
+  &.clickable {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: rgba($color: $color-light-gray, $alpha: 0.7);
+    }
+  }
+
+  td {
+    // font-weight: $font-book;
+    padding: 10px 0;
+
+    &:first-child {
+      padding-left: 15px;
+    }
+
+    h3 {
+      font-size: 13px;
+      line-height: 25px;
+      font-weight: $font-semibolder;
+    }
+
+    h4 {
+      font-size: 13px;
+      font-weight: $font-book;
+    }
+  }
+}

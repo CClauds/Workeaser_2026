@@ -1,0 +1,47 @@
+flowchart LR
+    subgraph Core["workeaser-api (núcleo)"]
+        INV["InvoicesController\n(receivePayment, capturePayment, refundPayment)"]
+        SUB["SubscriptionsController\n(portal-session, cancel, change-plan)"]
+        SC["StripeConnectController\n(onboarding, external accounts)"]
+        BANK["BankingController + SettingsController\n(sync transações)"]
+        CONTR["ContractsController\n(sendcontract, status)"]
+        WA_C["WhatsappController / MetaCloudImplementation\n(sendMessage)"]
+        MAIL["email_queue + ProcessEmailQueue task\n(SES)"]
+        CAL["AuthGoogleController / AuthExchangeController\n(OAuth calendário)"]
+    end
+
+    subgraph Ext["Serviços externos"]
+        STRIPE["Stripe\n🔑 sk_test_local\nwebhook: /api/webhooks/stripe"]
+        PLAID["Plaid\n🔑 placeholder\nlink token + sync"]
+        BOLD["BoldSign\n⚠️ QUEBRADA (Invalid URL)\nwebhook: /api/webhooks/boldsign"]
+        DOCU["Docusign\n🔑 placeholder (sandbox)\nwebhook: /api/webhooks/docusign"]
+        ADOBE["AdobeSign\n🔑 configurado\nwebhook: /api/webhooks/adobesign"]
+        SES["AWS SES\n🔑 local-dev\nwebhook: /api/webhooks/ses"]
+        WAMETA["WhatsApp Meta Cloud\nwebhook: /api/webhooks/whatsapp"]
+        GMAIL["Google Calendar API"]
+        OUTLOOK["Microsoft Graph (Exchange)"]
+    end
+
+    INV -->|"charge/capture/refund"| STRIPE
+    SUB -->|"billing portal/assinaturas"| STRIPE
+    SC -->|"connect onboarding"| STRIPE
+    BANK -->|"link token/sync"| PLAID
+    CONTR -->|"envelopes"| DOCU
+    CONTR -->|"envelopes"| ADOBE
+    CONTR -->|"envelopes"| BOLD
+    WA_C -->|"POST messages"| WAMETA
+    MAIL -->|"send email"| SES
+    CAL -->|"OAuth redirect/callback"| GMAIL
+    CAL -->|"OAuth redirect/callback"| OUTLOOK
+
+    STRIPE -.->|"webhook invoice.paid/payment_failed"| INV
+    BOLD -.->|"webhook eventos"| CONTR
+    DOCU -.->|"webhook eventos"| CONTR
+    ADOBE -.->|"webhook eventos"| CONTR
+    SES -.->|"webhook bounce/complaint"| MAIL
+    WAMETA -.->|"webhook mensagens"| WA_C
+
+    style BOLD fill:#f66,color:#000
+    style STRIPE fill:#ff8,color:#000
+    style PLAID fill:#ff8,color:#000
+    style DOCU fill:#ff8,color:#000

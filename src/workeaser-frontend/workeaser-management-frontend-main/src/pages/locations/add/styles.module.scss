@@ -1,0 +1,89 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 1rem;
+
+  h1 {
+    font-size: 26px;
+    margin: 0 auto 25px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: $font-regular;
+    margin-bottom: 1rem;
+  }
+}
+
+.formContainer {
+  max-width: 1000px;
+  width: 100%;
+
+  margin: 0 auto;
+}
+
+.formElements {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  & > div {
+    flex: 1;
+
+    & > div + div {
+      margin-top: 15px;
+    }
+  }
+}
+
+.servicesContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 15px;
+  }
+
+  & > div {
+    display: flex;
+    gap: 5px;
+  }
+}
+
+.checkboxesContainer {
+  display: grid;
+  grid-template: repeat(9, 1fr) / repeat(2, minmax(160px, 1fr));
+  grid-gap: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 20px;
+
+  button {
+    text-transform: uppercase;
+    width: 190px;
+    // @include h.letter-spacing(100);
+
+    // &.expand {
+    //   @include h.width-animation-mixin(expand, 69px, 227px);
+    // }
+    // &.shrink {
+    //   @include h.width-animation-mixin(shrink, 227px, 69px);
+    // }
+  }
+}

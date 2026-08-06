@@ -1,0 +1,94 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 15px;
+  border: 1px solid $color-gray-300;
+  overflow: hidden;
+
+  &.column {
+    flex-direction: column;
+    // gap: 0;
+  }
+
+  h3 {
+    font-size: 0.875rem;
+    font-weight: $font-regular;
+  }
+  span {
+    display: block;
+    font-size: h.toRem(14);
+    font-weight: $font-semibolder;
+    // line-height: 1.5;
+  }
+
+  &.column {
+    span {
+      display: inline;
+    }
+  }
+
+  .numberContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    & > div {
+      max-width: h.toRem(40);
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    span.suffix {
+      font-size: h.toRem(24);
+      font-weight: $font-black;
+      color: $color-blue-800;
+      margin-left: 2px;
+    }
+
+    span.number {
+      font-size: h.toRem(35);
+      font-weight: $font-black;
+      color: $color-blue-100;
+
+      &.currency {
+        &:before {
+          position: relative;
+          top: 5px;
+          content: "$";
+          font-size: 1rem;
+          font-weight: $font-black;
+          color: $color-blue-800;
+          vertical-align: top;
+          margin-right: 2px;
+        }
+      }
+      &.monthly {
+        &:before {
+          position: relative;
+          top: 5px;
+          content: "$";
+          font-size: 1rem;
+          font-weight: $font-black;
+          color: $color-blue-800;
+          vertical-align: top;
+          margin-right: 2px;
+        }
+        &:after {
+          content: "/mo";
+          font-size: 1rem;
+          font-weight: $font-black;
+          color: $color-blue-800;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+@use "../../../../styles/utils/variables" as *;
+
+%circle {
+  position: relative;
+  display: flex;
+  width: 10px;
+  height: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border-radius: 50%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+}
+
+.green {
+  @extend %circle;
+  background-color: $color-green-500;
+
+  &::before {
+    background-color: $color-tablebackground-green;
+  }
+}
+.red {
+  @extend %circle;
+  background-color: $color-red-300;
+
+  &::before {
+    background-color: $color-tablebackground-red;
+  }
+}

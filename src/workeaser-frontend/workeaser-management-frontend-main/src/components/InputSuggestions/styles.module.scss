@@ -1,0 +1,72 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  max-height: 0;
+
+  background-color: $color-white;
+  // border: 0 solid $color-gray-300;
+
+  list-style: none;
+  overflow-y: auto;
+
+  z-index: 100;
+  transition: all 0.2s;
+
+  &.open {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12);
+    // animation: height 0.3s forwards;
+    max-height: 210px;
+    // border-width: 1px;
+  }
+  @keyframes height {
+    from {
+      max-height: 0;
+      border-width: 0;
+    }
+    to {
+      max-height: 210px;
+      border-width: 1px;
+    }
+  }
+
+  li {
+    border-width: 1px;
+    border-color: $color-gray-300;
+    border-left-style: solid;
+    border-right-style: solid;
+
+    padding: 12px;
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.title {
+        font-size: 14px;
+        font-weight: $font-regular;
+      }
+    }
+
+    &:first-child {
+      border-top-style: solid;
+    }
+    &:last-child {
+      border-bottom-style: solid;
+    }
+    & ~ li {
+      border-top-style: solid;
+    }
+
+    &:hover {
+      background-color: $color-dark-gray;
+    }
+  }
+}

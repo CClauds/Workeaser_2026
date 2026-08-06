@@ -1,0 +1,216 @@
+@use "../../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    font-size: 26px;
+    margin: 0 auto 1rem;
+  }
+}
+
+.formContainer {
+  flex: 1;
+  max-width: 980px;
+  width: 100%;
+
+  margin: 0 auto;
+  transition: max-width 0.3s;
+}
+
+.formContent {
+  position: relative;
+
+  height: 520px;
+  // height: 100%;
+
+  max-width: 980px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formElements {
+  position: absolute;
+  opacity: 0;
+
+  // height: 520px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  &.on {
+    opacity: 1;
+  }
+  &.fadeIn {
+    animation: fade-in 0.3s 0.15s forwards;
+  }
+  &.fadeOut {
+    animation: fade-out 0.3s forwards;
+  }
+
+  & > div {
+    flex: 1;
+
+    & > div + div,
+    & > p + div {
+      margin-top: 10px;
+    }
+  }
+}
+
+.pricesContainer {
+  position: absolute;
+  opacity: 0;
+
+  width: 100%;
+
+  display: flex;
+  gap: 30px;
+
+  & > div {
+    flex: 1;
+
+    h2 {
+      font-size: 14px;
+      font-weight: $font-regular;
+      text-align: center;
+      margin-bottom: 15px;
+
+      strong {
+        font-weight: $font-bold;
+      }
+    }
+
+    .feeFormContainer {
+      & > div + div {
+        margin-top: 10px;
+      }
+    }
+
+    .pricingRow {
+      margin-top: 10px;
+    }
+
+    .disclaimerText {
+      margin-bottom: 0.75rem;
+
+      align-self: flex-start;
+      font-size: 13px;
+    }
+  }
+
+  &.off {
+    visibility: hidden;
+  }
+
+  &.fadeIn {
+    visibility: visible;
+    animation: fade-in 0.3s 0.15s forwards;
+  }
+  &.fadeOut {
+    animation: fade-out 0.3s forwards;
+  }
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+
+  p {
+    flex: 1;
+
+    font-size: 14px;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    &.input {
+      flex: 0.2;
+      height: 36px;
+
+      input {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+
+  p {
+    flex: 1;
+
+    font-size: 14px;
+  }
+}
+
+.textarea {
+  height: 140px;
+}
+
+.footerText {
+  font-size: 10px;
+
+  margin-top: 10px;
+
+  a {
+    font-weight: $font-bold;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+
+  .plainButton {
+    visibility: visible;
+    width: auto;
+    &.on {
+      visibility: hidden;
+      width: 0;
+    }
+  }
+
+  button {
+    width: 280px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

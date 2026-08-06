@@ -1,0 +1,11 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 12px 15px;
+
+  background-color: $color-light-gray;
+}

@@ -1,0 +1,10 @@
+@use "../../../../styles/utils/variables" as *;
+@use "../commom";
+
+.header {
+  @extend %section-header;
+}
+
+.textCenter {
+  text-align: center;
+}

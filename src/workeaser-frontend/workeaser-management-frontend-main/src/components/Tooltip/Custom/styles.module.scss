@@ -1,0 +1,75 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  width: max-content;
+  min-width: 150px;
+  max-width: 250px;
+  position: absolute;
+  bottom: 160%;
+  left: 50%;
+  // transform: translate(-50%, -120%);
+  transform: translateX(-50%);
+
+  opacity: 0;
+
+  padding: 0.75rem 0.5rem;
+  background-color: $color-dark-gray;
+  border: 1px solid $color-gray-300;
+  visibility: hidden;
+
+  &.on {
+    visibility: visible;
+    animation: fade-in 0.3s forwards;
+  }
+  &.off {
+    animation: fade-out 0.3s forwards;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-color: transparent;
+  }
+  &::before {
+    border-width: 12px;
+    border-top-color: $color-gray-300;
+  }
+  &::after {
+    border-width: 11px;
+    border-top-color: $color-dark-gray;
+  }
+
+  p.message {
+    // width: clamp(5.5rem, 18vw, 18rem);
+    font-size: 13px;
+    font-weight: $font-semibold;
+    color: $color-blue-800;
+    text-align: left;
+  }
+
+  @keyframes fade-in {
+    from {
+      visibility: hidden;
+      opacity: 0;
+    }
+    to {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      visibility: visible;
+      opacity: 1;
+    }
+    to {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+}

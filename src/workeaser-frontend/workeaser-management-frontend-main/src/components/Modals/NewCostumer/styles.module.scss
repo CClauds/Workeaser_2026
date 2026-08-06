@@ -1,0 +1,42 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  width: 645px;
+}
+
+// .formContent {
+//   width: 645px;
+
+//   & > div + div {
+//     margin-top: 12px;
+//   }
+
+//   margin-top: 30px;
+// }
+
+// .sectionRow {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 10px;
+
+//   p,
+//   label {
+//     font-size: 14px;
+//     font-weight: $font-regular;
+//   }
+// }
+
+// .buttonContainer {
+//   display: flex;
+//   justify-content: flex-end;
+//   margin-top: 30px;
+
+//   button {
+//     width: 202px;
+
+//     &.loading {
+//       width: 69px;
+//     }
+//   }
+// }

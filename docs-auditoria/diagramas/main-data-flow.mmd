@@ -1,0 +1,50 @@
+flowchart LR
+    subgraph Entrada["Entrada de dados"]
+        FORM["Formulários frontend\n(páginas Next.js)"]
+        CSV["Importação CSV\n(clients/desks/locations/meetrooms/rooms/VO)"]
+        QBO["Importação QBO\n(import-qbo-customers.py — carga única)"]
+        WEBHOOK["Webhooks externos\n(Stripe, SES, WhatsApp, eSign)"]
+    end
+
+    subgraph Processo["Processamento (workeaser-api)"]
+        CTRL["Controllers\n(63)"]
+        SVC["Services\n(regras de negócio)"]
+        VALID["Validators\n(schema Adonis)"]
+        INTEG["Integrações\n(Stripe/Plaid/WA/SES/eSign)"]
+        CTRL --> VALID
+        CTRL --> SVC
+        SVC --> INTEG
+    end
+
+    subgraph Storage["Armazenamento"]
+        MYSQL[("MySQL 8.4\n108 tabelas\nsoft delete deleted_at")]
+        FILES["Uploads\n(photos/videos/documents)"]
+        LOGS["Auditoria\n(logs / admin_audit_logs)"]
+    end
+
+    subgraph Saida["Saída"]
+        DASH["Dashboards + gráficos\n(echarts)"]
+        LIST["Listagens paginadas\n(SWR)"]
+        PDF["PDF (faturas/contratos)"]
+        EMAIL["Emails (SES via fila)"]
+        MSG["Mensagens (WhatsApp)"]
+    end
+
+    FORM --> CTRL
+    CSV --> CTRL
+    QBO --> MYSQL
+    WEBHOOK --> CTRL
+
+    CTRL --> MYSQL
+    SVC --> MYSQL
+    INTEG --> FILES
+
+    MYSQL --> DASH
+    MYSQL --> LIST
+    MYSQL --> PDF
+    MYSQL --> EMAIL
+    MYSQL --> MSG
+    MYSQL --> LOGS
+
+    style QBO fill:#ff8,color:#000
+    style WEBHOOK fill:#dfd,color:#000

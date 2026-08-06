@@ -1,0 +1,143 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  width: 220px;
+  height: calc(100vh - 285px);
+
+  background: $color-light-gray;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.content {
+  padding: h.toRem(20) h.toRem(14);
+}
+
+.actionButton {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $color-dark-gray;
+
+  button {
+    width: 100%;
+    min-width: 30px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+    font-weight: $font-bold;
+    @include h.letter-spacing(50);
+    color: $color-white;
+
+    background-color: $color-blue-100;
+    border-radius: 5px;
+
+    white-space: nowrap;
+
+    transition: filter 0.3s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+
+    span.actionButton__cross {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 30px;
+      height: 28px;
+
+      margin: 0 0.5rem;
+      background-color: $color-blue-200;
+      border-radius: 4px;
+
+      transition: all 0.5s;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 1.5px;
+        background-color: $color-white;
+      }
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.nav {
+  margin-top: 10px;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      font-size: 1rem;
+      font-weight: $font-semibolder;
+      line-height: 2.25;
+
+      padding: 2px 5px;
+
+      border: 1px solid transparent;
+
+      transition: color 0.3s;
+
+      &.active {
+        background-color: $color-white;
+        border: 1px solid $color-dark-gray;
+        border-radius: 5px;
+      }
+
+      &:hover {
+        color: $color-blue-100;
+      }
+
+      &::before {
+        min-width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-family: "icomoon";
+        font-size: 22px;
+        font-weight: $font-regular;
+        text-align: center;
+
+        margin-right: 7px;
+
+        background-color: $color-dark-gray;
+        border-radius: 5px;
+        color: $color-blue-100;
+      }
+    }
+  }
+}
+
+.dashboardIcon::before {
+  content: "\e920";
+}
+.servicesIcon::before {
+  content: "\e924";
+}
+.groupIcon::before {
+  content: "\e91b";
+}
+.piggyIcon::before {
+  content: "\e931";
+}

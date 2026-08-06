@@ -1,0 +1,25 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.cardInput {
+    padding: 9px 10px;
+  
+    font-size: 14px;
+    color: $color-blue-800;
+  
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color-dark-gray;
+    border-radius: 5px;
+  
+    cursor: text;
+    transition: border-color 0.3s;
+  
+    &.focus {
+      border-color: $color-blue-200;
+    }
+  
+    &.error {
+      border-color: $color-notify-fail;
+    }
+  }

@@ -1,0 +1,574 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Arquitetura Técnica · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>Arquitetura Técnica</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>Arquitetura Técnica</span></div><div class="navbar"><a href="01-inventario-do-projeto.html"><b>← Anterior</b><span>Inventário do Projeto</span></a><a href="03-mapa-de-interface.html"><b>Próximo →</b><span>Mapa de Interface</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026 — Modo 100% leitura
+<strong>Evidências:</strong> [CODIGO] · [CONFIG] · [BANCO] · [RUNTIME] · [NAO_CONFIRMADO]</p>
+</blockquote>
+<hr />
+<h2>1. Estilo arquitetural</h2>
+<ul>
+<li><strong>Monólito modular por serviço:</strong> 2 APIs AdonisJS separadas (workeaser-api e admin-api) + 1 frontend Next.js, compartilhando 1 MySQL [CODIGO — estrutura de src/]</li>
+<li><strong>Arquitetura em camadas dentro de cada API:</strong> Controllers (HTTP) → Services (negócio) → Models (ORM Lucid) → Integrations (adapters) [CODIGO — app/Controllers, app/Services, app/Models, app/Integrations]</li>
+<li><strong>Padrão repository/impl nas integrações:</strong> interfaces + Implementation (ex.: <code>Payments.interface.ts</code> + <code>StripeImplementation.ts</code>) [CODIGO]</li>
+<li><strong>SSR + SPA híbrido no frontend:</strong> getServerSideProps para auth + SWR para dados pós-load [CODIGO — dashboard/index.tsx]</li>
+</ul>
+<h2>2. Divisão frontend/backend</h2>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>App</th>
+<th>Porta</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>workeaser-frontend</td>
+<td>3005</td>
+<td>UI, SSR, estado (AuthContext, SpacesContext), chamadas API</td>
+</tr>
+<tr>
+<td>Backend principal</td>
+<td>workeaser-api</td>
+<td>3333</td>
+<td>Todo o domínio: auth, cowork, client, admin, webhooks</td>
+</tr>
+<tr>
+<td>Backend admin</td>
+<td>admin-api</td>
+<td>3334</td>
+<td>Superfície administrativa interna: partners, inspeção, suspensão</td>
+</tr>
+<tr>
+<td>Banco</td>
+<td>workeaser-mysql</td>
+<td>3307</td>
+<td>MySQL 8.4 compartilhado</td>
+</tr>
+</tbody>
+</table>
+<h2>3. Módulos principais</h2>
+<h3>workeaser-api</h3>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Controllers</th>
+<th>Rotas (prefixo)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auth/Me</td>
+<td>AuthController, MeController, TwoFactor, AccountDeletion</td>
+<td>/api/auth/<em>, /api/me/</em></td>
+</tr>
+<tr>
+<td>Cowork (operador)</td>
+<td>28 controllers</td>
+<td>/api/cowork/*</td>
+</tr>
+<tr>
+<td>Client (membro)</td>
+<td>10 controllers</td>
+<td>/api/client/*</td>
+</tr>
+<tr>
+<td>Admin (plataforma)</td>
+<td>4 controllers</td>
+<td>/api/admin/*</td>
+</tr>
+<tr>
+<td>Webhooks</td>
+<td>6 controllers</td>
+<td>/api/webhooks/*</td>
+</tr>
+<tr>
+<td>Utils/Infos</td>
+<td>5 controllers</td>
+<td>/api/infos/*</td>
+</tr>
+<tr>
+<td>Público</td>
+<td>SpacesController, PublicInvoicesController</td>
+<td>/api/spaces/<em>, /api/invoice/</em></td>
+</tr>
+</tbody>
+</table>
+<h3>admin-api</h3>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Controllers</th>
+<th>Rotas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auth</td>
+<td>AuthController</td>
+<td>/api/auth/login, /logout, /me</td>
+</tr>
+<tr>
+<td>Partners</td>
+<td>PartnersController</td>
+<td>/api/admin/partners*</td>
+</tr>
+<tr>
+<td>Clientes/Coworkings</td>
+<td>ClientsController</td>
+<td>/api/admin/coworkings, /clients, /users/:id/suspend</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>DashboardController</td>
+<td>/api/admin/dashboard</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Dependências internas</h2>
+<ul>
+<li>workeaser-api e admin-api <strong>compartilham o mesmo MySQL</strong> — admin-api usa models "mirror read-only" de tabelas do workeaser-api (User, ClientAccount, CoworkAccount, Location) [CODIGO — comentários nos models do admin-api]</li>
+<li>O frontend consome <strong>exclusivamente o workeaser-api</strong> para as páginas admin do frontend (<code>/admin/*</code> chamam workeaser-api :3333) — o admin-api é ÓRFÃO no frontend [CODIGO — grep cruzado; ver 05-inconsistencias da doc anterior]</li>
+</ul>
+<h2>5. Dependências externas (bibliotecas)</h2>
+<table>
+<thead>
+<tr>
+<th>Biblioteca</th>
+<th>Uso</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@adonisjs/lucid</td>
+<td>ORM</td>
+<td>package.json</td>
+</tr>
+<tr>
+<td>@adonisjs/auth</td>
+<td>OAT</td>
+<td>package.json</td>
+</tr>
+<tr>
+<td>@adonisjs/bouncer</td>
+<td>RBAC</td>
+<td>.adonisrc.json</td>
+</tr>
+<tr>
+<td>adonis5-scheduler</td>
+<td>Tasks</td>
+<td>package.json</td>
+</tr>
+<tr>
+<td>@adonisjs/drive-s3</td>
+<td>Uploads</td>
+<td>.adonisrc.json</td>
+</tr>
+<tr>
+<td>@adonisjs/mail</td>
+<td>Email</td>
+<td>.adonisrc.json</td>
+</tr>
+<tr>
+<td>axios + SWR</td>
+<td>HTTP frontend</td>
+<td>package.json frontend</td>
+</tr>
+<tr>
+<td>echarts</td>
+<td>Gráficos</td>
+<td>package.json + Chart components</td>
+</tr>
+<tr>
+<td>Mapbox GL</td>
+<td>Mapas</td>
+<td>src/services/map</td>
+</tr>
+<tr>
+<td>Stripe.js</td>
+<td>Pagamento</td>
+<td>_app.tsx Elements</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Autenticação, autorização, sessão</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Implementação</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autenticação</td>
+<td>Bearer token OAT (opaque access token)</td>
+<td>[CODIGO — config/auth.ts, guard 'api', driver 'oat']</td>
+</tr>
+<tr>
+<td>Armazenamento token</td>
+<td>Tabela api_tokens (workeaser) / partner_api_tokens (admin)</td>
+<td>[BANCO]</td>
+</tr>
+<tr>
+<td>Sessão frontend</td>
+<td>Cookie <code>user-token</code> (nookies, sameSite strict, maxAge=expires_at, SEM httpOnly)</td>
+<td>[CODIGO — login/index.tsx]</td>
+</tr>
+<tr>
+<td>Expiração</td>
+<td>Token expira em 1 dia (<code>expiresIn: '1days'</code>)</td>
+<td>[CODIGO — admin AuthService]; workeaser usa expires_at</td>
+</tr>
+<tr>
+<td>Refresh token</td>
+<td>❌ Não identificado</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Autorização (RBAC)</td>
+<td>Middlewares nomeados: auth, coworkAuthorization:${Módulo}, clientAuthorization, adminAuthorization + Bouncer</td>
+<td>[CODIGO — start/kernel.ts]</td>
+</tr>
+<tr>
+<td>Módulos de permissão</td>
+<td>cowork_user_modules (42 vínculos) → cowork_modules (6)</td>
+<td>[BANCO]</td>
+</tr>
+<tr>
+<td>2FA</td>
+<td>TOTP (status/setup/verify/disable)</td>
+<td>[CODIGO — TwoFactorController]</td>
+</tr>
+<tr>
+<td>Bloqueio de conta</td>
+<td>Rate limit in-memory por IP+slot (35s)</td>
+<td>[CODIGO — RateLimit middleware]</td>
+</tr>
+</tbody>
+</table>
+<h2>7. Processamento síncrono vs assíncrono</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Mecanismo</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Síncrono</td>
+<td>Requisições HTTP diretas controller→service→db</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>Assíncrono (filas)</td>
+<td>Tabelas email_queue, webhook_dead_letter_queue, whatsapp_messages</td>
+<td>[BANCO — 0 registros]</td>
+</tr>
+<tr>
+<td>Assíncrono (workers)</td>
+<td>8 tasks adonis5-scheduler</td>
+<td>[CODIGO] — 🔴 NÃO RODAM [RUNTIME]</td>
+</tr>
+<tr>
+<td>Eventos</td>
+<td>Event.on('user:email_confirmed') → onboarding</td>
+<td>[CODIGO — start/events/user.ts]</td>
+</tr>
+<tr>
+<td>Webhooks</td>
+<td>6 endpoints públicos</td>
+<td>[CODIGO — start/routes/webhooks]</td>
+</tr>
+</tbody>
+</table>
+<h2>8. Armazenamento de arquivos</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Implementação</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fotos/Vídeos/Docs</td>
+<td>Drive S3 (config) + controllers Photos/Videos/Documents; tabelas photos (28), videos (0), documents (0)</td>
+<td>[CODIGO + BANCO]</td>
+</tr>
+<tr>
+<td>Drive</td>
+<td><code>@adonisjs/drive-s3</code> (DRIVE_DISK)</td>
+<td>[CONFIG + .adonisrc.json]</td>
+</tr>
+</tbody>
+</table>
+<h2>9. Cache</h2>
+<ul>
+<li><strong>Não há cache de aplicação generalizado</strong> [NAO_CONFIRMADO]; exceção: métricas de subscriptions admin com "cache 60s" (menção do subagente) [CODIGO — Admin/SubscriptionsController]</li>
+</ul>
+<h2>10. Banco de dados</h2>
+<ul>
+<li>MySQL 8.4, banco <code>workeaser_local</code>, 108 tabelas, 289 migrations aplicadas [BANCO]</li>
+<li>Apenas 7 FKs declaradas; relações majoritariamente lógicas via ORM [BANCO]</li>
+<li>Soft delete (deleted_at) em quase todos os models [CODIGO + BANCO]</li>
+</ul>
+<h2>11. Observabilidade, logs, tratamento de erros</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Implementação</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logs de auditoria</td>
+<td>LoggerMiddleware → tabela logs (150 registros)</td>
+<td>[CODIGO + BANCO]</td>
+</tr>
+<tr>
+<td>Audit admin</td>
+<td>AdminAuditService → admin_audit_logs (0)</td>
+<td>[CODIGO + BANCO]</td>
+</tr>
+<tr>
+<td>Logs de aplicação</td>
+<td>Logger do Adonis (pino) para stdout do container</td>
+<td>[RUNTIME — docker logs]</td>
+</tr>
+<tr>
+<td>Tratamento de erros</td>
+<td>AppError (classe custom), ExceptionHandler, responseWithSuccess</td>
+<td>[CODIGO — app/Exceptions, app/Utils]</td>
+</tr>
+<tr>
+<td>Sentry/PostHog</td>
+<td>Envs NEXT_PUBLIC_SENTRY_DSN, NEXT_PUBLIC_POSTHOG_KEY definidos</td>
+<td>[CONFIG — .env.docker]</td>
+</tr>
+</tbody>
+</table>
+<h2>12. Build e deploy</h2>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Processo</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build frontend</td>
+<td>Dockerfile.frontend-pc: yarn install --frozen-lockfile + build com NEXT_IGNORE_BUILD_ERRORS (patch echarts SSR)</td>
+<td>[CONFIG — Dockerfile.frontend-pc]</td>
+</tr>
+<tr>
+<td>Build APIs</td>
+<td>Dockerfiles workeaser-api/admin-api</td>
+<td>[CONFIG]</td>
+</tr>
+<tr>
+<td>Subir sistema</td>
+<td><code>docker compose -f compose.pc.yml --env-file .env.docker up -d</code></td>
+<td>[CONFIG + memória]</td>
+</tr>
+<tr>
+<td>Deploy produção</td>
+<td>❌ Não existe</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Migrations em runtime</td>
+<td><code>node ace migration:run --force</code> (--force obrigatório)</td>
+<td>[CODIGO/memória]</td>
+</tr>
+<tr>
+<td>Health checks</td>
+<td>/health, /health/db, /health/version (ambas APIs)</td>
+<td>[CODIGO + RUNTIME]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>13. Diagramas</h2>
+<p>Os 5 diagramas Mermaid estão em <code>diagramas/</code>:
+- system-architecture.mmd
+- authentication-flow.mmd
+- main-data-flow.mmd
+- integrations-flow.mmd
+- async-processes.mmd
+- database-model.mmd</p>
+<hr />
+<h2>14. Decisões de arquitetura notáveis (Interpretação técnica)</h2>
+<ol>
+<li><strong>Duas APIs separadas</strong> (workeaser-api + admin-api) com banco compartilhado: permite isolar a superfície administrativa, mas o admin-api não tem consumidor no frontend hoje — custo de manutenção sem benefício atual.</li>
+<li><strong>Tabelas espelho read-only no admin-api</strong>: padrão correto para não duplicar migrations, mas frágil se o schema do workeaser-api mudar.</li>
+<li><strong>Scheduler como processo separado</strong> (adonis5-scheduler exige <code>ace scheduler:run</code>): a arquitetura prevê workers, mas o runtime não os inicia — lacuna de operação, não de código.</li>
+<li><strong>Soft delete onipresente</strong>: bom para auditoria, mas a "suspensão" de usuário no admin-api usa o mesmo mecanismo que exclusão — semanticamente ambíguo.</li>
+<li><strong>Relações sem FK</strong>: o ORM resolve no app layer; risco de órfãos se houver escrita externa direta.</li>
+</ol></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>API Backend · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>API Backend</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>API Backend</span></div><div class="navbar"><a href="04-funcionalidades-e-rastreabilidade.html"><b>← Anterior</b><span>Funcionalidades e Rastreabilidade</span></a><a href="06-banco-de-dados.html"><b>Próximo →</b><span>Banco de Dados</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026 — Modo 100% leitura
+<strong>Evidências:</strong> [CODIGO] — arquivos de rotas lidos integralmente
+<strong>Nota:</strong> não há OpenAPI/Swagger/Postman encontrado no repositório [NAO_CONFIRMADO]. Esta é a documentação gerada a partir do código.</p>
+</blockquote>
+<hr />
+<h2>1. workeaser-api (porta 3333) — ~170 endpoints</h2>
+<h3>1.1 Auth e Me</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Finalidade</th>
+<th>Auth</th>
+<th>Permissão</th>
+<th>Handler</th>
+<th>Banco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>/api/auth/login</td>
+<td>Login</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.login</td>
+<td>users, api_tokens, logs</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/signup</td>
+<td>Criar conta</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.store</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/logout</td>
+<td>Logout</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.logout</td>
+<td>api_tokens</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/email-confirmation</td>
+<td>Confirmar email</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.emailConfirmation</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/resend-email-confirmation</td>
+<td>Reenviar confirmação</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.resendEmailConfirmation</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/lost-password</td>
+<td>Pedir reset</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.lostPassword</td>
+<td>user_lost_passwords</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/lost-password-confirmation</td>
+<td>Redefinir senha</td>
+<td>público</td>
+<td>—</td>
+<td>AuthController.lostPasswordConfirmation</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/import</td>
+<td>Criar users em massa</td>
+<td><strong>NENHUMA</strong></td>
+<td>—</td>
+<td>AuthController.import</td>
+<td>users ⚠️ exposto</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/me</td>
+<td>Perfil</td>
+<td>auth</td>
+<td>—</td>
+<td>MeController.show</td>
+<td>users</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>/api/me</td>
+<td>Atualizar perfil</td>
+<td>auth</td>
+<td>—</td>
+<td>MeController.update</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/me/delete-account</td>
+<td>Pedir exclusão (LGPD)</td>
+<td>auth</td>
+<td>—</td>
+<td>Me/AccountDeletionController.createRequest</td>
+<td>data_deletion_requests</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/me/delete-account</td>
+<td>Listar pedidos</td>
+<td>auth</td>
+<td>—</td>
+<td>.listRequests</td>
+<td>data_deletion_requests</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/api/me/delete-account/:id</td>
+<td>Cancelar pedido</td>
+<td>auth</td>
+<td>—</td>
+<td>.cancelRequest</td>
+<td>data_deletion_requests</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/me/export-data</td>
+<td>Exportar dados</td>
+<td>auth</td>
+<td>—</td>
+<td>.exportData</td>
+<td>várias</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/me/2fa</td>
+<td>Status 2FA</td>
+<td>auth</td>
+<td>—</td>
+<td>TwoFactorController.status</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/me/2fa/setup</td>
+<td>Setup TOTP</td>
+<td>auth</td>
+<td>—</td>
+<td>.setup</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/me/2fa/verify</td>
+<td>Verificar TOTP</td>
+<td>auth</td>
+<td>—</td>
+<td>.verify</td>
+<td>users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/me/2fa/disable</td>
+<td>Desativar 2FA</td>
+<td>auth</td>
+<td>—</td>
+<td>.disable</td>
+<td>users</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/notifications</td>
+<td>Listar</td>
+<td>auth</td>
+<td>—</td>
+<td>NotificationsController.show</td>
+<td>notifications</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/notifications/count</td>
+<td>Contar</td>
+<td>auth</td>
+<td>—</td>
+<td>.count</td>
+<td>notifications</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/notifications/read-all</td>
+<td>Ler todas</td>
+<td>auth</td>
+<td>—</td>
+<td>.markAllAsRead</td>
+<td>notifications</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/notifications/:id/read</td>
+<td>Ler uma</td>
+<td>auth</td>
+<td>—</td>
+<td>.markAsRead</td>
+<td>notifications</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/api/notifications/:id</td>
+<td>Apagar</td>
+<td>auth</td>
+<td>—</td>
+<td>.delete</td>
+<td>notifications</td>
+</tr>
+</tbody>
+</table>
+<h3>1.2 Infos / Spaces / Uploads (públicos)</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Finalidade</th>
+<th>Auth</th>
+<th>Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/api/infos/amenities</td>
+<td>Amenities</td>
+<td>—</td>
+<td>Utils/AmenitiesController.index</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/infos/services</td>
+<td>Serviços</td>
+<td>—</td>
+<td>Utils/ServicesController.index</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/infos/taxtypes</td>
+<td>Tipos de imposto</td>
+<td>—</td>
+<td>Utils/TaxTypesController.index</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/infos/termsizes</td>
+<td>Tamanhos de contrato</td>
+<td>—</td>
+<td>Utils/ContractTermSizeController.index</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/infos/meetroomquestions</td>
+<td>Perguntas meetroom</td>
+<td>—</td>
+<td>Utils/MeetroomQuestionsController.index</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/spaces, /:id, /:serviceType/:id</td>
+<td>Espaços públicos</td>
+<td>—</td>
+<td>SpacesController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/space/vo/:slug, /mr/:slug, /od/:slug, /pr/:slug</td>
+<td>Espaços por slug</td>
+<td>—</td>
+<td>SpacesController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/invoice/checkinvoices</td>
+<td>Check de faturas</td>
+<td>silentAuth</td>
+<td>PublicInvoicesController.checkInvoices</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/invoice/:uuid</td>
+<td>Ver fatura pública</td>
+<td>silentAuth</td>
+<td>.show</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/invoice/:uuid</td>
+<td>Pagar fatura pública</td>
+<td>silentAuth</td>
+<td>.pay</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/invoice/:uuid/pdf</td>
+<td>PDF da fatura</td>
+<td>silentAuth</td>
+<td>.generatePdf</td>
+</tr>
+<tr>
+<td>GET/POST/DELETE</td>
+<td>/api/photos, /api/videos, /api/documents</td>
+<td>Uploads</td>
+<td>silentAuth/store, auth/delete</td>
+<td>Photos/Videos/Documents</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/wallet/token_link</td>
+<td>Plaid link token</td>
+<td>silentAuth</td>
+<td>WalletController.generateTokenLink</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/wallet/:payment_type(/:id)</td>
+<td>Carteira</td>
+<td>auth</td>
+<td>WalletController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/health, /health/db, /health/version</td>
+<td>Health checks</td>
+<td>—</td>
+<td>inline</td>
+</tr>
+</tbody>
+</table>
+<h3>1.3 Cowork (operador) — ~110 endpoints</h3>
+<p><strong>Auth:</strong> auth + coworkAuthorization:${Módulo} (FINANCES/RELATIONSHIP/LOCATIONS/MEETROOM/REPORTS/ACCOUNT_SETTINGS)</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Prefixo</th>
+<th>Ações</th>
+<th>Módulo</th>
+<th>Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/api/cowork/dashboard (+/locations,/services,/relationship,/finance)</td>
+<td>5 dashboards</td>
+<td>auth</td>
+<td>DashboardController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/locations (+export, /import)</td>
+<td>CRUD</td>
+<td>LOCATIONS</td>
+<td>LocationsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/desks (+export, /import, /changeavailability)</td>
+<td>CRUD</td>
+<td>LOCATIONS</td>
+<td>DesksController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/rooms (+export, /import, /changeavailability)</td>
+<td>CRUD</td>
+<td>LOCATIONS</td>
+<td>RoomsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/virtualoffices (+export, /import, /changeavailability)</td>
+<td>CRUD</td>
+<td>—</td>
+<td>VirtualOfficesController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/meetrooms (+export, /import, /changeavailability, /book, /book/:id approve/reject)</td>
+<td>CRUD+reservas</td>
+<td>MEETROOM</td>
+<td>MeetroomsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/clients (+search, /export, /import, /import-simple, /:id/members, /overview, /products, /benefits, /bookings, /invoices, /mailbox)</td>
+<td>CRUD+sub</td>
+<td>RELATIONSHIP</td>
+<td>ClientsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/finance/invoices (+info, /resend, /receivepayment, /capturepayment, /refundpayment, /userpaymentmethods, /pdf)</td>
+<td>CRUD+pagamento</td>
+<td>FINANCES</td>
+<td>InvoicesController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/finance/banking/:id (+/:transactionId, /record, /void, /note, /category, /sync)</td>
+<td>Banking</td>
+<td>FINANCES</td>
+<td>BankingController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/relationship/contracts (+pdf, /detach, /attachdocuments, /getopencontracts, /getcancelinfo, /sendcontract, /calculate, /url, /status)</td>
+<td>Contratos</td>
+<td>RELATIONSHIP</td>
+<td>ContractsController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/relationship/bookings (/unapproved, /scheduled)</td>
+<td>Agenda</td>
+<td>RELATIONSHIP</td>
+<td>BookingsAndAgendaController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/relationship/daypass (+approve, /reject)</td>
+<td>Day pass</td>
+<td>RELATIONSHIP</td>
+<td>DayPassController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/relationship/mailbox</td>
+<td>Mailbox</td>
+<td>RELATIONSHIP</td>
+<td>MailboxesController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/relationship/personasmanagement</td>
+<td>Personas</td>
+<td>RELATIONSHIP</td>
+<td>PersonasManagementsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT</td>
+<td>/api/cowork/relationship/salespipeline (+status)</td>
+<td>Pipeline</td>
+<td>RELATIONSHIP</td>
+<td>SalesPipelineController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/cowork/relationship/dealsopportunities (+approve, /reject)</td>
+<td>Oportunidades</td>
+<td>RELATIONSHIP</td>
+<td>DealsOpportunitiesController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/relationship/tour (+approve, /reject)</td>
+<td>Tours</td>
+<td>RELATIONSHIP</td>
+<td>ToursController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/cowork/chats (+lastmessages, /:uuid/messages)</td>
+<td>Chat</td>
+<td>RELATIONSHIP</td>
+<td>ChatController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/search (/, /client/:id, /lead/:id)</td>
+<td>Busca</td>
+<td>auth</td>
+<td>SearchController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/reports (10 endpoints)</td>
+<td>Relatórios</td>
+<td>REPORTS</td>
+<td>ReportsController</td>
+</tr>
+<tr>
+<td>GET/PUT</td>
+<td>/api/cowork/settings (global, /subscriptions, /banking, /banking/token)</td>
+<td>Config</td>
+<td>ACCOUNT_SETTINGS</td>
+<td>SettingsController</td>
+</tr>
+<tr>
+<td>GET/PUT</td>
+<td>/api/cowork/status</td>
+<td>Status</td>
+<td>—</td>
+<td>CoworkStatusController</td>
+</tr>
+<tr>
+<td>GET/POST/DELETE</td>
+<td>/api/cowork/stripe-connect (onboardingurl, externalaccount)</td>
+<td>Stripe Connect</td>
+<td>—</td>
+<td>StripeConnectController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/cowork/subscriptions (+plans, /portal-session, /cancel, /sync, /change-plan, /extend-trial-self-service, /validate-discount)</td>
+<td>Assinaturas</td>
+<td>—</td>
+<td>SubscriptionsController</td>
+</tr>
+<tr>
+<td>GET/POST/PUT/DELETE</td>
+<td>/api/cowork/taxes</td>
+<td>Impostos</td>
+<td>—</td>
+<td>TaxesController</td>
+</tr>
+<tr>
+<td>GET/POST/DELETE</td>
+<td>/api/cowork/employees (invites + CRUD)</td>
+<td>Funcionários</td>
+<td>ACCOUNT_SETTINGS</td>
+<td>EmployeesController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/cowork/boldsign (identities + resend + resend-revoked + me)</td>
+<td>BoldSign</td>
+<td>ACCOUNT_SETTINGS</td>
+<td>BoldSignsController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/settings/calendar (+google/redirect, /exchange/redirect)</td>
+<td>Calendários</td>
+<td>ACCOUNT_SETTINGS</td>
+<td>CalendarIntegrationsController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/google/callback, /api/exchange/callback</td>
+<td>OAuth callbacks</td>
+<td>público</td>
+<td>AuthGoogle/ExchangeController</td>
+</tr>
+</tbody>
+</table>
+<h3>1.4 Client (membro) — ~25 endpoints</h3>
+<p><strong>Auth:</strong> auth + clientAuthorization</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Prefixo</th>
+<th>Ações</th>
+<th>Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/api/client/membership (+/:id, /services, /bookings, /mailbox, /invoices)</td>
+<td>Minha assinatura</td>
+<td>MyMembershipController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/client/invoices (+/:id)</td>
+<td>Minhas faturas</td>
+<td>InvoicesController (Client)</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/client/meeting (list, show, request, cancel)</td>
+<td>Reservas</td>
+<td>MeetingController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/client/day-pass/request, /visit</td>
+<td>Day pass</td>
+<td>DayPassController</td>
+</tr>
+<tr>
+<td>GET/PUT</td>
+<td>/api/client/mailbox (+/:id)</td>
+<td>Caixa postal</td>
+<td>MailboxesController</td>
+</tr>
+<tr>
+<td>GET/POST/DELETE</td>
+<td>/api/client/teams (invites + CRUD + acceptInvite)</td>
+<td>Equipe</td>
+<td>TeamMembersController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/client/chats (+/:uuid/messages)</td>
+<td>Chat</td>
+<td>ChatController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/client/contract/:id/url</td>
+<td>Contrato</td>
+<td>ContractController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/client/spaces/tours, /reserve</td>
+<td>Tours/reserva</td>
+<td>ToursController/SpacesController</td>
+</tr>
+</tbody>
+</table>
+<h3>1.5 Admin (plataforma, no workeaser-api)</h3>
+<p><strong>Auth:</strong> auth + adminAuthorization</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Finalidade</th>
+<th>Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>/api/auth/admin</td>
+<td>Login admin (SEM rateLimit)</td>
+<td>Admin/AuthController.login</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/audit-logs (+/stats, /:id)</td>
+<td>Auditoria</td>
+<td>Admin/AuditLogController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/admin/discounts (+/:id/deactivate)</td>
+<td>Descontos</td>
+<td>Admin/DiscountsController</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/cowork/subscriptions/validate-discount</td>
+<td>Validar cupom (só auth)</td>
+<td>Admin/DiscountsController.validatePublic</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/subscriptions/metrics, /cohorts, /:id/extend-trial, /:cowork_account_id</td>
+<td>Métricas</td>
+<td>Admin/SubscriptionsController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/admin/webhook-dlq (+/stats, /:id, /retry, /discard)</td>
+<td>DLQ</td>
+<td>Admin/WebhookDLQController</td>
+</tr>
+</tbody>
+</table>
+<h3>1.6 Webhooks (públicos, assinatura validada)</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Proteção</th>
+<th>Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET/POST</td>
+<td>/api/webhooks/adobesign</td>
+<td>— (não valida)</td>
+<td>AdobeSignController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/webhooks/boldsign</td>
+<td>HMAC x-boldsign-signature</td>
+<td>BoldSignController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/webhooks/docusign</td>
+<td>header X-ADOBESIGN-CLIENTID</td>
+<td>DocusignController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/webhooks/ses</td>
+<td>anti-replay SNS MessageId</td>
+<td>SesController</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/webhooks/stripe</td>
+<td>stripe.webhooks.constructEvent + nonce</td>
+<td>StripeController</td>
+</tr>
+<tr>
+<td>GET/POST</td>
+<td>/api/webhooks/whatsapp</td>
+<td>WHATSAPP_META_VERIFY_TOKEN / HMAC X-Hub-Signature-256</td>
+<td>WhatsappController</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. admin-api (porta 3334) — 20 endpoints</h2>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Finalidade</th>
+<th>Auth</th>
+<th>Permissão</th>
+<th>Handler</th>
+<th>Banco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/, /healthz, /health, /health/db, /health/version</td>
+<td>Health</td>
+<td>—</td>
+<td>—</td>
+<td>inline</td>
+<td>—</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/login</td>
+<td>Login partner</td>
+<td>público</td>
+<td>rateLimit:auth_admin_login</td>
+<td>AuthController.login</td>
+<td>partners, partner_api_tokens, admin_audit_logs</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/logout</td>
+<td>Logout</td>
+<td>auth</td>
+<td>—</td>
+<td>AuthController.logout</td>
+<td>partner_api_tokens</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/auth/me</td>
+<td>Partner atual</td>
+<td>auth</td>
+<td>—</td>
+<td>AuthController.me</td>
+<td>partners</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/partners</td>
+<td>Listar</td>
+<td>auth</td>
+<td>—</td>
+<td>PartnersController.index</td>
+<td>partners</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/partners/:id</td>
+<td>Ver</td>
+<td>auth</td>
+<td>—</td>
+<td>.show</td>
+<td>partners</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/admin/partners</td>
+<td>Criar</td>
+<td>auth</td>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>.store</td>
+<td>partners, admin_audit_logs</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>/api/admin/partners/:id</td>
+<td>Editar</td>
+<td>auth</td>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>.update</td>
+<td>partners</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/api/admin/partners/:id</td>
+<td>Excluir (soft)</td>
+<td>auth</td>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>.destroy</td>
+<td>partners</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/coworkings</td>
+<td>Listar</td>
+<td>auth</td>
+<td>—</td>
+<td>ClientsController.listCoworkings</td>
+<td>cowork_accounts</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/coworkings/:id</td>
+<td>Ver</td>
+<td>auth</td>
+<td>—</td>
+<td>.showCoworking</td>
+<td>cowork_accounts</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/clients</td>
+<td>Listar</td>
+<td>auth</td>
+<td>—</td>
+<td>.listClients</td>
+<td>client_accounts, users</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/clients/:id</td>
+<td>Ver</td>
+<td>auth</td>
+<td>—</td>
+<td>.showClient</td>
+<td>client_accounts, users</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/admin/users/:userId/suspend</td>
+<td>Suspender</td>
+<td>auth</td>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>.suspendUser</td>
+<td>users (deleted_at)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/admin/users/:userId/unsuspend</td>
+<td>Reativar</td>
+<td>auth</td>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>.unsuspendUser</td>
+<td>users</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/admin/dashboard</td>
+<td>Métricas</td>
+<td>auth</td>
+<td>—</td>
+<td>DashboardController.metrics</td>
+<td>cowork_accounts, users, client_accounts, locations, partners</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Divergências / problemas de API</h2>
+<ol>
+<li><strong>Sem OpenAPI/Swagger/Postman</strong> no repositório [NAO_CONFIRMADO]</li>
+<li><code>POST /api/auth/import</code> <strong>sem autenticação</strong> — criação em massa exposta [CODIGO]</li>
+<li><code>POST /api/auth/admin</code> <strong>sem rate limit</strong> [CODIGO]</li>
+<li>Frontend chama <code>GET /cowork/Taxs</code> (maiúscula) vs rota real <code>/cowork/taxes</code> — inconsistência [CODIGO]</li>
+<li><code>POST resend</code> de invoice sem barra inicial no frontend — bug potencial de URL [CODIGO]</li>
+<li>Prefixos reais: banking é <code>/api/cowork/finance/banking</code> (não <code>/cowork/banking</code>), contracts é <code>/api/cowork/relationship/contracts</code>, invoices é <code>/api/cowork/finance/invoices</code> — o frontend usa os caminhos corretos [CODIGO — grep]</li>
+<li>Endpoints de reports incluem <code>transactionHistory/:linkedBankAccountId</code> não listado em algumas doc antigas [CODIGO]</li>
+</ol></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

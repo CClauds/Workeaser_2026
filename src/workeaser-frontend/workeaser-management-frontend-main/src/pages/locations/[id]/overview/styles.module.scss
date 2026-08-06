@@ -1,0 +1,32 @@
+@use "../common";
+
+.content {
+  display: flex;
+  gap: 15px;
+
+  section {
+    flex: 1;
+
+    table {
+      padding: 10px 10px 0;
+    }
+
+    footer {
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+
+  & + .row {
+    margin-top: 15px;
+  }
+}
+
+.chart {
+  width: 100%;
+  height: 320px;
+}

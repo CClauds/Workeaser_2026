@@ -1,0 +1,21 @@
+@use "../../../styles/utils/variables" as *;
+
+.formContainer {
+  width: 350px;
+
+  margin-top: 25px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+
+  button {
+    width: 202px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}

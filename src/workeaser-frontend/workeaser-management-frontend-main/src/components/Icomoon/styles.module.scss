@@ -1,0 +1,187 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  display: inline-block;
+  color: $color-blue-100;
+
+  &.clickable {
+    cursor: pointer;
+    transition: filter 0.3s;
+    &:hover {
+      filter: brightness(1.5);
+    }
+  }
+
+  &::before {
+    content: "";
+    font-family: "icomoon";
+    font-size: 16px;
+    color: inherit;
+  }
+
+  &.fontSize {
+    &::before {
+      font-size: var(--size-var);
+    }
+  }
+  &.flip {
+    transform: rotate(-180deg);
+  }
+
+  &.location::before {
+    content: "\e919";
+  }
+  &.bike::before {
+    content: "\e905";
+  }
+  &.coffee::before {
+    content: "\e952";
+  }
+  &.wheelChair::before {
+    content: "\e910";
+  }
+  &.kitchen::before {
+    content: "\e91f";
+  }
+  &.microwave::before {
+    content: "\e926";
+  }
+  &.tv::before {
+    content: "\e929";
+  }
+  &.mothersRoom::before {
+    content: "\e950";
+  }
+  &.restaurante::before {
+    content: "\e93a";
+  }
+  &.outdoorSpace::before {
+    content: "\e92d";
+  }
+  &.parking::before {
+    content: "\e951";
+  }
+  &.petFriendly::before {
+    content: "\e92e";
+  }
+  &.phone::before {
+    content: "\e92f";
+  }
+  &.privateArea::before {
+    content: "\e938";
+  }
+  &.refrigerator::before {
+    content: "\e939";
+  }
+  &.printer::before {
+    content: "\e937";
+  }
+  &.shower::before {
+    content: "\e940";
+  }
+  &.desk::before {
+    content: "\e946";
+  }
+  &.clock::before {
+    content: "\e90a";
+  }
+  &.phone2::before {
+    content: "\e930";
+  }
+  &.at::before {
+    content: "\e901";
+  }
+  &.write::before {
+    content: "\e94f";
+  }
+  &.arrow-down::before {
+    content: "\e911";
+  }
+  &.file::before {
+    content: "\e916";
+  }
+  &.money::before {
+    content: "\e928";
+  }
+  &.dots-menu::before {
+    content: "\e92a";
+  }
+  &.calendar::before {
+    content: "\e907";
+  }
+  &.user::before {
+    content: "\e94b";
+  }
+  &.lock::before {
+    content: "\e922";
+  }
+  &.unlock::before {
+    content: "\e94a";
+  }
+  &.private-area::before {
+    content: "\e938";
+  }
+  &.attachment::before {
+    content: "\e902";
+  }
+  &.image::before {
+    content: "\e91e";
+  }
+  &.play::before {
+    content: "\e934";
+  }
+  &.translate::before {
+    content: "\e948";
+  }
+  &.eye::before {
+    content: "\e915";
+  }
+  &.wallet::before {
+    content: "\e94d";
+  }
+  &.send::before {
+    content: "\e93d";
+  }
+  &.star::before {
+    content: "\e947";
+  }
+  &.trash::before {
+    content: "\e949";
+  }
+  &.dashboard::before {
+    content: "\e920";
+  }
+  &.services::before {
+    content: "\e924";
+  }
+  &.relationship::before {
+    content: "\e91b";
+  }
+  &.finance::before {
+    content: "\e931";
+  }
+  &.analytics::before {
+    content: "\e909";
+  }
+  &.search::before {
+    content: "\e93c";
+  }
+  &.chat::before {
+    content: "\e908";
+  }
+  &.bell::before {
+    content: "\e903";
+  }
+  &.map::before {
+    content: "\e923";
+  }
+  &.membership::before {
+    content: "\e925";
+  }
+  &.like::before {
+    content: "\e921";
+  }
+  &.employeeBoard::before {
+    content: "\e912";
+  }
+}

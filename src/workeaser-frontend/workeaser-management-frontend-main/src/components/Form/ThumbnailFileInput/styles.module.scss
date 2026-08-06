@@ -1,0 +1,14 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  label {
+    cursor: pointer;
+  }
+  input {
+    display: none;
+
+    &:disabled + label {
+      cursor: auto;
+    }
+  }
+}

@@ -1,0 +1,367 @@
+import { Button } from "@components/Button";
+import { ToggleButton } from "@components/Button/ToggleButton";
+import { Menu } from "@components/DotsMenu/Menu";
+import { ServicesOptions } from "@components/DotsMenu/ServicesOptions";
+import { PageHeader } from "@components/Headers/PageHeader";
+import { CoworkingLayout } from "@components/Layouts/CoworkingLayout";
+import { AttachContract } from "@components/Modals/AttachContract";
+import { DoublelineCell } from "@components/Table/Cell/DoublelineCell";
+import { StatusContainer } from "@components/Table/Row/StatusContainer";
+import { StyledTable } from "@components/Table/StyledTable";
+import { Thumbnail } from "@components/Thumbnail";
+import { api } from "@services/api";
+import { getAPIClient } from "@services/apiClient";
+import Money from "dinero.js";
+import { useFetch } from "hooks/useFetch";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
+import { PagesProps } from "pages/_app";
+import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { Fallback } from "types";
+import { OpenDesk, OpenDesksResponse } from "types/locations";
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { "user-token": token } = parseCookies(context);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login?expired=true",
+        permanent: false,
+      },
+    };
+  }
+  const apiClient = getAPIClient(context);
+
+  const desksPromise = apiClient.get<OpenDesksResponse>("/cowork/desks?page=1");
+  const desksNextPagePromise = apiClient.get<OpenDesksResponse>(
+    "/cowork/desks?page=2"
+  );
+  const [{ data: desks }, { data: desksNextPage }] = await Promise.all([
+    desksPromise,
+    desksNextPagePromise,
+  ]);
+
+  return {
+    props: {
+      fallback: {
+        "/cowork/desks?page=1": desks,
+      },
+      fallbackNextPage: {
+        "/cowork/desks?page=2": desksNextPage,
+      },
+    },
+  };
+};
+
+interface DesksProps {
+  fallback: Fallback;
+  fallbackNextPage: Fallback;
+}
+const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
+  const router = useRouter();
+
+  const [isAttachModalOpen, setIsAttachModalOpen] = useState(false);
+  const [selectedService, setselectedService] = useState<
+    OpenDesk & { type: string }
+  >();
+  const [paginationState, setPaginationState] = useState({
+    count: 1,
+    index: 0,
+    size: 10,
+  });
+
+  const [skipPageReset, setSkipPageReset] = useState(true);
+  const [data, setData] = useState<OpenDesk[]>();
+  const [allData, setAllData] = useState<{ [key: string]: OpenDesk[] }>();
+
+  const {
+    data: { result: desks, pagination },
+    mutate,
+  } = useFetch<OpenDesksResponse>(
+    `/cowork/desks?page=${paginationState.count}`,
+    {
+      fallback,
+    }
+  );
+
+  const {
+    data: { result: desksNextPage, pagination: { page: nextPage } = {} } = {},
+  } = useFetch<OpenDesksResponse>(
+    `/cowork/desks?page=${paginationState.count + 1}`,
+    {
+      fallback: fallbackNextPage,
+    }
+  );
+
+  const lastPage = Math.ceil(pagination?.total / paginationState.size);
+  const hasMounted = useRef(true);
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      setData(desks.slice(0, 5));
+      hasMounted.current = false;
+    }
+
+    console.log({ desks, desksNextPage });
+
+    if (desks) {
+      setAllData({
+        ...allData,
+        [pagination.page]: desks,
+      });
+
+      if (desksNextPage) {
+        const all = {
+          ...allData,
+          [pagination.page]: desks,
+          [nextPage]: desksNextPage,
+        };
+
+        setAllData(all);
+      }
+    }
+  }, [desks, desksNextPage]);
+
+  const handleFetchData = (currentIndex: number, pageSize: number) => {
+    setPaginationState({
+      ...paginationState,
+      size: pageSize,
+      index: currentIndex,
+    });
+
+    if (allData) {
+      const startRow = pageSize * currentIndex;
+      const endRow = startRow + pageSize;
+
+      const flattenData = Object.values(allData).flat();
+      setData(flattenData.slice(startRow, endRow));
+
+      const isPrev = currentIndex < paginationState.index;
+      const pageSizeRate = pagination?.perPage / pageSize;
+
+      if (currentIndex + 1 < pageSizeRate * paginationState.count && isPrev) {
+        const prevPage = paginationState.count - 1;
+        if (prevPage > 0) {
+          setPaginationState({
+            size: pageSize,
+            index: currentIndex,
+            count: prevPage,
+          });
+
+          return;
+        }
+      }
+      if (currentIndex + 1 > pageSizeRate * paginationState.count && !isPrev) {
+        const nextPage = paginationState.count + 1;
+        if (nextPage < pagination.lastPage) {
+          setPaginationState({
+            size: pageSize,
+            index: currentIndex,
+            count: nextPage,
+          });
+        }
+      }
+    }
+  };
+
+  const columns = useMemo(() => {
+    const handleAttach = (id: number) => () => {
+      const service = desks.find((service) => service.id === id);
+      setselectedService({ ...service, type: "OPEN_DESK" });
+      setIsAttachModalOpen(true);
+    };
+    const handlePreview = (id: number) => {
+      router.push({
+        pathname: "/spaces/services/[id]",
+        query: { id, serviceType: "OPEN_DESK" },
+      });
+    };
+    const handleEdit = (id: number) => {
+      router.push({
+        pathname: "/services/add/open-desk",
+        query: { id },
+      });
+    };
+    const handleDelete = async (id: number) => {
+      mutate(
+        { result: desks?.filter((desk) => desk.id !== id), pagination },
+        false
+      );
+      await api.delete(`/cowork/desks/${id}`);
+      toast.success("Desk Deleted");
+      mutate();
+    };
+    const handleToggleVisibility =
+      (id: number) => async (isActive: boolean) => {
+        try {
+          await api.post(`/cowork/desks/${id}/changeavailability`, {
+            searchable: isActive,
+          });
+          mutate();
+          toast.success("Visiblity Changed");
+        } catch (error) {
+          console.log(error.response.data);
+        }
+      };
+
+    return [
+      {
+        Header: "",
+        accessor: "thumbnail",
+        className: "align__center",
+        disableSortBy: true,
+        Cell: ({ value }) => <Thumbnail url={value} alt="" size={50} />,
+      },
+      {
+        Header: "Desk Name & Location",
+        accessor: "name",
+        Cell: ({ value }) => {
+          const parsedValue = value.split("&");
+          return (
+            <DoublelineCell
+              title={parsedValue[0]}
+              subtitle={parsedValue[1]}
+              style={{ paddingLeft: "10px" }}
+            />
+          );
+        },
+      },
+      {
+        Header: "Shareability",
+        accessor: "shareability",
+        className: "align__center",
+        Cell: ({ value }) => (
+          <StatusContainer bgColor={value ? "green" : "red"}>
+            {value ? "Shareable" : "Exclusive"}
+          </StatusContainer>
+        ),
+      },
+      {
+        Header: "Availability",
+        accessor: "availability",
+        className: "align__center",
+        Cell: ({ value }) => {
+          const parsedValue = value.split("&");
+          return (
+            <>
+              <strong>
+                {parsedValue[0] === "null" ? parsedValue[1] : parsedValue[0]}
+              </strong>{" "}
+              of <strong>{parsedValue[1]}</strong>
+            </>
+          );
+        },
+      },
+      {
+        Header: "Open Balances",
+        accessor: "openBalances",
+        className: "align__center",
+        Cell: ({ value }) => (
+          <StatusContainer bgColor="yellow">
+            {Money({ amount: value ?? 0 }).toFormat("$0,0.00")}
+          </StatusContainer>
+        ),
+      },
+      {
+        Header: "Directory Visibility",
+        accessor: "visibility",
+        className: "align__center",
+        disableSortBy: true,
+        Cell: ({ value }) => (
+          <ToggleButton
+            initialValue={value.value}
+            onToggle={handleToggleVisibility(value.id)}
+          />
+        ),
+      },
+      {
+        Header: "",
+        accessor: "menu",
+        disableSortBy: true,
+        Cell: ({ value }: { value: { id: number; disabled: boolean } }) => (
+          <Menu
+            id={value.id}
+            onGreenButtonClick={handlePreview}
+            onYellowButtonClick={handleEdit}
+            onRedButtonClick={handleDelete}
+            extraOptions={
+              <ServicesOptions
+                id={value.id}
+                onAttachClick={value.disabled ? null : handleAttach}
+                onDetachClick={(id: number) => () => {}}
+              />
+            }
+          />
+        ),
+      },
+    ];
+  }, [data, mutate, router]);
+  const tableData = useMemo(
+    () =>
+      data?.map((desk) => ({
+        thumbnail: desk.photos[0],
+        name: `${desk.name}&${desk.location}`,
+        shareability: desk.shareability,
+        availability: `${desk.available - desk.busy}&${desk.available}`,
+        openBalances: desk.open_balance,
+        visibility: {
+          value: desk.visibility ? true : false,
+          id: desk.id,
+        },
+        menu: { id: desk.id, disabled: desk.available - desk.busy === 0 },
+      })),
+    [data]
+  );
+
+  return (
+    <>
+      <Head>
+        <title>Open Desk | Workeaser</title>
+      </Head>
+
+      <PageHeader>
+        <div>
+          <h1>
+            <Link href="/services/dashboard">Services</Link>
+          </h1>
+          <h2>Open Desk</h2>
+        </div>
+
+        <Link
+          href={`/services/add/open-desk?pageCount=${paginationState.count}`}
+        >
+          <Button text="Add New Desk" color="primary" />
+        </Link>
+      </PageHeader>
+
+      <div>
+        <StyledTable
+          columns={columns}
+          data={tableData ?? []}
+          columnsWidth={[7, 57, 11, 11, 11, 11, 3]}
+          pageCount={lastPage ?? 1}
+          fetchData={handleFetchData}
+          skipPageReset={skipPageReset}
+        />
+      </div>
+
+      <AttachContract
+        isOpen={isAttachModalOpen}
+        onRequestClose={() => setIsAttachModalOpen(false)}
+        initialService={selectedService}
+      />
+    </>
+  );
+};
+
+export default DesksPage;
+DesksPage.getLayout = (page: ReactElement, componentProps: PagesProps) => {
+  return (
+    <CoworkingLayout componentProps={componentProps}>{page}</CoworkingLayout>
+  );
+};

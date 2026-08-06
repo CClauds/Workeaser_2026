@@ -1,0 +1,620 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Inventário do Projeto · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>Inventário do Projeto</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>Inventário do Projeto</span></div><div class="navbar"><a href="00-resumo-executivo.html"><b>← Anterior</b><span>Resumo Executivo</span></a><a href="02-arquitetura-tecnica.html"><b>Próximo →</b><span>Arquitetura Técnica</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026 — Modo 100% leitura
+<strong>Evidências:</strong> [CODIGO] · [CONFIG] · [BANCO] · [RUNTIME] · [NAO_CONFIRMADO]</p>
+</blockquote>
+<hr />
+<h2>1. Repositórios e diretórios</h2>
+<h3>1.1 Estrutura raiz do projeto</h3>
+<pre><code>A:\Claude-Deep\Temp\workeaser-arm64\workeaser\
+├── compose.pc.yml              ← Docker Compose local (4 serviços) [CONFIG]
+├── .env.docker                 ← Variáveis de build do frontend [CONFIG]
+├── env-pc/
+│   ├── workeaser-api.env       ← 45 variáveis do workeaser-api [CONFIG]
+│   └── admin-api.env           ← 12 variáveis do admin-api [CONFIG]
+├── Dockerfile.frontend-pc      ← Build do frontend (yarn + patch SSR echarts) [CONFIG]
+├── Dockerfile.workeaser-api    ← Build da API [CONFIG]
+├── Dockerfile.admin-api        ← Build do admin-api [CONFIG]
+├── delivery_workeaser_final_master/  ← Pacote de entrega (packages, owner kit) [NAO_CONFIRMADO conteúdo]
+├── src/
+│   ├── workeaser-api/workeaser-management-api-main/   ← API principal (AdonisJS 5)
+│   ├── admin-api/admin-management-api-main/           ← Admin API (AdonisJS 5)
+│   └── workeaser-frontend/workeaser-management-frontend-main/ ← Frontend (Next.js)
+└── build-arm64.ps1             ← Script de cross-build ARM64 (inútil pro NAS) [CODIGO]
+</code></pre>
+<h3>1.2 Tamanhos</h3>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Tamanho</th>
+<th>Linguagem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>workeaser-api</td>
+<td>4.4 MB</td>
+<td>TypeScript (AdonisJS 5)</td>
+</tr>
+<tr>
+<td>admin-api</td>
+<td>68 MB (inclui node_modules_temp)</td>
+<td>TypeScript (AdonisJS 5)</td>
+</tr>
+<tr>
+<td>workeaser-frontend</td>
+<td>5.9 MB</td>
+<td>TypeScript (Next.js)</td>
+</tr>
+</tbody>
+</table>
+<h3>1.3 Contagem de artefatos</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Quantidade</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controllers workeaser-api</td>
+<td>63</td>
+<td>[CODIGO — app/Controllers/Http]</td>
+</tr>
+<tr>
+<td>Models workeaser-api</td>
+<td>108</td>
+<td>[CODIGO — app/Models]</td>
+</tr>
+<tr>
+<td>Tasks (background)</td>
+<td>8</td>
+<td>[CODIGO — app/Tasks]</td>
+</tr>
+<tr>
+<td>Rotas workeaser-api</td>
+<td>~170 endpoints</td>
+<td>[CODIGO — start/routes/*]</td>
+</tr>
+<tr>
+<td>Rotas admin-api</td>
+<td>20</td>
+<td>[CODIGO — start/routes/*]</td>
+</tr>
+<tr>
+<td>Páginas frontend</td>
+<td>~130 (.tsx)</td>
+<td>[CODIGO — src/pages]</td>
+</tr>
+<tr>
+<td>Tabelas MySQL</td>
+<td>108</td>
+<td>[BANCO]</td>
+</tr>
+<tr>
+<td>Migrations aplicadas</td>
+<td>289 (adonis_schema)</td>
+<td>[BANCO]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Linguagens e frameworks</h2>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Tecnologia</th>
+<th>Versão</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend API</td>
+<td>AdonisJS 5 (Node.js)</td>
+<td>Core ^5.9</td>
+<td>[CODIGO — package.json]</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>Lucid</td>
+<td>^18</td>
+<td>[CODIGO — package.json]</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>@adonisjs/auth (OAT)</td>
+<td>^8</td>
+<td>[CODIGO — package.json]</td>
+</tr>
+<tr>
+<td>RBAC</td>
+<td>@adonisjs/bouncer</td>
+<td>—</td>
+<td>[CODIGO — .adonisrc.json]</td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>adonis5-scheduler</td>
+<td>^2.0.2</td>
+<td>[CODIGO — package.json]</td>
+</tr>
+<tr>
+<td>Admin API</td>
+<td>AdonisJS 5</td>
+<td>Core ^5.9.0</td>
+<td>[CODIGO — package.json]</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Next.js</td>
+<td>— (engine node &gt;=20)</td>
+<td>[CODIGO — package.json frontend]</td>
+</tr>
+<tr>
+<td>Frontend libs</td>
+<td>SWR, axios, echarts, styled-components, Mapbox, Stripe.js</td>
+<td>—</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>Banco</td>
+<td>MySQL 8.4</td>
+<td>—</td>
+<td>[CONFIG + BANCO]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Pontos de entrada</h2>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Entrypoint</th>
+<th>Porta</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>workeaser-api</td>
+<td><code>server.js</code> → <code>Ignitor.httpServer().start()</code></td>
+<td>3333</td>
+<td>[CODIGO — server.js]</td>
+</tr>
+<tr>
+<td>admin-api</td>
+<td><code>server.js</code> → <code>Ignitor.httpServer().start()</code></td>
+<td>3334</td>
+<td>[CODIGO + CONFIG]</td>
+</tr>
+<tr>
+<td>workeaser-frontend</td>
+<td>Next.js (<code>next start</code>)</td>
+<td>3005 (3005→3000 no container)</td>
+<td>[CONFIG — compose.pc.yml]</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>container workeaser-mysql</td>
+<td>3307 (host) → 3306</td>
+<td>[CONFIG]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Arquivos de configuração e variáveis de ambiente</h2>
+<h3>4.1 workeaser-api.env (45 variáveis) [CONFIG]</h3>
+<p>APP_KEY, APP_NAME, APP_URL, NODE_ENV, HOST, PORT, ITEMS_PER_PAGE, CORS_ALLOWED_ORIGINS (atualizado 06/08: inclui :3005), DB_<em>, DRIVE_DISK, AWS_ACCESS_KEY/SECRET/REGION, SES_MAIL_FROM/NAME, GOOGLE_CLIENT_ID/SECRET/URI_REDIRECT, EXCHANGE_CLIENT_ID/SECRET/REDIRECT_URI/AUTHORITY, DOCUSIGN_</em> (SANDBOX=true), STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET_KEY, PLAID_CLIENT_ID/SECRET/NAME, ADOBE_SIGN_API, AUTHORIZATION_ADOBE_SIGN, CLIENTID_ADOBE_SIGN, MAPBOX_API_KEY, RATE_LIMIT_*</p>
+<h3>4.2 admin-api.env (12 variáveis) [CONFIG]</h3>
+<p>APP_KEY, APP_NAME, NODE_ENV, HOST, PORT, DB_CONNECTION, MYSQL_*, DRIVE_DISK</p>
+<h3>4.3 .env.docker (build frontend) [CONFIG]</h3>
+<p>NEXT_PUBLIC_API_URL, NEXT_PUBLIC_ADMIN_API_URL, NEXT_PUBLIC_MAPBOX_KEY, NEXT_PUBLIC_POSTHOG_HOST/KEY, NEXT_PUBLIC_SENTRY_DSN, SENTRY_DSN_<em>, STRIPE_SECRET_KEY (sk_test_local), STRIPE_WEBHOOK_SECRET (whsec_local), PLAID_</em>, DOCUSIGN_<em>, RATE_LIMIT_AUTH_</em></p>
+<p><strong>Credenciais placeholder detectadas [CONFIG]:</strong> GOOGLE_CLIENT_ID/SECRET = "placeholder...", DOCUSIGN_INTEGRATION_KEY/USER_ID = "placeholder...", PLAID_CLIENT_ID = "placeholder...", EXCHANGE_CLIENT_ID = "placeholder...", AWS = local-dev, MAPBOX = pk.local.</p>
+<hr />
+<h2>5. Frontend, backend, banco, serviços, workers, integrações</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Onde</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>workeaser-frontend (Next.js)</td>
+<td>✅ roda (:3005)</td>
+</tr>
+<tr>
+<td>Backend principal</td>
+<td>workeaser-api (AdonisJS)</td>
+<td>✅ roda (:3333)</td>
+</tr>
+<tr>
+<td>Backend admin</td>
+<td>admin-api (AdonisJS)</td>
+<td>✅ roda (:3334)</td>
+</tr>
+<tr>
+<td>Banco</td>
+<td>MySQL 8.4</td>
+<td>✅ roda (:3307)</td>
+</tr>
+<tr>
+<td>Workers/tasks</td>
+<td>app/Tasks (8) via adonis5-scheduler</td>
+<td>🔴 scheduler NÃO roda [RUNTIME]</td>
+</tr>
+<tr>
+<td>Filas</td>
+<td>email_queue, webhook_dead_letter_queue (tabelas)</td>
+<td>🔴 vazias; consumers não rodam</td>
+</tr>
+<tr>
+<td>Integrações</td>
+<td>Stripe, Plaid, WhatsApp, SES, Docusign, AdobeSign, BoldSign, Google/Exchange</td>
+<td>🟡 parciais (ver 08)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Ambientes</h2>
+<table>
+<thead>
+<tr>
+<th>Ambiente</th>
+<th>Existência</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desenvolvimento</td>
+<td>✅ PC local via Docker (compose.pc.yml)</td>
+<td>[CONFIG]</td>
+</tr>
+<tr>
+<td>Homologação</td>
+<td>❌ Não identificado</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td>❌ Não identificado (nenhum domínio/VPS/SSL)</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Teste</td>
+<td>NODE_ENV=testing para seed (pino-pretty ausente em development)</td>
+<td>[CODIGO — seeders]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Infraestrutura, deploy, containers, automações</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Arquivo</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker Compose</td>
+<td>compose.pc.yml (4 serviços, restart: unless-stopped)</td>
+<td>[CONFIG]</td>
+</tr>
+<tr>
+<td>Dockerfiles</td>
+<td>Dockerfile.frontend-pc, Dockerfile.workeaser-api, Dockerfile.admin-api</td>
+<td>[CONFIG]</td>
+</tr>
+<tr>
+<td>GitHub Actions</td>
+<td>.github/workflows/ (nos 3 apps)</td>
+<td>[CODIGO — existência; conteúdo não analisado]</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>❌ Não executado (sem pipeline ativo confirmado)</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Backup</td>
+<td>backups/workeaser-orlando-2026-07-23/ (dump 294KB + envs) e backups/workeaser-passwords-2026-08-06/</td>
+<td>[BANCO/arquivo]</td>
+</tr>
+<tr>
+<td>Deploy NAS</td>
+<td>workeaser-deploy-nas (falhou — RAM 512MB)</td>
+<td>[memória 06-workeaser]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>8. Testes existentes</h2>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Testes</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>admin-api</td>
+<td>tests/functional/ (existem)</td>
+<td>[CODIGO — diretório]</td>
+</tr>
+<tr>
+<td>workeaser-api</td>
+<td>Não encontrados</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>frontend</td>
+<td>src/tests/ (diretório existe)</td>
+<td>[CODIGO — existência; conteúdo não analisado]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Documentação anterior</h2>
+<table>
+<thead>
+<tr>
+<th>Documento</th>
+<th>Local</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Documentação da sessão de análise 06/08</td>
+<td>A:\Claude-Deep\docs\workeaser-doc\ (6 arquivos + 4 análises)</td>
+</tr>
+<tr>
+<td>Memórias do projeto</td>
+<td>A:\Claude-Deep\memory\06-workeaser\ (deploy NAS/PC, councils, sunbiz)</td>
+</tr>
+<tr>
+<td>Council 27/07</td>
+<td>council-transcript-2026-07-27.md</td>
+</tr>
+<tr>
+<td>Council 04/08 (robustez)</td>
+<td>council-transcript-2026-08-04.md</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Código legado, duplicado, desativado, abandonado</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Tipo</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>membership/[id]/*</code> (sem "client/")</td>
+<td>Duplicado/legado (o ativo é client/membership)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td><code>Menus/MemberSidebar</code></td>
+<td>Não importado por ninguém</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td><code>SilentAuth</code> (admin-api)</td>
+<td>Middleware morto (não registrado)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td><code>Model Location</code> (admin-api)</td>
+<td>Sem uso (dashboard usa query crua)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>Landing <code>/</code> chaves localStorage</td>
+<td>Legado de auth antigo</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td><code>POST /api/auth/import</code></td>
+<td>Endpoint sem middleware, exposto</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>81 tabelas vazias</td>
+<td>Estrutura completa nunca usada</td>
+<td>[BANCO]</td>
+</tr>
+<tr>
+<td>Omnichat, Marketplace, Community, My Membership</td>
+<td>Comentados no frontend</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>build-arm64.ps1</td>
+<td>Inútil (NAS aposentado)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>AdobeSign</td>
+<td>"legado, desativado" (segundo subagente)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>getTax → <code>/cowork/Taxs</code></td>
+<td>Endpoint com maiúscula inconsistente</td>
+<td>[CODIGO]</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

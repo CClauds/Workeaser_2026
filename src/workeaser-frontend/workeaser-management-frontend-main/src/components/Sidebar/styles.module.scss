@@ -1,0 +1,77 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.content {
+  padding: 12px 14px;
+}
+
+.actionButton {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $color-gray-300;
+
+  button {
+    width: 100%;
+    min-width: 30px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+    font-weight: $font-bold;
+    @include h.letter-spacing(50);
+    color: $color-white;
+
+    background-color: $color-blue-100;
+
+    white-space: nowrap;
+
+    transition: filter 0.3s;
+
+    &.sidebarClosed {
+      overflow: hidden;
+      margin-left: 1px;
+      span {
+        display: none;
+      }
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+
+    span.actionButton__cross {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 30px;
+      height: 28px;
+
+      margin: 0 8px;
+      background-color: $color-blue-200;
+
+      transition: all 0.5s;
+
+      &.sidebarClosed {
+        background: none;
+        margin: 0;
+        margin-left: 1px;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 1.5px;
+        background-color: $color-white;
+      }
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Avaliação SaaS · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>Avaliação SaaS</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>Avaliação SaaS</span></div><div class="navbar"><a href="23-funcoes-que-nao-devemos-copiar.html"><b>← Anterior</b><span>Funções que Não Devemos Copiar</span></a><a href="25-roadmap-competitivo.html"><b>Próximo →</b><span>Roadmap Competitivo</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026 — Análise objetiva baseada na auditoria técnica + benchmark.</p>
+</blockquote>
+<hr />
+<h2>1. Nosso sistema é interno ou já compete como produto?</h2>
+<p><strong>Resposta: É um sistema INTERNO em estágio de protótipo funcional. NÃO compete como produto hoje.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Critério</th>
+<th>Situação</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estabilidade</td>
+<td>Scheduler inativo, BoldSign quebrada, Stripe em teste</td>
+<td>[RUNTIME]</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td>Não existe (PC local, sem domínio/SSL/backup offsite)</td>
+<td>[CONFIG + NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Dados operacionais</td>
+<td>81 tabelas vazias (0 faturas/contratos/pagamentos)</td>
+<td>[BANCO]</td>
+</tr>
+<tr>
+<td>Suporte/multi-tenancy</td>
+<td>1 cowork_account; isolamento entre clientes não verificado</td>
+<td>[BANCO + NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>API pública</td>
+<td>Inexistente</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>App móvel</td>
+<td>Inexistente</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>Testes</td>
+<td>Quase inexistentes</td>
+<td>[12-testes]</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>Riscos P0 (cookie httpOnly, import exposto, placeholder creds)</td>
+<td>[11-qualidade]</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Módulos em nível competitivo</h2>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Nível</th>
+<th>Justificativa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catálogo de serviços (VO/meetrooms/desks/locations)</td>
+<td>Competitivo</td>
+<td>Estrutura completa + dados reais</td>
+</tr>
+<tr>
+<td>Multi-unidade (estrutura)</td>
+<td>Competitivo</td>
+<td>10 locations</td>
+</tr>
+<tr>
+<td>Auditoria</td>
+<td>Competitivo</td>
+<td>logs com IP/UA</td>
+</tr>
+<tr>
+<td>WhatsApp nativo</td>
+<td>SUPERIOR aos 10 concorrentes</td>
+<td>único confirmado</td>
+</tr>
+<tr>
+<td>Autenticação/RBAC</td>
+<td>Competitivo</td>
+<td>3 roles + módulos</td>
+</tr>
+</tbody>
+</table>
+<h2>3. Módulos abaixo do padrão de mercado</h2>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operação financeira (invoices/payments/subscriptions)</td>
+<td>Código existe, nunca usado, scheduler morto</td>
+</tr>
+<tr>
+<td>Correspondências/mailroom</td>
+<td>Estrutura vazia, sem scan/forward/USPS 1583</td>
+</tr>
+<tr>
+<td>App móvel</td>
+<td>Ausente (todos os concorrentes têm)</td>
+</tr>
+<tr>
+<td>Controle de acesso</td>
+<td>Ausente</td>
+</tr>
+<tr>
+<td>Contratos/e-sign</td>
+<td>Quebrado</td>
+</tr>
+<tr>
+<td>CRM operacional</td>
+<td>Sem dados</td>
+</tr>
+<tr>
+<td>API pública</td>
+<td>Ausente</td>
+</tr>
+<tr>
+<td>IA</td>
+<td>Ausente</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Principal diferencial comprovado</h2>
+<p><strong>WhatsApp nativo (Meta Cloud)</strong> — nenhum dos 10 concorrentes confirmou WhatsApp nativo nas fontes oficiais. Relevante para o mercado brasileiro/latino, onde WhatsApp é o canal padrão.</p>
+<p><strong>Segundo diferencial:</strong> catálogo VO detalhado + dados reais de 10 unidades e 240 clientes já carregados.</p>
+<h2>5. Maior deficiência</h2>
+<p><strong>Nenhuma automação roda (scheduler inativo) + nenhum dado operacional</strong> — o sistema tem o esqueleto de um produto completo, mas nada do que "faz dinheiro" funciona: faturas não são geradas, pagamentos nunca ocorreram, filas nunca foram consumidas.</p>
+<h2>6. Cinco funções mais importantes que faltam</h2>
+<ol>
+<li>Scheduler/automações rodando (P0)</li>
+<li>Fluxo operacional de correspondências + USPS 1583 (P0 — núcleo VO)</li>
+<li>Produção + backup offsite (P0)</li>
+<li>App/PWA do cliente (P1)</li>
+<li>Integração contínua QBO (P1)</li>
+</ol>
+<h2>7. Melhorias que geram maior redução de trabalho manual</h2>
+<ol>
+<li>Faturas recorrentes automáticas (scheduler) — elimina geração manual</li>
+<li>Correspondências com scan/notificação — elimina planilha de mail</li>
+<li>Inadimplência automática — elimina follow-up manual de cobrança</li>
+<li>Check-in QR — elimina registro manual de presença</li>
+<li>Integração QBO — elimina lançamento contábil manual</li>
+</ol>
+<h2>8. Melhorias que geram maior aumento de receita</h2>
+<ol>
+<li>Cobrança recorrente funcionando (VO é mensal)</li>
+<li>Day pass + reservas ativas (novas receitas)</li>
+<li>Portal do cliente + app (retenção e upsell)</li>
+<li>Eventos (nova linha de receita)</li>
+<li>CRM funcional (conversão de leads)</li>
+</ol>
+<h2>9. Melhorias que reduzem mais os erros financeiros</h2>
+<ol>
+<li>Scheduler de faturas (evita fatura esquecida)</li>
+<li>Integração QBO (elimina erro de lançamento manual)</li>
+<li>Inadimplência automática (evita receita não registrada)</li>
+<li>Reconciliação Plaid (match transação→fatura)</li>
+<li>Stripe em produção com webhook validado (evita duplicidade)</li>
+</ol>
+<h2>10. Melhorias que aumentam a retenção de clientes</h2>
+<ol>
+<li>Portal do cliente funcional (transparência de faturas/correspondências)</li>
+<li>App/PWA (conveniência)</li>
+<li>Notificações de entrega de correspondência (VO)</li>
+<li>WhatsApp (proximidade)</li>
+<li>Suporte via tickets funcional</li>
+</ol>
+<h2>11. Suporta adequadamente dez unidades?</h2>
+<p><strong>Sim, na estrutura</strong> — 10 locations cadastradas, dashboard por unidade, relatórios revenuebylocation. <strong>Não, na operação</strong> — sem dados de faturamento por unidade, sem permissões por unidade efetivas (módulos são globais ao cowork), sem calendário consolidado.</p>
+<h2>12. Suportaria cinquenta unidades?</h2>
+<p><strong>Não hoje.</strong> Limitações: permissões por unidade não granulares; módulos por cowork_user são globais; sem isolamento robusto; PC local não escala; relatórios consolidados limitados; sem multi-marca.</p>
+<h2>13. Poderia ser licenciado para outros coworkings?</h2>
+<p><strong>Não hoje</strong> (ver 24.1). Faltam: multi-tenancy real, isolamento de dados, API pública, app, produção, segurança, testes, documentação de produto, onboarding de operador, suporte.</p>
+<h2>14. Mudanças para transformá-lo em SaaS</h2>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Mudança</th>
+<th>Esforço</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-tenancy</td>
+<td>cowork_accounts já existe no schema (bom ponto de partida); completar isolamento por tenant em TODAS as queries</td>
+<td>grande</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>httpOnly, rate limit distribuído, credenciais reais, SSL</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td>VPS/cloud, CI/CD, backup, monitoramento</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>API pública</td>
+<td>Documentar + tokens + rate limits + webhooks públicos</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>App</td>
+<td>PWA → nativo</td>
+<td>grande</td>
+</tr>
+<tr>
+<td>Billing SaaS</td>
+<td>Cobrança por locação/membro (inspiração: $60-349/mês dos concorrentes)</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>Onboarding</td>
+<td>Setup wizard por operador</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>Suporte</td>
+<td>Docs, help center, SLA</td>
+<td>médio</td>
+</tr>
+<tr>
+<td>Testes</td>
+<td>Suíte completa</td>
+<td>grande</td>
+</tr>
+</tbody>
+</table>
+<h2>15. Ordem objetiva de desenvolvimento (para SaaS)</h2>
+<ol>
+<li><strong>Estabilizar operação EWS primeiro</strong> (scheduler, produção, dados reais, correspondências) — o sistema precisa provar valor na própria operação</li>
+<li><strong>Endurecer segurança</strong> (P0) </li>
+<li><strong>Integrações contábeis</strong> (QBO/Stripe produção)</li>
+<li><strong>API pública + webhooks</strong></li>
+<li><strong>Multi-tenancy real</strong> (2º coworking piloto, ex.: Ocoee)</li>
+<li><strong>App/PWA + controle de acesso</strong></li>
+<li><strong>IA e comunidade</strong> (último, pós-massa crítica)</li>
+</ol>
+<p><strong>Conclusão estratégica:</strong> NÃO vender o sistema até que a operação EWS rode 100% nele por ~3 meses sem intervenção manual. Só então licenciar (a partir do piloto com 1-2 coworkings externos).</p></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

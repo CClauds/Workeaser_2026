@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.next/
+dist/
+build/
+
+# Env files (real credentials)
+.env
+.env.*
+!*.env.example
+!*.env.local.example
+config/env-pc/*.env
+
+# Credentials & keys
+credenciais/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Database dumps & backups
+*.sql
+*.dump
+*.zip
+*.tar.gz
+*.7z
+
+# Uploads (user data)
+uploads/
+
+# Previous git bundle
+git-workeaser/
+
+# OS files
+.DS_Store
+Thumbs.db

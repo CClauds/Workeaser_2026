@@ -1,0 +1,111 @@
+{
+  "name": "workeaser-product",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
+    "dev": "node ace serve --watch",
+    "build": "node ace build --ignore-ts-errors",
+    "lint": "eslint . --ext=.ts",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "overrides": {
+    "lodash": "^4.17.21",
+    "path-to-regexp": "^3.3.0",
+    "semver": "^7.5.2",
+    "minimatch": "^9.0.5",
+    "validator": "^13.15.21",
+    "tar": "^7.5.11"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "comma-dangle": 0,
+      "@typescript-eslint/explicit-member-accessibility": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "trailingComma": "none"
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "prettier": {
+    "trailingComma": "none",
+    "semi": true,
+    "singleQuote": true,
+    "useTabs": false,
+    "quoteProps": "consistent",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.3.7",
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.2.2",
+    "adonis-preset-ts": "^2.1.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-adonis": "^2.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "pino-pretty": "^9.1.1",
+    "prettier": "^2.8.1",
+    "typescript": "^5.6.3",
+    "youch": "^2.2.2",
+    "youch-terminal": "^1.1.1"
+  },
+  "dependencies": {
+    "@adonisjs/auth": "^8.0.9",
+    "@adonisjs/bouncer": "^2.3.0",
+    "@adonisjs/core": "^5.9.0",
+    "@adonisjs/drive-s3": "^1.0.5",
+    "@adonisjs/lucid": "^18.4.0",
+    "@adonisjs/mail": "^7.2.4",
+    "@adonisjs/repl": "^3.1.11",
+    "@adonisjs/view": "^6.1.6",
+    "@azure/msal-node": "^2.16.2",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@types/docusign-esign": "^5.19.1",
+    "@types/lodash": "^4.17.13",
+    "@types/puppeteer": "^7.0.4",
+    "adonis5-scheduler": "^2.0.2",
+    "aws-sdk": "^2.1691.0",
+    "axios": "^1.7.7",
+    "docusign-esign": "^5.14.0",
+    "exceljs": "^4.4.0",
+    "googleapis": "^126.0.1",
+    "isomorphic-fetch": "^3.0.0",
+    "json-as-xlsx": "^2.5.6",
+    "limax": "^3.0.0",
+    "lodash": "^4.17.21",
+    "luxon": "^3.5.0",
+    "pdf-lib": "^1.17.1",
+    "mysql2": "^3.11.5",
+    "node-xlsx": "^0.24.0",
+    "pdf-parse": "^1.1.1",
+    "phc-argon2": "^1.1.4",
+    "plaid": "^9.10.1",
+    "proxy-addr": "^2.0.7",
+    "puppeteer": "^22.15.0",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.21",
+    "stripe": "^8.222.0",
+    "uuid": "^9.0.1"
+  }
+}

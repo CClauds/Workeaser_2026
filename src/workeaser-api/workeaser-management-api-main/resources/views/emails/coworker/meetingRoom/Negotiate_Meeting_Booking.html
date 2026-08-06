@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  style="
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin: 0;
+  "
+>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Negotiation Request for Meeting Room Booking</title>
+  </head>
+
+  <body
+    style="
+      font-family: Avenir, Helvetica Neue, Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: none;
+      width: 100% !important;
+      height: 100%;
+      line-height: 1.6em;
+      background-color: #f7f9fb;
+      margin: 0;
+    "
+  >
+    <table style="width: 100%; background-color: #f7f9fb; margin: 0">
+      <tr>
+        <td
+          width="600"
+          style="
+            vertical-align: top;
+            display: block !important;
+            max-width: 600px !important;
+            clear: both !important;
+            margin: 0 auto;
+          "
+        >
+          <div style="max-width: 600px; display: block; margin: 0 auto; padding: 20px">
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="15px"
+              style="
+                border-radius: 0px;
+                background-color: #fff;
+                margin: 0;
+                border: 1px solid #ced9e6;
+                padding: 15px 15px 15px 15px;
+              "
+            >
+              <tbody>
+                <tr class="logoRow">
+                  <td style="text-align: center">
+                    <img
+                      src="file:///Users/higorlacerda/Desktop/Businesses/Workeaser/Development/Transactional%20Emails/Assets/Img/Workeaser-Logo.png"
+                      style="
+                        width: 170px;
+                        height: 70px;
+                        object-fit: contain;
+                        object-position: center;
+                        margin: 0px 0px 10px 0px;
+                      "
+                    />
+                  </td>
+                </tr>
+                <tr class="headlineRow">
+                  <td
+                    style="
+                      text-align: center;
+                      font-size: 22px;
+                      line-height: initial;
+                      font-weight: 900;
+                      color: #2f3854;
+                      padding: 0px 0px 15px 0px;
+                    "
+                  >
+                    Negotiation Request for<br />Meeting Room Booking.
+                  </td>
+                </tr>
+                <tr class="userRow">
+                  <td>Hey <b>{first_Name}</b>,</td>
+                </tr>
+                <tr class="contentRow">
+                  <td style="text-align: justify">
+                    the space manager wants to negotiate new requirements for the meeting room
+                    booking requested for the <b>{asset_name}</b>. Please see the summary below, and
+                    once the space manager answers it, you will have a return.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table style="width: 100%; padding: 15px 0px 0px 0px; border-spacing: 0px">
+                      <tbody>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">Meeting Date:</td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            {meeting_date}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">Meeting Time:</td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            00:00 AM - 00:00 PM
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">Location:</td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            {location_name}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">Service:</td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            {asset_name}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">
+                            Payment Method:
+                          </td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            {payment_method}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid #ced9e6; padding: 7px">Paid Amount:</td>
+                          <td
+                            style="border-top: 1px solid #ced9e6; padding: 7px; text-align: right"
+                          >
+                            {paid_amount}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              border-top: 1px solid #ced9e6;
+                              border-bottom: 1px solid #ced9e6;
+                              padding: 12px 7px;
+                              background: #f7f9fb;
+                            "
+                          >
+                            Amount Due:
+                          </td>
+                          <td
+                            style="
+                              border-top: 1px solid #ced9e6;
+                              border-bottom: 1px solid #ced9e6;
+                              padding: 12px 7px;
+                              background: #f7f9fb;
+                              text-align: right;
+                            "
+                          >
+                            <b>{residual_amount}</b>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr class="buttonRow">
+                  <td style="text-align: center">
+                    <a
+                      href="#"
+                      style="
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                        color: #fff;
+                        text-decoration: none;
+                        line-height: 2em;
+                        font-weight: bold;
+                        text-align: center;
+                        cursor: pointer;
+                        display: inline-block;
+                        text-transform: uppercase;
+                        background-color: #2f3853;
+                        margin: 25px 0px 25px 0px;
+                        padding: 10px 20px 10px 20px;
+                      "
+                      >View Booking</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="footer" style="width: 100%; clear: both">
+              <table width="100%" style="background: #ced9e6">
+                <tr>
+                  <td
+                    style="
+                      font-size: 12px;
+                      vertical-align: top;
+                      color: #2f3853;
+                      text-align: center;
+                      padding: 15px 0px 0px 0px;
+                    "
+                  >
+                    Need help? Email us
+                    <a
+                      href="mailto:help@workeaser.com"
+                      style="font-size: 12px; color: #2f3853; text-decoration: underline"
+                      >help@workeaser.com</a
+                    >.<br />
+                    2295 South Hiawassee Road, Suite 104, Orlando, FL, 32835.
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      font-size: 12px;
+                      vertical-align: top;
+                      color: #2f3853;
+                      text-align: center;
+                      padding: 15px 0px 15px 0px;
+                    "
+                  >
+                    Powered by:
+                    <b
+                      ><a
+                        href="https://workeaser.com"
+                        style="font-size: 12px; color: #2f3853; text-decoration: underline"
+                        >Workeaser</a
+                      ></b
+                    >.
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-workeaser_local}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  workeaser-api:
+    build:
+      context: src/workeaser-api/workeaser-management-api-main
+      dockerfile: Dockerfile.workeaser-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      APP_KEY: ${WORKEASER_API_APP_KEY}
+      DB_CONNECTION: mysql
+      MYSQL_HOST: mysql
+      MYSQL_DB_NAME: workeaser_local
+    ports:
+      - "3333:3333"
+
+  admin-api:
+    build:
+      context: src/admin-api/admin-management-api-main
+      dockerfile: Dockerfile.admin-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      APP_KEY: ${ADMIN_API_APP_KEY}
+      DB_CONNECTION: mysql
+      MYSQL_HOST: mysql
+      MYSQL_DB_NAME: workeaser_local
+    ports:
+      - "3334:3334"
+
+  frontend:
+    build:
+      context: src/workeaser-frontend/workeaser-management-frontend-main
+      dockerfile: Dockerfile.frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://172.16.4.23:3333/api
+        NEXT_PUBLIC_ADMIN_API_URL: http://172.16.4.23:3334/api
+    restart: unless-stopped
+    depends_on:
+      - workeaser-api
+      - admin-api
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql_data:

@@ -1,0 +1,31 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 15px 20px;
+
+  border: 1px solid $color-gray-300;
+
+  & > h1 {
+    font-size: 30px;
+    font-weight: $font-bold;
+    color: $color-blue-100;
+    margin-bottom: 0;
+  }
+
+  & > div h2 {
+    font-size: 15px;
+    font-weight: $font-black;
+    line-height: 1.5;
+  }
+  & > div p {
+    font-size: 14px;
+    strong {
+      font-weight: $font-bold;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}
+
+.radioLabel {
+  height: 20px;
+  display: flex;
+  align-items: center;
+
+  label {
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  & + & {
+    margin-left: 10px;
+  }
+
+  input {
+    position: relative;
+
+    min-width: 20px;
+    min-height: 20px;
+
+    margin-right: 5px;
+
+    border: 1px solid $color-blue-800;
+    border-radius: 50%;
+
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:checked::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      width: 12px;
+      height: 12px;
+      margin: auto;
+
+      background: $color-blue-200;
+      border-radius: 50%;
+    }
+  }
+  &.error {
+    input {
+      border-color: $color-notify-fail;
+    }
+  }
+}

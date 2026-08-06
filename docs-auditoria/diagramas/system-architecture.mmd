@@ -1,0 +1,58 @@
+flowchart TB
+    subgraph Client["Clientes"]
+        BROWSER["Navegador (usuários)\nADMIN / COWORKING / CLIENT"]
+        PUBLIC["Público\n(landing, invoice pública)"]
+    end
+
+    subgraph Frontend["workeaser-frontend (Next.js :3005)"]
+        PAGES["src/pages (~130 rotas)\nSSR getServerSideProps + SWR"]
+        AUTHCTX["AuthContext\n(cookie user-token)"]
+        SERVICES["src/services\n(axios + interceptor)"]
+        PAGES --> SERVICES
+        AUTHCTX --> SERVICES
+    end
+
+    subgraph Backend["Backend (Docker, PC local)"]
+        API["workeaser-api (AdonisJS 5 :3333)\n63 controllers / 108 models / 8 tasks"]
+        ADMINAPI["admin-api (AdonisJS 5 :3334)\n4 controllers / partners/clients"]
+        SCHED["adonis5-scheduler\n(node ace scheduler:run)\n⚠️ NÃO ESTÁ RODANDO"]
+        API --> SCHED
+    end
+
+    subgraph Data["Dados"]
+        MYSQL[("MySQL 8.4 (:3307)\n108 tabelas\n27 com dados / 81 vazias")]
+    end
+
+    subgraph External["Integrações externas"]
+        STRIPE["Stripe (teste)"]
+        PLAID["Plaid (placeholder)"]
+        WA["WhatsApp Meta Cloud"]
+        SES["AWS SES (local-dev)"]
+        DOCU["Docusign (placeholder)"]
+        ADOBE["AdobeSign"]
+        BOLD["BoldSign ⚠️ QUEBRADA"]
+        GCAL["Google Calendar (placeholder)"]
+        EXCH["Exchange (placeholder)"]
+        MAPBOX["Mapbox (local)"]
+    end
+
+    BROWSER --> PAGES
+    PUBLIC --> API
+    SERVICES -->|"HTTP JSON + Bearer token"| API
+    SERVICES -->|"HTTP"| ADMINAPI
+    API --> MYSQL
+    ADMINAPI --> MYSQL
+    API --> STRIPE
+    API --> PLAID
+    API --> WA
+    API --> SES
+    API --> DOCU
+    API --> ADOBE
+    API --> BOLD
+    API --> GCAL
+    API --> EXCH
+    PAGES --> MAPBOX
+
+    style SCHED fill:#f66,color:#000
+    style BOLD fill:#f66,color:#000
+    style STRIPE fill:#ff8,color:#000

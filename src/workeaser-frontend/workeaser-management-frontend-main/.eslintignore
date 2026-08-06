@@ -1,0 +1,11 @@
+.next
+next-env.d.ts
+node_modules
+yarn.lock
+yarn-error-log
+package-lock.json
+public
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+coverage
+.husky

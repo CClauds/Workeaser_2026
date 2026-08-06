@@ -1,0 +1,68 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  header.column {
+    position: relative;
+    font-size: 14px;
+    font-weight: $font-semibold;
+    padding: 5px 8px;
+
+    &.leftPad {
+      padding-left: 15px;
+    }
+
+    &.gray {
+      background-color: $color-light-gray;
+      border-top: 5px solid $color-blue-800;
+    }
+    &.yellow {
+      background-color: $color-tablebackground-yellow;
+      border-top: 5px solid $color-yellow-500;
+    }
+    &.red {
+      background-color: $color-tablebackground-red;
+      border-top: 5px solid $color-orange-500;
+    }
+    &.blue {
+      background-color: $color-light-gray;
+      border-top: 5px solid $color-blue-100;
+    }
+    &.green {
+      background-color: $color-tablebackground-green;
+      border-top: 5px solid $color-green-550;
+    }
+
+    span {
+      position: absolute;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: $color-white;
+
+      transform: translate(50%, -15%) rotate(-90deg);
+
+      z-index: 10;
+
+      &::before {
+        color: $color-blue-800;
+      }
+    }
+  }
+
+  border-bottom: 1px solid $color-gray-300;
+
+  .content {
+    flex: 1;
+
+    padding: 10px;
+
+    border-left: 1px solid $color-gray-300;
+  }
+}

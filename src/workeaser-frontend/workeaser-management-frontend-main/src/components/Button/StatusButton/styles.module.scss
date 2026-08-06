@@ -1,0 +1,23 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  width: 100%;
+  height: 2rem;
+  font-size: 12px;
+  font-weight: $font-semibold;
+  @include h.letter-spacing(50);
+  color: $color-blue-800;
+
+  padding: 0 1rem;
+
+  cursor: auto;
+
+  &.active {
+    background-color: $color-tablebackground-green;
+  }
+
+  &.inactive {
+    background-color: $color-tablebackground-red;
+  }
+}

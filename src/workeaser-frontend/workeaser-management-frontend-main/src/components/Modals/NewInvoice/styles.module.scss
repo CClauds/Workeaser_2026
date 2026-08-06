@@ -1,0 +1,69 @@
+@use "../../../styles/utils/variables" as *;
+
+.formContent {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 30px;
+}
+
+.formElements {
+  flex: 1;
+
+  & > div + div {
+    margin-top: 16px;
+  }
+  & > div:first-child + div {
+    margin-top: 20px;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    p {
+      flex: 1;
+      font-size: 14px;
+      font-weight: $font-regular;
+    }
+
+    &__select {
+      width: 60%;
+    }
+  }
+
+  &:last-child {
+    padding: 10px;
+    border: 1px solid $color-gray-300;
+    border-radius: 5px;
+
+    & > div + div {
+      margin-top: 10px;
+    }
+  }
+}
+
+.tableContainer {
+  max-height: 325px;
+  margin-top: 15px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.submit_button {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 15px;
+
+  button {
+    width: 156px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}

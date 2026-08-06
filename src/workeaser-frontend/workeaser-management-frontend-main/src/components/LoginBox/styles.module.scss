@@ -1,0 +1,59 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+@use "../../styles/components/form";
+
+.container {
+  max-width: 380px;
+  width: 100%;
+
+  figure {
+    text-align: center;
+    margin-bottom: 50px;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .doubleCol {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    button {
+      width: 120px;
+
+      &.expand {
+        @include h.width-animation-mixin(expand, 69px, 120px);
+      }
+      &.shrink {
+        @include h.width-animation-mixin(shrink, 120px, 69px);
+      }
+    }
+  }
+}
+
+.lostPassContainer {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 28px;
+
+  a {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+
+    cursor: pointer;
+    transition: filter 0.3s;
+
+    &:hover {
+      filter: brightness(1.5);
+    }
+  }
+}

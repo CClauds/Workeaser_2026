@@ -1,0 +1,19 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 120px;
+
+  font-size: 15px;
+  font-weight: $font-book;
+  line-height: 1.5;
+  color: $color-blue-800;
+}
+
+.errorContainer {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 20px;
+}

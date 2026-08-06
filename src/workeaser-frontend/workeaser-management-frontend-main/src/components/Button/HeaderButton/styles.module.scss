@@ -1,0 +1,18 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  height: h.toRem(34);
+  font-size: h.toRem(16);
+  font-weight: $font-semibold;
+
+  padding: 0 h.toRem(15);
+
+  background-color: rgba($color: $color-blue-100, $alpha: 0.1);
+
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(0.7);
+  }
+}

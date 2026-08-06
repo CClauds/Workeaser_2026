@@ -1,0 +1,15 @@
+svg.loading {
+  animation-name: loading-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  @keyframes loading-animation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+}

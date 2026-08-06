@@ -1,0 +1,21 @@
+# Backup Workeaser — 2026-08-06_14-18-20
+Conteúdo: banco + código + config + uploads + credenciais + docs
+
+## Checks (docker ps)
+workeaser-frontend	Up 5 hours (healthy)
+workeaser-admin-api	Up 5 hours
+workeaser-api	Up 3 hours
+workeaser-mysql	Up 5 hours
+
+## Tabelas no banco (contagem)
+users
+244
+clientes
+240
+invoices
+1
+
+## Restore
+1. Banco:  docker exec -i workeaser-mysql mysql -uworkeaser -pworkeaser_dev workeaser_local < workeaser-db.sql
+2. Uploads: docker cp uploads/. workeaser-api:/app/tmp/uploads/
+3. Código:  copiar src/ de volta + docker compose up -d --build

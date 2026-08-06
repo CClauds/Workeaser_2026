@@ -1,0 +1,13 @@
+FROM workeaser-frontend:latest
+USER root
+RUN grep -rlI "172\.16\.4\.23" /app/.next /app/public 2>/dev/null | while read -r f; do \
+      sed -i 's|http://172\.16\.4\.23:3333/api|http://172.16.4.26:3333/api|g; s|http://172\.16\.4\.23:3334/api|http://172.16.4.26:3334/api|g' "$f"; \
+    done && \
+    sed -i 's/secure:!0/secure:!1/g' /app/.next/static/chunks/pages/login-*.js && \
+    sed -i 's/min(8).required()/min(6).required()/g' /app/.next/static/chunks/pages/login-*.js && \
+    sed -i 's/"COWORKING"===i.role?k.push("\/dashboard"):"CLIENT"===i.role/"ADMIN"===i.role?k.push("\/dashboard"):"COWORKING"===i.role?k.push("\/dashboard"):"CLIENT"===i.role/g' /app/.next/static/chunks/pages/login-*.js && \
+    sed -i 's/"COWORKING"===E?e="\/"===O.asPath?"\/dashboard":O.asPath:"CLIENT"===E/"COWORKING"===E||"ADMIN"===E?e="\/"===O.asPath?"\/dashboard":O.asPath:"CLIENT"===E/g' /app/.next/static/chunks/pages/_app-*.js && \
+    sed -i 's/(0,w.J)(x.env.NEXT_PUBLIC_STRIPE)/x.env.NEXT_PUBLIC_STRIPE?(0,w.J)(x.env.NEXT_PUBLIC_STRIPE):null/g' /app/.next/static/chunks/pages/_app-*.js && \
+    echo "=== PATCHES APLICADOS ===" && \
+    ls -la /app/.next/BUILD_ID
+USER app

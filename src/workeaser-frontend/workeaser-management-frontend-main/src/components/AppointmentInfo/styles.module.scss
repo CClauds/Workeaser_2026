@@ -1,0 +1,152 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  flex: 0 1 285px;
+
+  h1 {
+    font-size: 20px;
+    font-weight: $font-semibold;
+    margin-bottom: 12px;
+  }
+
+  header {
+    padding: 9px;
+
+    background-color: $color-light-gray;
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      h2 {
+        font-size: 14px;
+        font-weight: $font-semibold;
+      }
+    }
+
+    .info {
+      display: flex;
+      justify-content: center;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      p {
+        display: inline-flex;
+        align-items: center;
+        font-size: 13px;
+        font-weight: $font-regular;
+
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 12px;
+          height: 1px;
+          background-color: $color-blue-100;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .appointment {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 15px;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        span {
+          width: 26px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          background-color: $color-light-gray;
+          border-radius: 6px;
+
+          &::before {
+            color: $color-blue-800;
+          }
+        }
+
+        p,
+        time {
+          font-size: 13px;
+          font-weight: $font-book;
+        }
+      }
+    }
+  }
+
+  .content {
+    border: 1px solid $color-light-gray;
+
+    & > div {
+      position: relative;
+      padding: 9px;
+
+      &:not(:last-child):after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        display: inline-block;
+        height: 1px;
+        width: 90%;
+        border-bottom: 1px solid $color-light-gray;
+      }
+
+      h3 {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      ol {
+        list-style: none;
+        counter-reset: li;
+        margin-left: 25px;
+
+        li {
+          counter-increment: li;
+
+          line-height: 1.25;
+
+          &::before {
+            content: counter(li);
+            color: $color-blue-100;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1.5em;
+            margin-right: 0.5em;
+            text-align: right;
+            direction: rtl;
+          }
+        }
+      }
+    }
+
+    .services {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 10px;
+}

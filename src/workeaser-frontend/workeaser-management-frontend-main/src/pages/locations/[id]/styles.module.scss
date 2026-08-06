@@ -1,0 +1,37 @@
+@use "../../../styles/utils/variables" as *;
+
+.buttonsContainer {
+  a + a {
+    margin-left: 15px;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}
+.textLeft {
+  text-align: left;
+}
+
+.tableBody {
+  font-size: 13px;
+  line-height: 25px;
+
+  .serviceType {
+    font-size: 10px;
+    font-weight: $font-semibolder;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+    border-radius: 7px;
+    background-color: $color-light-gray;
+  }
+
+  .openAmont {
+    text-align: center;
+    font-weight: $font-semibolder;
+  }
+
+  .name {
+    font-weight: $font-semibolder;
+  }
+}

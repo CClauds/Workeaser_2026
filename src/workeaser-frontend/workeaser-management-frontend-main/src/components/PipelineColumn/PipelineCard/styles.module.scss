@@ -1,0 +1,109 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  padding: 7px;
+  border: 1px solid $color-gray-300;
+
+  & + & {
+    margin-top: 10px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div.title {
+      display: flex;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: $font-semibold;
+      margin-left: 5px;
+    }
+
+    div.serviceContainer {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 10px;
+      font-weight: $font-semibold;
+      @include h.letter-spacing(50);
+
+      background-color: $color-light-gray;
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .summary {
+      display: flex;
+      gap: 5px;
+      .hoverTrigger {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: $font-regular;
+        white-space: nowrap;
+
+        padding: 4px;
+        cursor: pointer;
+
+        span.hide {
+          display: inline-block;
+          max-width: 0;
+          overflow: hidden;
+          opacity: 0;
+          margin: 0;
+          transition: max-width 0.2s, opacity 0.2s;
+        }
+
+        &.channelName {
+          background-color: $color-light-gray;
+        }
+        &.contactMethod {
+          background-color: $color-tablebackground-yellow;
+        }
+        &.requestType {
+          background-color: $color-tablebackground-red;
+        }
+        &:hover > .hide {
+          max-width: 100%;
+          opacity: 1;
+          display: inline-block;
+          &:first-child {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    .status {
+      display: flex;
+      gap: 5px;
+
+      & > span {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-light-gray;
+        cursor: pointer;
+
+        &::before {
+          color: $color-blue-800;
+        }
+      }
+    }
+  }
+}

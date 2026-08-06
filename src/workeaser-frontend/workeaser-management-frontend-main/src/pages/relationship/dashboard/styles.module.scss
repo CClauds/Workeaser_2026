@@ -1,0 +1,25 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  .row {
+    display: flex;
+    gap: 1rem;
+
+    & + div {
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 1024px) {
+      gap: 0.75rem;
+      & + div {
+        margin-top: 0.75rem;
+      }
+    }
+    @media (max-width: 800px) {
+      gap: 0.5rem;
+      & + div {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

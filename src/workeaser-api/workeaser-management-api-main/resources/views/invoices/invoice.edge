@@ -1,0 +1,298 @@
+<html>
+  <head>
+    <title>Contract cover</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+        }
+      }
+      @page {
+        margin: 0;
+      }
+      article {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        flex-grow: 1;
+      }
+      header,
+      main,
+      footer {
+        flex-shrink: 0;
+      }
+      header {
+        height: fit-content;
+        padding: 4rem 2rem 1.5rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: #2d3852 solid 2rem;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .coworking_logo {
+        display: flex;
+        width: fit-content;
+      }
+      .coworking_logo > img {
+        max-width: 250px;
+        max-height: 50px;
+        padding-right 1rem;
+      }
+      .coworking_info {
+        display: flex;
+        width: max-content;
+        align-items: center;
+        justify-content: center;
+      }
+      .invoice-info {
+        display: flex;
+        align-items: flex-end;
+      }
+      .invoice-info .column {
+        width: fit-content;
+      }
+      .invoice-info table {
+        min-width: 15em;
+      }
+      .invoice-info th {
+        text-align: center;
+      }
+      .invoice-info tr > td:last-child {
+        text-align: right;
+      }
+
+      main {
+        height: 100%;
+        padding: 0rem 2rem;
+      }
+
+      .bill-to {
+        padding-bottom: 2rem;
+      }
+      .bill-to span {
+        font-weight: bold;
+      }
+      .bill-to ul {
+        padding-top: 1rem;
+      }
+
+      .table-items table {
+        width: 100%;
+        font-size: 0.9rem;
+      }
+      .table-items table,
+      th,
+      td {
+        border: 0;
+        border-collapse: collapse;
+      }
+      .table-items table th {
+        background-color: #2d3852;
+        color: #fff;
+        padding: 0.7rem 0.5rem;
+        font-weight: normal;
+        margin: 0;
+        text-align: left;
+      }
+      .table-items table td {
+        padding: 0.5rem 0.5rem;
+        font-weight: normal;
+        margin: 0;
+        text-align: left;
+      }
+      .total-area {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+      }
+      .total-area table {
+        min-width: 20em;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+      .total-area table > tbody > tr:last-of-type {
+        border-top: 2px solid #000;
+      }
+      .total-area table td {
+        padding: 0.7rem 0.5rem;
+      }
+      .total-area table > tbody > tr > td:last-of-type {
+        text-align: right;
+      }
+      .total-area table > tbody > tr > td:nth-child(2) {
+        text-align: center;
+      }
+
+      .additional-notes span{
+        font-weight: bold;
+      }
+      .additional-notes p {
+        text-align: justify;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+      .column {
+        width: 50%;
+        font-size: 1rem;
+        flex-direction: column;
+      }
+      .column > p {
+        margin: 0;
+      }
+      .text-center { text-align: center !important }
+    </style>
+  </head>
+
+  <body>
+    <article>
+      <header>
+        <div class="column">
+          <div class="row">
+            <div class="coworking_logo">
+              @if(coworkingLogo)
+              <img src="{{coworkingLogo}}" alt="Coworking Logo" />
+              @end
+            </div>
+            <div class="coworking_info">
+              <ul>
+                <li>{{coworkingOwner}}</li>
+                <li>{{coworkingName}}</li>
+                <li>{{coworkingEmail}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="invoice-info column">
+          <div class="row">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Invoice:</td>
+                  <td>{{invoice}}</td>
+                </tr>
+                <tr>
+                  <td>Issued:</td>
+                  <td>{{issued}}</td>
+                </tr>
+                <tr>
+                  <td>Due Date:</td>
+                  <td>{{dueDate}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">{{invoiceStatus}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="bill-to">
+          <span>Bill to:</span>
+          <ul>
+            <li>{{customerName}}</li>
+            <li>{{customerCompany}}</li>
+            <li>{{customerAddress}}</li>
+            <li>{{customerEmail}}</li>
+          </ul>
+        </div>
+        <div class="table-items">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Item name</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Taxable</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @each(item in items)
+              <tr>
+                <td>{{item.date}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.unitPrice}}</td>
+                @if (item.isTaxable)
+                <td class="text-center"><span>&#10003;</span></td>
+                @else
+                <td></td>
+                @end
+                <td>{{item.subtotal}}</td>
+              </tr>
+              @end
+            </tbody>
+          </table>
+        </div>
+        <hr />
+        <div class="total-area">
+          <table>
+            <tbody>
+              <tr>
+                <td>Subtotal</td>
+                <td></td>
+                <td>{{subtotal}}</td>
+              </tr>
+              <tr>
+                <td>Tax</td>
+                <td></td>
+                <td>{{tax}}</td>
+              </tr>
+              @if(isOverdue)
+              <tr>
+                <td>Overdue Tax</td>
+                <td></td>
+                <td>{{taxOverdue}}</td>
+              </tr>
+              @end
+              @if(hasPaid)
+              <tr>
+                <td>Total Paid</td>
+                <td></td>
+                <td>- {{totalPaid}}</td>
+              </tr>
+              @end
+              <tr>
+                <td>Total Due</td>
+                <td></td>
+                <td>{{openAmount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @if(additionalNotes)
+        <hr />
+        <div class="additional-notes">
+          <span>Additional Notes:</span>
+          <p>{{additionalNotes}}</p>
+        </div>
+        @end
+      </main>
+    </article>
+  </body>
+</html>

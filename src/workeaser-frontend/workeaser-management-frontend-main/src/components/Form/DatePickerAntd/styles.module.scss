@@ -1,0 +1,65 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  position: relative;
+
+  & > div {
+    width: 100%;
+    height: 36px;
+
+    font-size: 15px;
+    color: $color-blue-800;
+
+    padding: 0 10px;
+
+    border: 1px solid $color-gray-300;
+    border-radius: 0;
+
+    &:hover {
+      border-color: $color-blue-200;
+    }
+
+    &:not([readOnly]):focus-within {
+      border-color: $color-blue-200;
+    }
+
+    & > div.ant-picker-input {
+      color: $color-blue-800;
+    }
+
+    input {
+      color: $color-blue-800 !important;
+
+      &::placeholder {
+        font-size: 14px;
+        color: rgba($color: $color-blue-800, $alpha: 0.6);
+      }
+    }
+  }
+
+  &.error {
+    & > div {
+      border-color: $color-notify-fail;
+    }
+  }
+  &.open {
+    // display: none;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    & > div {
+    }
+  }
+
+  span {
+    color: $color-blue-200;
+    //   position: absolute;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    //   right: 10px;
+
+    //   &::before {
+    //     font-size: 20px;
+    //   }
+  }
+}

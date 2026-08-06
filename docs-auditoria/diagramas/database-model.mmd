@@ -1,0 +1,62 @@
+erDiagram
+    USERS ||--o{ API_TOKENS : "gera tokens OAT"
+    USERS ||--o{ COWORK_USERS : "vincula ao cowork"
+    USERS ||--o{ COWORK_CLIENTS : "é cliente do cowork"
+    USERS ||--o{ LOGS : "audita ações"
+    COWORK_ACCOUNTS ||--o{ COWORK_USERS : "tem usuários"
+    COWORK_ACCOUNTS ||--o{ COWORK_CLIENTS : "tem clientes"
+    COWORK_ACCOUNTS ||--o{ LOCATIONS : "opera unidades"
+    COWORK_USERS ||--o{ COWORK_USER_MODULES : "tem permissões"
+    COWORK_MODULES ||--o{ COWORK_USER_MODULES : "define módulos"
+    CLIENT_ACCOUNTS ||--o{ CLIENT_MODULES : "assinam módulos (via client_account_modules)"
+    LOCATIONS ||--o{ VIRTUAL_OFFICES : "contém"
+    LOCATIONS ||--o{ MEETROOMS : "contém"
+    LOCATIONS ||--o{ ROOMS : "contém"
+    LOCATIONS ||--o{ DESKS : "contém"
+    LOCATIONS ||--o{ ADDRESSES : "endereço"
+    VIRTUAL_OFFICES ||--o{ VIRTUAL_OFFICE_PRICES : "preços por duração"
+    SUBSCRIPTION_PLANS ||--o{ SUBSCRIPTIONS : "planos"
+    INVOICES ||--o{ INVOICE_ITEMS : "itens"
+    INVOICES ||--o{ INVOICE_PAYMENT_HISTORIES : "pagamentos"
+    INVOICES ||--o{ PAYMENTS : "pagamentos"
+    CONTRACTS ||--o{ CONTRACT_ACTIVITIES : "atividades"
+    CONTRACTS ||--o{ CONTRACT_NOTIFICATIONS : "notificações"
+    CHATS ||--o{ CHAT_MESSAGES : "mensagens"
+    LEADS ||--o{ LEAD_OPPORTUNITIES : "oportunidades"
+    DISCOUNT_CODES ||--o{ DISCOUNT_REDEMPTIONS : "resgates"
+    PARTNERS ||--o{ PARTNER_API_TOKENS : "tokens admin"
+    MEETROOMS ||--o{ MEETROOM_ANSWERS : "respostas às perguntas"
+    MEETROOM_QUESTIONS ||--o{ MEETROOM_ANSWERS : "perguntas"
+
+    USERS {
+        int id PK
+        string email UK
+        string password "argon2id"
+        string role "ADMIN|COWORKING|CLIENT"
+        bool email_confirmed
+        timestamp deleted_at "soft delete"
+        string uuid
+    }
+    COWORK_ACCOUNTS {
+        int id PK
+        string name "Easy WorkSpace Orlando"
+        string uuid
+    }
+    LOCATIONS {
+        int id PK
+        int cowork_account_id FK
+        string name "Unit Neptune/Saturn/..."
+    }
+    SERVICES {
+        int id PK
+        string slug "VIRTUAL_OFFICE|MEETING_ROOM|OPEN_DESK|PRIVATE_ROOM"
+    }
+    INVOICES {
+        int id PK
+        string uuid
+        "0 registros (vazia)"
+    }
+    CONTRACTS {
+        int id PK
+        "0 registros (vazia)"
+    }

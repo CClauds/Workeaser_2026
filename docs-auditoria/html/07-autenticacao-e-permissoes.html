@@ -1,0 +1,480 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Autenticação e Permissões · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>Autenticação e Permissões</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>Autenticação e Permissões</span></div><div class="navbar"><a href="06-banco-de-dados.html"><b>← Anterior</b><span>Banco de Dados</span></a><a href="08-integracoes.html"><b>Próximo →</b><span>Integrações</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026 — Modo 100% leitura
+<strong>Evidências:</strong> [CODIGO] · [CONFIG] · [BANCO] · [RUNTIME]</p>
+</blockquote>
+<hr />
+<h2>1. Mecanismo de autenticação</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Implementação</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guard</td>
+<td><code>api</code> (OAT — Opaque Access Token)</td>
+<td>[CODIGO — config/auth.ts workeaser-api e admin-api]</td>
+</tr>
+<tr>
+<td>Token provider</td>
+<td>database (tabela api_tokens / partner_api_tokens)</td>
+<td>[CONFIG + BANCO]</td>
+</tr>
+<tr>
+<td>Identifier</td>
+<td>email (uids: ['email'])</td>
+<td>[CODIGO — config/auth.ts]</td>
+</tr>
+<tr>
+<td>Hash de senha</td>
+<td>argon2id (t=3, m=4096, p=1) via @ioc:Adonis/Core/Hash</td>
+<td>[CODIGO — config/hash.ts]</td>
+</tr>
+<tr>
+<td>Expiração</td>
+<td>expires_at (workeaser) / expiresIn '1days' (admin)</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>Refresh token</td>
+<td>❌ Não identificado</td>
+<td>[NAO_CONFIRMADO]</td>
+</tr>
+<tr>
+<td>2FA</td>
+<td>TOTP: status/setup/verify/disable</td>
+<td>[CODIGO — Me/TwoFactorController]</td>
+</tr>
+<tr>
+<td>Cookie sessão</td>
+<td><code>user-token</code> (nookies, sameSite strict, maxAge=expires_at, SEM httpOnly)</td>
+<td>[CODIGO — login/index.tsx]</td>
+</tr>
+<tr>
+<td>Rate limit</td>
+<td>in-memory por IP+slot (35s), configurável via env RATE_LIMIT_AUTH_*</td>
+<td>[CODIGO — RateLimit middleware + CONFIG]</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Fluxos de conta</h2>
+<table>
+<thead>
+<tr>
+<th>Fluxo</th>
+<th>Endpoints</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signup</td>
+<td>POST /api/auth/signup</td>
+<td>✅ [CODIGO]</td>
+</tr>
+<tr>
+<td>Email confirmation</td>
+<td>POST /api/auth/email-confirmation + /resend</td>
+<td>✅ [CODIGO]</td>
+</tr>
+<tr>
+<td>Lost password</td>
+<td>POST /lost-password + /lost-password-confirmation</td>
+<td>✅ [CODIGO]</td>
+</tr>
+<tr>
+<td>Convite de equipe (client)</td>
+<td>POST /api/client/teams + acceptInvite</td>
+<td>✅ [CODIGO]</td>
+</tr>
+<tr>
+<td>Convite de funcionário (cowork)</td>
+<td>POST /api/cowork/employees + showInvite/acceptInvite públicos</td>
+<td>✅ [CODIGO]</td>
+</tr>
+<tr>
+<td>Account deletion (LGPD)</td>
+<td>POST/GET/DELETE /api/me/delete-account + /export-data</td>
+<td>✅ código; task não roda</td>
+</tr>
+<tr>
+<td>Logout</td>
+<td>POST /api/auth/logout (revoga token)</td>
+<td>✅ [CODIGO]</td>
+</tr>
+</tbody>
+</table>
+<h2>3. Perfis e papéis</h2>
+<h3>3.1 workeaser-api — users.role [BANCO + CODIGO]</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Contagem</th>
+<th>Acesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADMIN</td>
+<td>5</td>
+<td>Sidebar completa + /admin/*</td>
+</tr>
+<tr>
+<td>COWORKING</td>
+<td>1 (demo)</td>
+<td>Módulos do cowork</td>
+</tr>
+<tr>
+<td>CLIENT</td>
+<td>238</td>
+<td>Portal cliente</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 admin-api — partners.role [CODIGO]</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Acesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SYSTEM_DIRECTOR</td>
+<td>CRUD de partners, suspend/unsuspend</td>
+</tr>
+<tr>
+<td>SYSTEM_MANAGER</td>
+<td>Somente leitura (listar)</td>
+</tr>
+</tbody>
+</table>
+<h3>3.3 cowork_users.role (vínculo ao cowork) [BANCO]</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Contagem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MANAGER</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Autorização (backend)</h2>
+<table>
+<thead>
+<tr>
+<th>Middleware</th>
+<th>O que verifica</th>
+<th>Evidência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth</td>
+<td>Bearer token OAT válido</td>
+<td>[CODIGO — kernel.ts]</td>
+</tr>
+<tr>
+<td>silentAuth</td>
+<td>Auth opcional</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>coworkAuthorization:${Módulo}</td>
+<td>user é COWORKING/ADMIN associado + módulo habilitado (cowork_user_modules)</td>
+<td>[CODIGO — routes cowork]</td>
+</tr>
+<tr>
+<td>clientAuthorization</td>
+<td>user é CLIENT associado</td>
+<td>[CODIGO — routes client]</td>
+</tr>
+<tr>
+<td>adminAuthorization</td>
+<td>user é ADMIN</td>
+<td>[CODIGO — routes admin]</td>
+</tr>
+<tr>
+<td>adminRole:SYSTEM_DIRECTOR</td>
+<td>partner é diretor</td>
+<td>[CODIGO — kernel.ts admin-api]</td>
+</tr>
+<tr>
+<td>boldsignValidation</td>
+<td>HMAC webhook BoldSign</td>
+<td>[CODIGO]</td>
+</tr>
+<tr>
+<td>rateLimit</td>
+<td>in-memory IP+slot</td>
+<td>[CODIGO]</td>
+</tr>
+</tbody>
+</table>
+<h2>5. Matriz de permissões</h2>
+<table>
+<thead>
+<tr>
+<th>Perfil</th>
+<th>Módulo</th>
+<th>Visualizar</th>
+<th>Criar</th>
+<th>Editar</th>
+<th>Excluir</th>
+<th>Administrar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADMIN</td>
+<td>Todos</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>COWORKING</td>
+<td>Dashboard/Locations/Services/Relationship/Finances/Reports/Settings</td>
+<td>✅ (conforme cowork_modules)</td>
+<td>✅ (conforme módulo)</td>
+<td>✅</td>
+<td>✅</td>
+<td>parcial (Team Members + Global Settings só MANAGER)</td>
+</tr>
+<tr>
+<td>CLIENT</td>
+<td>Membership/Bookings/Invoices/Mailbox/Chat</td>
+<td>✅ (próprios)</td>
+<td>request/cancel</td>
+<td>mailbox update</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>PARTNER SYSTEM_MANAGER</td>
+<td>Admin partners/clients (leitura)</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>PARTNER SYSTEM_DIRECTOR</td>
+<td>Admin partners/clients</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (não auto-delete)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Público</td>
+<td>/spaces, /api/invoice/:uuid, /api/infos/*</td>
+<td>✅</td>
+<td>pay</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Permissões DECLARADAS vs VERIFICADAS</h2>
+<h3>Verificadas no backend (middleware na rota) [CODIGO]</h3>
+<ul>
+<li>✅ auth nas rotas protegidas</li>
+<li>✅ coworkAuthorization:${Módulo} — verifica cowork_user_modules</li>
+<li>✅ clientAuthorization, adminAuthorization, adminRole</li>
+</ul>
+<h3>Declaradas mas não verificadas / lacunas</h3>
+<ul>
+<li>⚠️ <strong><code>POST /api/auth/import</code> sem middleware</strong> — qualquer chamada HTTP cria users [CODIGO]</li>
+<li>⚠️ <strong><code>POST /api/auth/admin</code> sem rateLimit</strong> [CODIGO]</li>
+<li>⚠️ <strong>Rotas cowork sem módulo específico</strong> (subscriptions, stripe-connect, taxes, status, virtualoffices, meetrooms tem MEETROOM): usam apenas <code>coworkAuthorization</code> genérico — qualquer COWORKING com vínculo acessa, mesmo sem módulo habilitado [CODIGO — rotas sem ${CoworkModulesEnum}]</li>
+<li>⚠️ <strong>Dashboard/search</strong> usam só <code>auth</code> — qualquer role logado (incluindo CLIENT?) acessa os dados do cowork se souber o path [CODIGO — routes/cowork/dashboard.ts usa middleware(['auth'])]</li>
+<li>⚠️ <strong>Isolamento entre clientes</strong>: clientAuthorization verifica vínculo, mas o escopo por unidade/empresa não foi verificado rota a rota [NAO_CONFIRMADO]</li>
+<li>⚠️ <strong>UI oculta vs backend</strong>: o sidebar filtra por cowork_modules, mas rotas sem middleware de módulo podem ser acessadas por URL direta</li>
+</ul>
+<h2>7. Isolamento multi-inquilino</h2>
+<ul>
+<li>O schema suporta multi-cowork (cowork_accounts.id em todas as tabelas), mas <strong>há apenas 1 cowork_account</strong> (Easy WorkSpace Orlando) [BANCO]</li>
+<li>CLIENT vê apenas seus dados via clientAuthorization (não verificado em profundidade) [NAO_CONFIRMADO]</li>
+</ul>
+<h2>8. Impersonation</h2>
+<ul>
+<li>❌ Não identificado [NAO_CONFIRMADO]</li>
+</ul>
+<h2>9. Sessão e tokens — resumo de riscos</h2>
+<ol>
+<li>Cookie <code>user-token</code> sem httpOnly → vulnerável a roubo via XSS [CODIGO]</li>
+<li>Token no cookie + header Authorization (duplicado) [CODIGO]</li>
+<li>Sem refresh token — 1 dia de vida [NAO_CONFIRMADO refresh]</li>
+<li>Rate limit em memória (perde-se no restart do container) [CODIGO]</li>
+</ol></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

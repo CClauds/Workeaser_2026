@@ -1,0 +1,48 @@
+@use "../../../styles/utils/variables" as *;
+
+.formContent {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 30px;
+
+  section {
+    width: 360px;
+    flex: 1 0 360px;
+
+    & > div + div {
+      margin-top: 12px;
+    }
+  }
+
+  .textarea {
+    height: 130px;
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  p,
+  label {
+    font-size: 14px;
+    font-weight: $font-regular;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+
+  button {
+    width: 171px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}

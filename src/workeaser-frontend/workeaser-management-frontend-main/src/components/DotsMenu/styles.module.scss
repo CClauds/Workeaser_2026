@@ -1,0 +1,149 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.wrapper {
+  position: relative;
+  width: min-content;
+}
+
+.container {
+  display: flex;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-dark-gray;
+  }
+  &.open {
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    animation: open 1s;
+    opacity: 1;
+    background-color: $color-blue-800;
+    transition: background-color 0.3s;
+  }
+  &.open:hover {
+    background-color: $color-blue-700;
+  }
+  span {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      font-size: 26px;
+      color: $color-blue-800;
+    }
+  }
+
+  @keyframes open {
+    from {
+      opacity: 0;
+      background-color: transparent;
+    }
+    to {
+      opacity: 1;
+      background-color: $color-blue-800;
+    }
+  }
+}
+
+.menu {
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 38px;
+
+  width: 0;
+
+  background-color: $color-light-gray;
+  border: 0;
+
+  z-index: 20;
+
+  &.open {
+    padding: 10px;
+    border: 1px solid $color-dark-gray;
+    animation: menu-open 0.5s forwards;
+
+    @keyframes menu-open {
+      from {
+        width: 0;
+        // padding: 0;
+      }
+      to {
+        width: 207px;
+        // padding: 10px;
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      border: 12px solid transparent;
+      border-left-color: $color-dark-gray;
+
+      left: 100%;
+      bottom: 50%;
+      transform: translateY(50%);
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      border: 11px solid transparent;
+      border-left-color: $color-light-gray;
+
+      left: 100%;
+      bottom: 50%;
+      transform: translateY(50%);
+    }
+  }
+
+  .flexRow {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+
+    button {
+      min-width: 55px;
+      height: 44px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 10px;
+      font-weight: $font-book;
+      text-transform: uppercase;
+      @include h.letter-spacing(50);
+
+      cursor: pointer;
+
+      &.success {
+        background-color: $color-tablebackground-green;
+      }
+      &.warning {
+        background-color: $color-tablebackground-yellow;
+      }
+      &.danger {
+        background-color: $color-tablebackground-red;
+      }
+
+      transition: filter 0.3s;
+      &:hover {
+        filter: brightness(0.9);
+      }
+
+      span:before {
+        font-size: 1rem;
+        color: $color-blue-800;
+      }
+    }
+  }
+}

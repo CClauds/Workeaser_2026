@@ -1,0 +1,54 @@
+# Compose para rodar Workeaser no PC (Docker Desktop Windows)
+# Imagens AMD64 já buildadas em 21/07 + patch de URL no frontend
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: workeaser-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_dev_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-workeaser_local}
+      MYSQL_USER: ${MYSQL_USER:-workeaser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-workeaser_dev}
+    ports:
+      - "3307:3306"   # 3306 ocupada pelo MySQL local do Windows
+    volumes:
+      - mysql_pc_data:/var/lib/mysql
+
+  workeaser-api:
+    image: workeaser-api:latest
+    container_name: workeaser-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    volumes:
+      - ./env-pc/workeaser-api.env:/app/.env:ro
+    ports:
+      - "3333:3333"
+
+  admin-api:
+    image: admin-api:latest
+    container_name: workeaser-admin-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    volumes:
+      - ./env-pc/admin-api.env:/app/.env:ro
+    ports:
+      - "3334:3334"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend-patch
+    image: workeaser-frontend-pc:latest
+    container_name: workeaser-frontend
+    restart: unless-stopped
+    depends_on:
+      - workeaser-api
+      - admin-api
+    ports:
+      - "3005:3000"
+
+volumes:
+  mysql_pc_data:

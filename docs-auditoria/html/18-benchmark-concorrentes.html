@@ -1,0 +1,1431 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Benchmark de Concorrentes · Auditoria Workeaser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2332; --muted:#667085; --line:#e4e8ef;
+  --brand:#1f3a5f; --brand2:#2f5d9e; --accent:#d4a017; --accent-soft:#fdf6e3;
+  --ok:#157347; --ok-bg:#e7f6ee; --warn:#b26a00; --warn-bg:#fdf3e2;
+  --bad:#c0392b; --bad-bg:#fdecea; --info:#2b6cb0; --info-bg:#e8f1fb;
+  --radius:12px; --shadow:0 1px 3px rgba(31,58,95,.08),0 4px 16px rgba(31,58,95,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+#layout{display:flex;min-height:100vh}
+/* ===== SIDEBAR ===== */
+#sidebar{width:288px;min-width:288px;background:linear-gradient(180deg,#16283f 0%,#1c3350 100%);color:#c9d6e4;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sidebar .sb-head{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+#sidebar .sb-logo{display:flex;align-items:center;gap:10px}
+#sidebar .sb-logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#e8b83a);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(212,160,23,.35)}
+#sidebar .sb-logo b{color:#fff;font-size:15px;letter-spacing:.2px}
+#sidebar .sb-logo small{display:block;font-size:10.5px;color:#8fa3b8;font-weight:400;margin-top:1px}
+#sidebar .sb-nav{flex:1;padding:12px 0 20px;overflow-y:auto}
+#sidebar .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#6e849c;padding:16px 20px 6px;font-weight:700}
+#sidebar a{display:flex;align-items:center;gap:9px;padding:7px 20px;color:#b9c8d8;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .12s}
+#sidebar a:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:var(--accent)}
+#sidebar a .ic{width:20px;text-align:center;font-size:14px;opacity:.9}
+#sidebar .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#7d93ab}
+/* ===== MAIN ===== */
+#main{flex:1;min-width:0;padding:0}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2f5d9e 60%,#3a6fb5 100%);color:#fff;padding:44px 48px 38px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.25),transparent 70%)}
+.hero .kicker{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:#f0d98a;font-weight:700;margin-bottom:8px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:14.5px;color:#dbe6f3;max-width:760px}
+.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.doc{max-width:1060px;margin:0 auto;padding:36px 48px 60px}
+/* breadcrumbs + nav */
+.crumb{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--info);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.doc-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;letter-spacing:.4px}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px}
+.navbar a{flex:1;max-width:280px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:12.5px;box-shadow:var(--shadow);transition:border-color .12s}
+.navbar a:hover{border-color:var(--accent)}
+.navbar a b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
+.navbar a span{font-weight:600;color:var(--brand)}
+.navbar .spacer{flex:1}
+/* conteúdo */
+.doc h1:first-child{font-size:26px;font-weight:800;color:var(--brand);margin:0 0 4px;letter-spacing:-.3px}
+.doc h2{font-size:20px;color:var(--brand);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-weight:700}
+.doc h3{font-size:16px;color:var(--brand);margin:24px 0 8px;font-weight:700}
+.doc h4{font-size:14px;color:#33465c;margin:18px 0 6px;font-weight:600}
+.doc p{margin:9px 0}
+.doc a{color:var(--info)}
+.doc code{background:#eef2f8;border:1px solid #e0e6f0;padding:1.5px 6px;border-radius:5px;font-family:'JetBrains Mono',Consolas,Menlo,monospace;font-size:12.5px;color:#1f3a5f}
+.doc pre{background:#101d2f;color:#dbe7f3;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.55}
+.doc pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px}
+/* tabelas */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:480px}
+th{background:#203a5e;color:#fff;text-align:left;padding:9px 12px;font-weight:600;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:8px 12px;vertical-align:top;line-height:1.45}
+tr:nth-child(even) td{background:#f8fafd}
+tr:hover td{background:#f1f5fb}
+/* blockquote */
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 16px;margin:13px 0;color:#6b5a1e;border-radius:0 8px 8px 0}
+blockquote p{margin:4px 0}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+ul,ol{margin:9px 0 9px 26px}
+li{margin:4px 0}
+/* badges */
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.badge-ok{background:var(--ok-bg);color:var(--ok)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-bad{background:var(--bad-bg);color:var(--bad)}
+.badge-info{background:var(--info-bg);color:var(--info)}
+/* mermaid */
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0;text-align:center;overflow-x:auto}
+.mermaid-msg{color:var(--muted);font-size:12px;margin-top:8px;text-align:center}
+/* ===== INDEX ===== */
+.sec-title{font-size:19px;font-weight:800;color:var(--brand);margin:34px 0 6px;letter-spacing:-.2px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .12s,box-shadow .15s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px rgba(31,58,95,.14)}
+.card .ic{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#eef3fa,#e2eaf6)}
+.card .ct{min-width:0}
+.card .ct b{display:block;font-size:14px;color:var(--brand);margin-bottom:3px}
+.card .ct small{font-size:12px;color:var(--muted);line-height:1.45;display:block}
+.card .ct .tag{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);padding:2px 8px;border-radius:999px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center;box-shadow:var(--shadow)}
+.fact .n{font-size:24px;font-weight:800;color:var(--brand)}
+.fact .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.alert{display:flex;gap:12px;background:var(--bad-bg);border:1px solid #f5c6c0;border-radius:10px;padding:13px 16px;margin:10px 0;font-size:13.5px}
+.alert.warn{background:var(--warn-bg);border-color:#f0d9a8}
+.alert.ok{background:var(--ok-bg);border-color:#bfe6d2}
+.alert .a-ic{font-size:18px;line-height:1.3}
+@media (max-width:960px){#sidebar{display:none}.hero{padding:28px 20px}.doc{padding:24px 18px}.grid-2{grid-template-columns:1fr}}
+@media print{#sidebar{display:none}.hero{background:#1f3a5f !important;padding:24px}.doc{max-width:none;padding:16px}.navbar{display:none}}
+</style></head><body>
+<div id="layout"><div class="sb-head"><div class="sb-logo"><div class="mark">🏢</div><div><b>Workeaser</b><small>Auditoria Técnica</small></div></div></div>
+<div class="sb-nav">
+<div class="grp">Documentos</div>
+<a href="index.html"><span class="ic">🏠</span> Início</a>
+<a href="00-resumo-executivo.html"><span class="ic">📌</span> Resumo Executivo</a>
+<a href="01-inventario-do-projeto.html"><span class="ic">📁</span> Inventário do Projeto</a>
+<a href="02-arquitetura-tecnica.html"><span class="ic">🏗️</span> Arquitetura Técnica</a>
+<a href="03-mapa-de-interface.html"><span class="ic">🖥️</span> Mapa de Interface</a>
+<a href="04-funcionalidades-e-rastreabilidade.html"><span class="ic">🔍</span> Funcionalidades e Rastreabilidade</a>
+<a href="05-api-backend.html"><span class="ic">🔌</span> API Backend</a>
+<a href="06-banco-de-dados.html"><span class="ic">🗄️</span> Banco de Dados</a>
+<a href="07-autenticacao-e-permissoes.html"><span class="ic">🔐</span> Autenticação e Permissões</a>
+<a href="08-integracoes.html"><span class="ic">🔗</span> Integrações</a>
+<a href="09-jobs-webhooks-e-automacoes.html"><span class="ic">⚙️</span> Jobs, Webhooks e Automações</a>
+<a href="10-infraestrutura-e-deploy.html"><span class="ic">🚀</span> Infraestrutura e Deploy</a>
+<a href="11-qualidade-seguranca-e-riscos.html"><span class="ic">🛡️</span> Qualidade, Segurança e Riscos</a>
+<a href="12-testes.html"><span class="ic">🧪</span> Testes</a>
+<a href="13-manual-do-desenvolvedor.html"><span class="ic">👨‍💻</span> Manual do Desenvolvedor</a>
+<a href="14-manual-do-usuario.html"><span class="ic">🧑‍💼</span> Manual do Usuário</a>
+<a href="15-matriz-de-implementacao.html"><span class="ic">📊</span> Matriz de Implementação</a>
+<a href="16-debitos-tecnicos-e-proximos-passos.html"><span class="ic">📋</span> Débitos Técnicos e Próximos Passos</a>
+<a href="17-indice-de-evidencias.html"><span class="ic">📎</span> Índice de Evidências</a>
+<a href="18-benchmark-concorrentes.html"><span class="ic">🏆</span> Benchmark de Concorrentes</a>
+<a href="21-vantagens-comprovadas.html"><span class="ic">💎</span> Vantagens Comprovadas</a>
+<a href="22-lacunas-e-prioridades.html"><span class="ic">🕳️</span> Lacunas e Prioridades</a>
+<a href="23-funcoes-que-nao-devemos-copiar.html"><span class="ic">🚫</span> Funções que Não Devemos Copiar</a>
+<a href="24-avaliacao-saas.html"><span class="ic">💼</span> Avaliação SaaS</a>
+<a href="25-roadmap-competitivo.html"><span class="ic">🗺️</span> Roadmap Competitivo</a>
+<div class="grp">Tabelas</div>
+<a href="19-matriz-comparativa.html"><span class="ic">📄</span> Matriz Comparativa (CSV)</a>
+<a href="20-pontuacao-competitiva.html"><span class="ic">🎯</span> Pontuação Competitiva (CSV)</a>
+<div class="grp">Diagramas</div>
+<a href="diagramas/system-architecture.html"><span class="ic">📐</span> Arquitetura Geral</a>
+<a href="diagramas/authentication-flow.html"><span class="ic">📐</span> Fluxo de Autenticação</a>
+<a href="diagramas/main-data-flow.html"><span class="ic">📐</span> Fluxo Principal de Dados</a>
+<a href="diagramas/integrations-flow.html"><span class="ic">📐</span> Integrações Externas</a>
+<a href="diagramas/async-processes.html"><span class="ic">📐</span> Processos Assíncronos</a>
+<a href="diagramas/database-model.html"><span class="ic">📐</span> Modelo do Banco de Dados</a>
+</div>
+<div class="sb-foot">Gerado em 06/08/2026<br>Modo 100% leitura</div>
+<div id="main">
+<div class="hero"><div class="kicker">Workeaser · Auditoria Técnica</div>
+<h1>Benchmark de Concorrentes</h1>
+<p>Documentação gerada em modo 100% leitura — 06/08/2026</p>
+<div class="meta"><span class="chip">📅 06/08/2026</span><span class="chip">🔒 Somente leitura</span><span class="chip">🏢 Easy Work Space</span></div>
+</div>
+<div class="doc"><div class="crumb"><a href="index.html">🏠 Início</a> <span>›</span> <span>Benchmark de Concorrentes</span></div><div class="navbar"><a href="17-indice-de-evidencias.html"><b>← Anterior</b><span>Índice de Evidências</span></a><a href="21-vantagens-comprovadas.html"><b>Próximo →</b><span>Vantagens Comprovadas</span></a></div><div class="doc-subtitle">Documento da auditoria</div>
+<blockquote>
+<p><strong>Data:</strong> 06/08/2026
+<strong>Método:</strong> pesquisa em fontes oficiais (site, pricing, docs, integrações) dos 10 concorrentes via subagentes; classificação por evidência. Detalhes em benchmark-parte1/2/3.md.
+<strong>Status dos concorrentes:</strong> todos os 10 analisados estão ATIVOS (Optix: não foi possível confirmar — ver nota).</p>
+</blockquote>
+<hr />
+<h2>1. Status dos sistemas analisados</h2>
+<table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Status</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OfficeRnD Flex</td>
+<td>✅ Ativo</td>
+<td>Líder de mercado, SOC 2/ISO 27001</td>
+</tr>
+<tr>
+<td>Nexudus</td>
+<td>✅ Ativo</td>
+<td>Bootstrapped, +3.000 espaços</td>
+</tr>
+<tr>
+<td>Archie</td>
+<td>✅ Ativo</td>
+<td>Claim G2 #1</td>
+</tr>
+<tr>
+<td>Optix</td>
+<td>✅ Ativo</td>
+<td>"Automation-first"; 1.000+ automações; API developer platform; preço não público</td>
+</tr>
+<tr>
+<td>Spacebring</td>
+<td>✅ Ativo</td>
+<td>Ex-andcards (2017)</td>
+</tr>
+<tr>
+<td>Cobot</td>
+<td>✅ Ativo</td>
+<td>Pioneiro desde 2008, Berlim</td>
+</tr>
+<tr>
+<td>Coworks</td>
+<td>✅ Ativo</td>
+<td>EUA, 2018</td>
+</tr>
+<tr>
+<td>Proximity</td>
+<td>✅ Ativo</td>
+<td>Foco em acesso físico</td>
+</tr>
+<tr>
+<td>Habu</td>
+<td>✅ Ativo</td>
+<td>UK, foco em autoatendimento</td>
+</tr>
+<tr>
+<td>Yardi Kube</td>
+<td>✅ Ativo</td>
+<td>Enterprise Yardi (adquiriu Deskpass+Hubble)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Comparação por categoria (nosso sistema vs concorrentes)</h2>
+<p>Legenda: ✅ tem · 🟡 parcial · ❌ não tem · ❓ não confirmado</p>
+<h3>A. CRM e vendas</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>OfficeRnD</th>
+<th>Nexudus</th>
+<th>Archie</th>
+<th>Spacebring</th>
+<th>Cobot</th>
+<th>Coworks</th>
+<th>Proximity</th>
+<th>Habu</th>
+<th>Yardi Kube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cadastro de leads</td>
+<td>✅ tabela leads</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡 (via integração)</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>❌</td>
+<td>✅ (lead gen tools)</td>
+</tr>
+<tr>
+<td>Pipeline comercial</td>
+<td>✅ salespipeline</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>🟡</td>
+<td>🟡</td>
+<td>❓</td>
+<td>❌</td>
+<td>🟡</td>
+</tr>
+<tr>
+<td>Tours</td>
+<td>✅ (tours CRUD)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>🟡</td>
+<td>✅ (tour requests)</td>
+<td>✅ (Wave)</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Proposta/cotação</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (quotes)</td>
+<td>❌</td>
+<td>🟡</td>
+<td>❓</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Conversão lead→cliente</td>
+<td>🟡</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>✅ (1 clique)</td>
+<td>✅</td>
+<td>❓</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Integração WhatsApp</td>
+<td>✅ (Meta Cloud)</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+</tr>
+</tbody>
+</table>
+<h3>B. Clientes e membros</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>OfficeRnD</th>
+<th>Nexudus</th>
+<th>Archie</th>
+<th>Spacebring</th>
+<th>Cobot</th>
+<th>Coworks</th>
+<th>Proximity</th>
+<th>Habu</th>
+<th>Yardi Kube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cadastro empresa</td>
+<td>✅ client_accounts</td>
+<td>✅ (Companies)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Membros vinculados a empresa</td>
+<td>🟡 (cowork_clients)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (team/shared)</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Portal do cliente</td>
+<td>✅ /client/membership</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (User Area)</td>
+<td>✅ (Member App)</td>
+</tr>
+<tr>
+<td>App móvel</td>
+<td>❌</td>
+<td>✅ (branded)</td>
+<td>✅ (Passport)</td>
+<td>✅ (branded)</td>
+<td>✅ (white-label)</td>
+<td>✅ (Members App)</td>
+<td>✅ (white-label)</td>
+<td>✅ (white-label)</td>
+<td>✅</td>
+<td>✅ (Member App)</td>
+</tr>
+<tr>
+<td>Onboarding/offboarding</td>
+<td>🟡 (evento email)</td>
+<td>✅</td>
+<td>✅ (automatizado)</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>❓</td>
+<td>✅</td>
+<td>✅ (self signup)</td>
+<td>✅ (MIMO)</td>
+</tr>
+<tr>
+<td>Documentos do membro</td>
+<td>🟡 (documents)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>❓</td>
+<td>❓</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>C. Produtos e planos</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>OfficeRnD</th>
+<th>Nexudus</th>
+<th>Archie</th>
+<th>Spacebring</th>
+<th>Cobot</th>
+<th>Coworks</th>
+<th>Proximity</th>
+<th>Habu</th>
+<th>Yardi Kube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escritório privativo</td>
+<td>✅ rooms (0 dados)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Mesa dedicada</td>
+<td>✅ desks</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Sala de reunião</td>
+<td>✅ meetrooms</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Day pass</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Escritório virtual</td>
+<td>✅ (7 planos)</td>
+<td>✅</td>
+<td>✅ (página dedicada)</td>
+<td>✅</td>
+<td>✅ (solução dedicada)</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Correspondências/mailroom</td>
+<td>🟡 (mailbox, 0 dados)</td>
+<td>✅ (SphereMail)</td>
+<td>✅ (mail handling)</td>
+<td>✅ (visitor/delivery)</td>
+<td>✅ (scan/forward/discard)</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>USPS Form 1583</td>
+<td>❌</td>
+<td>❓</td>
+<td>✅ (compliance checks)</td>
+<td>❓</td>
+<td>❓</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Planos recorrentes</td>
+<td>✅ subscription_plans</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (flexíveis)</td>
+<td>✅ (custom)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Cupons/descontos</td>
+<td>✅ discounts (0 dados)</td>
+<td>✅ (promo codes)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>🟡</td>
+<td>✅</td>
+<td>✅ (discounts)</td>
+<td>🟡</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Créditos/allowances</td>
+<td>🟡</td>
+<td>✅ (Credits)</td>
+<td>✅</td>
+<td>✅ (credit-based)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (booking credits)</td>
+<td>✅ (punch passes)</td>
+<td>✅ (allowances)</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>D. Inventário físico</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unidades/andares/salas</td>
+<td>✅ locations+rooms</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>Capacidade/metragem</td>
+<td>✅ meetrooms (measure)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Fotos</td>
+<td>✅ photos</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>QR Code</td>
+<td>❌</td>
+<td>vários ✅</td>
+</tr>
+<tr>
+<td>Manutenção</td>
+<td>❌</td>
+<td>vários ✅</td>
+</tr>
+<tr>
+<td>Mapas/floorplans</td>
+<td>🟡 (Mapbox em /spaces)</td>
+<td>✅ (Prospect Portal, Archie floor plans)</td>
+</tr>
+</tbody>
+</table>
+<h3>E. Reservas</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>OfficeRnD</th>
+<th>Nexudus</th>
+<th>Archie</th>
+<th>Spacebring</th>
+<th>Cobot</th>
+<th>Coworks</th>
+<th>Proximity</th>
+<th>Habu</th>
+<th>Yardi Kube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reserva de sala</td>
+<td>✅ meetrooms/book</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Reserva de mesa</td>
+<td>🟡 (desks sem booking)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Calendário Google</td>
+<td>🟡 (OAuth placeholder)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Calendário Outlook</td>
+<td>🟡 (Exchange placeholder)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>✅</td>
+<td>❓</td>
+<td>❓</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Recorrência/lista de espera</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>❓</td>
+<td>✅ (recorrência)</td>
+<td>❓</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Aprovação/cancelamento</td>
+<td>✅ approve/reject</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Check-in</td>
+<td>❌</td>
+<td>✅ (Checkins)</td>
+<td>✅ (kiosk)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (Wave)</td>
+<td>✅ (self)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>No-show/cobrança ausência</td>
+<td>❌</td>
+<td>❓</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+</tr>
+</tbody>
+</table>
+<h3>F. Escritório virtual e correspondências (área-chave)</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes que têm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planos de VO</td>
+<td>✅ 7 planos</td>
+<td>OfficeRnD, Nexudus, Archie, Spacebring</td>
+</tr>
+<tr>
+<td>Endereço comercial/postal</td>
+<td>🟡 (addresses)</td>
+<td>Nexudus (dedicado), Spacebring (dedicado)</td>
+</tr>
+<tr>
+<td>Registro de correspondência</td>
+<td>🟡 (mailbox, 0 dados)</td>
+<td>Spacebring (scan/forward/discard), Nexudus (mail handling), OfficeRnD (SphereMail)</td>
+</tr>
+<tr>
+<td>Fotografia/digitalização</td>
+<td>❌</td>
+<td>Spacebring, SphereMail/PilotoMail</td>
+</tr>
+<tr>
+<td>Encaminhamento/retirada/descarte</td>
+<td>❌</td>
+<td>Spacebring</td>
+</tr>
+<tr>
+<td>Notificações de entrega</td>
+<td>🟡 (notifications)</td>
+<td>Nexudus, Spacebring</td>
+</tr>
+<tr>
+<td>USPS 1583 / compliance</td>
+<td>❌</td>
+<td>Nexudus (identity/compliance checks)</td>
+</tr>
+<tr>
+<td><strong>Avaliação:</strong> nosso sistema tem o CATÁLOGO de VO (7 planos) e a estrutura de mailbox, mas o fluxo operacional de correspondências está vazio (0 dados) e sem digitalização/encaminhamento/USPS 1583. Concorrentes com VO dedicado (Nexudus, Spacebring) estão à frente.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>G. Contratos</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modelos/geração</td>
+<td>🟡 (contracts CRUD, 0 dados)</td>
+<td>✅ todos os principais</td>
+</tr>
+<tr>
+<td>Assinatura eletrônica</td>
+<td>🟡 Docusign/AdobeSign/BoldSign (BoldSign QUEBRADA)</td>
+<td>✅ Dropbox Sign (OfficeRnD/Spacebring), Nexudus (digital), Yardi (ySign embutido), Archie</td>
+</tr>
+<tr>
+<td>Renovação/reajuste</td>
+<td>🟡 RenewContractTask (não roda)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Cancelamento/multa/aviso</td>
+<td>🟡 getContractCancelInfo</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Aditivos/versionamento</td>
+<td>❌</td>
+<td>✅ (Yardi stepped deals)</td>
+</tr>
+</tbody>
+</table>
+<h3>H. Faturamento e pagamentos</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faturas recorrentes</td>
+<td>🟡 (GenerateInvoice task NÃO roda)</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>Cobrança avulsa/consumo</td>
+<td>🟡 (invoices)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Cartão</td>
+<td>✅ Stripe (teste)</td>
+<td>✅ todos (Stripe + gateways)</td>
+</tr>
+<tr>
+<td>ACH/direct debit</td>
+<td>❌</td>
+<td>✅ vários (Placepay, GoCardless, Fidelity ACH, Stripe ACH...)</td>
+</tr>
+<tr>
+<td>Inadimplência/suspensão automática</td>
+<td>🟡 (OverdueInvoice task não roda)</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Lembretes</td>
+<td>🟡 (notifications)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Múltiplas moedas</td>
+<td>❌</td>
+<td>✅ Nexudus, Cobot</td>
+</tr>
+<tr>
+<td>Recibos/estornos</td>
+<td>🟡 (refund)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Carteira de crédito</td>
+<td>🟡 (wallet)</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>I. Contabilidade e reconciliação</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>OfficeRnD</th>
+<th>Nexudus</th>
+<th>Archie</th>
+<th>Spacebring</th>
+<th>Cobot</th>
+<th>Coworks</th>
+<th>Proximity</th>
+<th>Habu</th>
+<th>Yardi Kube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QuickBooks Online</td>
+<td>❌ (import pontual QBO)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ (sync both)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>❓</td>
+</tr>
+<tr>
+<td>Xero</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>❓</td>
+<td>❓</td>
+</tr>
+<tr>
+<td>Sincronização contínua</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>✅ (reconciliação automática)</td>
+</tr>
+<tr>
+<td>Conciliação bancária</td>
+<td>🟡 (Plaid task não roda)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❓</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>J. Controle de acesso</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integração fechaduras (Kisi/Brivo/Salto)</td>
+<td>❌</td>
+<td>✅ quase todos (OfficeRnD, Nexudus, Archie, Spacebring, Cobot, Coworks, Proximity, Yardi Kube)</td>
+</tr>
+<tr>
+<td>QR/app/bluetooth</td>
+<td>❌</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Logs de entrada/saída</td>
+<td>❌</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td><strong>Avaliação:</strong> nosso sistema NÃO tem controle de acesso — área totalmente ausente, que a maioria dos concorrentes oferece.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>K. Visitantes e recepção</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gestão de visitantes</td>
+<td>❌</td>
+<td>✅ OfficeRnD (Visitor Hub), Archie, Proximity (Wave), Coworks, Yardi Kube</td>
+</tr>
+<tr>
+<td>Check-in/out visitante</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Pré-registro/termo</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>L. Comunicação</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email</td>
+<td>🟡 SES (task não roda)</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>SMS/WhatsApp</td>
+<td>✅ WhatsApp Meta (código)</td>
+<td>🟡 poucos confirmados</td>
+</tr>
+<tr>
+<td>Push notification</td>
+<td>❌</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Mensagens internas</td>
+<td>✅ chats (0 dados)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Campanhas/segmentação</td>
+<td>❌</td>
+<td>✅ vários</td>
+</tr>
+</tbody>
+</table>
+<h3>M. Comunidade</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diretório de membros</td>
+<td>❌</td>
+<td>✅ Spacebring, vários</td>
+</tr>
+<tr>
+<td>Eventos/feed/mural</td>
+<td>🟡 (events tabela)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Marketplace</td>
+<td>🟡 (página mínima)</td>
+<td>✅ Habu (e-commerce), vários</td>
+</tr>
+<tr>
+<td>NPS/pesquisas</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>N. Operação e manutenção</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tickets/chamados</td>
+<td>🟡 (support-tickets tela)</td>
+<td>✅ Yardi Kube (tasks), vários</td>
+</tr>
+<tr>
+<td>Manutenção/inspeções</td>
+<td>❌</td>
+<td>🟡</td>
+</tr>
+</tbody>
+</table>
+<h3>O. Relatórios e indicadores</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Receita/ocupação</td>
+<td>✅ (10 relatórios, 0 dados)</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>Churn/retenção</td>
+<td>🟡 (cohorts)</td>
+<td>✅ Nexudus (AI churn)</td>
+</tr>
+<tr>
+<td>Utilização/no-show</td>
+<td>🟡</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Exportação</td>
+<td>🟡</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>BI</td>
+<td>❌</td>
+<td>✅ Coworks (Looker)</td>
+</tr>
+</tbody>
+</table>
+<h3>P. Múltiplas unidades</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gestão centralizada</td>
+<td>✅ 10 locations (1 cowork_account)</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>Permissões por unidade</td>
+<td>🟡 (módulos globais)</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Preços/produtos por unidade</td>
+<td>🟡 (VO todos em Saturn)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Relatórios consolidados</td>
+<td>🟡 (revenuebylocation)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Cliente em várias unidades</td>
+<td>🟡</td>
+<td>✅ (Proximity shared, Habu Switch Workspace)</td>
+</tr>
+</tbody>
+</table>
+<h3>Q. Permissões e auditoria</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perfis/funções</td>
+<td>✅ ADMIN/COWORKING/CLIENT</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Permissões granulares</td>
+<td>🟡 (6 módulos)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Logs de auditoria</td>
+<td>✅ logs + admin_audit_logs</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Impersonation</td>
+<td>❌</td>
+<td>🟡</td>
+</tr>
+<tr>
+<td>Restrição dados financeiros/pessoais</td>
+<td>🟡</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>R. Integrações e API</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API pública</td>
+<td>❌ (sem docs/endpoint público)</td>
+<td>✅ OfficeRnD, Nexudus, Spacebring, Cobot, Yardi Kube (API+webhooks); ❓ Archie (add-on), Coworks/Proximity/Habu</td>
+</tr>
+<tr>
+<td>Webhooks</td>
+<td>✅ 6 internos (externos para o sistema)</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Zapier/Make</td>
+<td>❌</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td>✅</td>
+<td>✅ todos</td>
+</tr>
+<tr>
+<td>QuickBooks</td>
+<td>❌ (import pontual)</td>
+<td>✅ maioria</td>
+</tr>
+<tr>
+<td>Google/Microsoft</td>
+<td>🟡 (placeholder)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Avaliação:</strong> nosso sistema é o ÚNICO sem API pública documentada entre os 10 — limitação grave para integrações e para virar produto.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>S. App e UX</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>App iOS/Android</td>
+<td>❌</td>
+<td>✅ todos os 10</td>
+</tr>
+<tr>
+<td>White label</td>
+<td>❌</td>
+<td>✅ quase todos</td>
+</tr>
+<tr>
+<td>Responsividade</td>
+<td>✅ (web)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Idiomas</td>
+<td>🟡 (PT/EN parcial)</td>
+<td>✅ vários (Nexudus multi)</td>
+</tr>
+<tr>
+<td>Acessibilidade</td>
+<td>❓</td>
+<td>❓</td>
+</tr>
+</tbody>
+</table>
+<h3>T. IA e automação</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Workeaser</th>
+<th>Concorrentes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assistente/chatbot</td>
+<td>❌</td>
+<td>✅ Spacebring (Lem AI), OfficeRnD (AI Sales Agent), Nexudus (Alex/insights)</td>
+</tr>
+<tr>
+<td>Previsão de ocupação/churn</td>
+<td>❌</td>
+<td>✅ Nexudus (AI insights)</td>
+</tr>
+<tr>
+<td>Automações de workflow</td>
+<td>🟡 (tasks, não rodam)</td>
+<td>✅ vários</td>
+</tr>
+<tr>
+<td>Agentes de IA</td>
+<td>❌</td>
+<td>✅ Spacebring (Lem), OfficeRnD (AI Hub)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Resumo da comparação</h2>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Nosso sistema</th>
+<th>Concorrentes</th>
+<th>Verdicto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catálogo de serviços (VO/meetrooms/desks)</td>
+<td>✅ sólido</td>
+<td>✅</td>
+<td>EQUIVALENTE (catálogo)</td>
+</tr>
+<tr>
+<td>Escritório virtual (planos)</td>
+<td>✅ 7 planos</td>
+<td>Nexudus/Spacebring/OfficeRnD</td>
+<td>PARCIAL — temos catálogo, falta operação</td>
+</tr>
+<tr>
+<td>Correspondências (mailroom)</td>
+<td>🟡 vazio</td>
+<td>Spacebring/Nexudus completos</td>
+<td>INFERIOR</td>
+</tr>
+<tr>
+<td>Faturamento recorrente</td>
+<td>🟡 código, task morta</td>
+<td>✅ todos</td>
+<td>INFERIOR (não roda)</td>
+</tr>
+<tr>
+<td>Contabilidade QBO</td>
+<td>❌ só import</td>
+<td>✅ maioria</td>
+<td>INFERIOR</td>
+</tr>
+<tr>
+<td>Controle de acesso</td>
+<td>❌</td>
+<td>✅ quase todos</td>
+<td>AUSENTE</td>
+</tr>
+<tr>
+<td>App móvel</td>
+<td>❌</td>
+<td>✅ todos</td>
+<td>AUSENTE</td>
+</tr>
+<tr>
+<td>API pública</td>
+<td>❌</td>
+<td>✅ maioria</td>
+<td>AUSENTE (crítico)</td>
+</tr>
+<tr>
+<td>IA</td>
+<td>❌</td>
+<td>✅ líderes</td>
+<td>AUSENTE</td>
+</tr>
+<tr>
+<td>CRM/pipeline</td>
+<td>🟡 sem dados</td>
+<td>✅</td>
+<td>INFERIOR</td>
+</tr>
+<tr>
+<td>Múltiplas unidades</td>
+<td>✅ 10 locations</td>
+<td>✅</td>
+<td>EQUIVALENTE (estrutura)</td>
+</tr>
+<tr>
+<td>Multi-idioma</td>
+<td>🟡</td>
+<td>✅</td>
+<td>INFERIOR</td>
+</tr>
+<tr>
+<td>Contratos e-sign</td>
+<td>🟡 quebrado</td>
+<td>✅</td>
+<td>INFERIOR</td>
+</tr>
+<tr>
+<td>Auditoria</td>
+<td>✅</td>
+<td>✅</td>
+<td>EQUIVALENTE</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose'});</script>
+</body></html>

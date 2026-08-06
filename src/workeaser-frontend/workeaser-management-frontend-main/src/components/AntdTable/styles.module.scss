@@ -1,0 +1,58 @@
+
+.AntdtableHead {
+    font: 400 1rem laca, Roboto, sans-serif;
+    border-radius: 0;
+    text-align: left;
+    border-width: 0px;
+    line-height: 2.5;
+    background-color: rgb(43, 52, 80);
+  
+    th:first-child {
+      padding-left: 10px;
+      border-start-start-radius: 0px !important;
+    }
+    tr:first-child >*:last-child { 
+      border-start-end-radius: 0px !important;
+      border-radius: 0px !important;
+    }
+    th {
+      padding: 0px;
+      font-size: 14px;
+      background-color: rgb(43, 52, 80);
+  
+      font-weight: 600;
+      text-transform: capitalize;
+      white-space: nowrap;
+      color: rgb(255, 255, 255);
+      border-width: 0px;
+      border-style: none;
+      border-color: rgb(43, 52, 80);
+    }
+  }
+  
+  .AntdtableBody {
+    color: #2b3450;
+    tr:nth-child(2n + 1) {
+      background-color: rgb(247, 249, 251);
+    }
+    tr:nth-child(2n) {
+      background-color: rgb(255, 255, 255);
+    }
+  }
+  
+  .antdTableBodyTr {
+    td:first-child {
+      padding-left: 10px;
+      font-weight: 900;
+    }
+  }
+  
+  .antdTableBodyTd {
+    padding: 10px 0px;
+    font-size: 12px;
+    font-weight: 500;
+    border-width: 0px 0px 1px;
+    border-style: solid;
+    border-color: rgb(206, 217, 230);
+  }
+  

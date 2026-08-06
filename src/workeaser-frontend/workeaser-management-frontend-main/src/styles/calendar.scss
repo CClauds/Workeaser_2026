@@ -1,0 +1,48 @@
+@use "./utils/variables" as *;
+// @import 'react-big-calendar/lib/sass/styles';
+// @import 'react-big-calendar/lib/addons/dragAndDrop/styles'; // if using DnD
+
+.fc {
+  flex: 1;
+  // height: 100%;
+
+  // .fc-header-toolbar {
+  //   // background-color: red;
+  // }
+
+  .fc-prev-button,
+  .fc-next-button {
+    background-color: $color-blue-400;
+    border: none;
+    box-shadow: none;
+
+    &:hover,
+    &:not(:disabled):active {
+      background-color: $color-blue-500;
+      border: none;
+      box-shadow: none;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
+}
+
+.fc-scroller {
+  scrollbar-color: $color-light-gray $color-white;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 100%;
+    background: $color-light-gray;
+    border-radius: 8px;
+  }
+}

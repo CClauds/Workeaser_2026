@@ -1,0 +1,37 @@
+.headerButtonsContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contentContainer {
+  position: relative;
+  flex: 1;
+  display: flex;
+
+  overflow: hidden;
+}
+
+.tab {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  transition: opacity 0.3s, visibility 0.3s;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.tableContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

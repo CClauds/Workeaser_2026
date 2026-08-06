@@ -1,0 +1,86 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+
+  border-bottom: 1px solid $color-gray-300;
+}
+
+.menuLeft,
+.menuRight {
+  display: flex;
+  align-items: center;
+}
+
+.menuLeft {
+  flex: 1;
+}
+
+.logoContainer {
+  padding: 4px 15px 2px 0;
+
+  margin-right: 15px;
+  border-right: 1px solid $color-gray-300;
+}
+
+.nav {
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    a {
+      position: relative;
+      font-size: 1rem;
+      font-weight: $font-semibolder;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $color-blue-100;
+      }
+
+      &.active::after {
+        content: "";
+        position: absolute;
+        left: -3px;
+        right: -3px;
+        bottom: -1px;
+        height: 3px;
+        background: $color-blue-200;
+        border-radius: 3px 3px 0 0;
+      }
+    }
+  }
+}
+
+.actionsContainer {
+  display: flex;
+  gap: 15px;
+
+  padding: 8px 0 8px 15px;
+  margin-left: 25px;
+  border-left: 1px solid $color-gray-300;
+
+  & > a {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-dark-gray;
+    border-radius: 5px;
+
+    transition: filter 0.3s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+}

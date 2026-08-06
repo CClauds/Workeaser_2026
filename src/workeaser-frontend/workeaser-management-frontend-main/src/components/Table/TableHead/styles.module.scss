@@ -1,0 +1,17 @@
+@use "../../../styles/utils/variables" as *;
+
+.tableHead {
+  text-align: left;
+
+  background-color: $color-light-gray;
+
+  th {
+    font-size: 14px;
+    font-weight: $font-book;
+    padding: 15px 0;
+
+    &:first-child {
+      padding-left: 15px;
+    }
+  }
+}

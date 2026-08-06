@@ -1,0 +1,69 @@
+Categoria,Funcionalidade,Nosso sistema,OfficeRnD,Nexudus,Archie,Optix,Spacebring,Cobot,Coworks,Proximity,Habu,Yardi Kube,Evidencia,Conclusao
+CRM e vendas,Cadastro de leads,Parcial (tabela vazia),Completo,Completo,Completo,5,Integrado (HubSpot),Leve,Completo (Leads DB),Nao confirmado,Nao encontrado,Lead gen tools,Workeaser: CODIGO+BANCO leads=0,Inferior
+CRM e vendas,Pipeline comercial,Parcial (0 dados),Completo,Completo,Completo,5,Nao nativo,Nao nativo,Parcial,Nao confirmado,Nao encontrado,Integrado HubSpot,Workeaser: CODIGO+BANCO salespipeline=0,Inferior
+CRM e vendas,Tours,Parcial (0 dados),Completo,Completo,Completo,4,Integrado (Calendly),Completo,Completo (Tour Requests),Completo (Wave),Nao encontrado,Completo (MIMO),Workeaser: CODIGO+BANCO tours=0,Inferior
+CRM e vendas,Proposta/cotacao,Ausente,Completo,Completo,Completo (quotes),4,Ausente,Nao confirmado,Nao confirmado,Ausente,Nao encontrado,Completo (stepped deals),Workeaser: NAO_CONFIRMADO,Inferior
+CRM e vendas,Conversao lead->cliente,Parcial,Completo,Completo,Completo,5,Completo (1 clique),Completo,Completo,Nao confirmado,Nao encontrado,Completo,Workeaser: CODIGO,Inferior
+CRM e vendas,WhatsApp,Sim (Meta Cloud),Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Workeaser: CODIGO MetaCloudImplementation,Superior (diferencial)
+Clientes e membros,Cadastro de empresa,Sim (240),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO client_accounts=240,Equivalente
+Clientes e membros,Membros vinculados a empresa,Parcial,Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO cowork_clients,Equivalente
+Clientes e membros,Portal do cliente,Sim (web),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO client/membership,Equivalente
+Clientes e membros,App movel,Ausente,Sim (branded),Sim (Passport),Sim (branded),5,Sim (white-label),Sim (Members App),Sim (white-label),Sim (white-label),Sim,Sim (Member App),Workeaser: NAO_CONFIRMADO app,Inferior
+Clientes e membros,Onboarding/offboarding,Parcial (evento email),Completo,Completo,Completo,Nao confirmado,Completo,Completo,Completo,Completo,Completo (self signup),Completo (MIMO),Workeaser: CODIGO evento onboarding,Inferior
+Produtos,Escritorio privativo,Parcial (0 rooms),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO rooms=0,Inferior
+Produtos,Mesa dedicada,Sim (4 desks),Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO desks=4,Equivalente (catálogo)
+Produtos,Sala de reuniao,Sim (5),Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO meetrooms=5,Equivalente (catálogo)
+Produtos,Day pass,Parcial (0 dados),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO+BANCO day_passes=0,Inferior
+Produtos,Escritorio virtual,Sim (7 planos),Sim,Sim (dedicado),Sim,1,Sim (dedicado),Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: BANCO virtual_offices=7,Parcial (só catálogo)
+Produtos,Correspondencias mailroom,Parcial (0 dados),Sim (SphereMail),Sim (mail handling),Sim (visitor/delivery),1,Sim (scan/forward/discard),Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: BANCO mailboxes=0,Inferior
+Produtos,USPS Form 1583,Ausente,Nao confirmado,Sim (compliance),Nao confirmado,Nao confirmado,Nao confirmado,Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: NAO_CONFIRMADO,Inferior
+Produtos,Planos recorrentes,Parcial (3 planos, 0 assinaturas),Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO subscription_plans=3 subscriptions=0,Inferior
+Produtos,Cupons/descontos,Parcial (0 dados),Sim (promo codes),Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO discount_codes=0,Inferior
+Produtos,Creditos/allowances,Parcial (wallet),Sim (Credits),Sim,Sim (credit-based),5,Sim,Sim,Sim (punch passes),Sim (allowances),Sim,Sim,Workeaser: CODIGO wallet,Inferior
+Inventario,Unidades/andares/salas,Sim (10 locations),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO locations=10,Equivalente
+Inventario,Capacidade/metragem,Sim (meetrooms),Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO,Equivalente
+Inventario,QR Code,Ausente,Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Reservas,Reserva de sala,Sim (book),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO meetrooms/book,Equivalente (código)
+Reservas,Reserva de mesa,Parcial,Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO sem booking de desk,Inferior
+Reservas,Google Calendar,Parcial (OAuth placeholder),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CONFIG placeholder,Inferior
+Reservas,Recorrencia/lista espera,Ausente,Sim,Sim,Sim,Nao confirmado,Sim,Nao confirmado,Nao confirmado,Sim,Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Reservas,Aprovacao/cancelamento,Sim,Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO approve/reject,Equivalente
+Reservas,Check-in,Ausente,Sim (Checkins),Sim (kiosk),Sim,5,Sim,Sim,Sim,Sim (Wave),Sim (self),Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Escritorio virtual,Planos de VO,Sim (7),Sim,Sim,Sim,Nao confirmado,Sim,Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: BANCO,Equivalente (só quem tem)
+Escritorio virtual,Registro de correspondencia,Parcial (0),Sim (SphereMail),Sim,Nao confirmado,1,Sim (scan/forward),Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: BANCO mailboxes=0,Inferior
+Escritorio virtual,Digitalizacao/encaminhamento,Ausente,Sim,Sim,Nao confirmado,1,Sim,Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: NAO_CONFIRMADO,Inferior
+Escritorio virtual,Notificacoes de entrega,Parcial,Sim,Sim,Nao confirmado,Nao confirmado,Sim,Ausente,Ausente,Ausente,Ausente,Ausente,Workeaser: CODIGO notifications,Inferior
+Contratos,Modelos/geracao,Parcial (0),Sim,Sim,Sim,4,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Sim (templates),Workeaser: BANCO contracts=0,Inferior
+Contratos,Assinatura eletronica,Parcial (BoldSign QUEBRADA),Sim (Dropbox Sign),Sim,Sim,4,Sim (Dropbox Sign),Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Sim (ySign),Workeaser: RUNTIME Invalid URL,Inferior
+Contratos,Renovacao,Parcial (task morta),Sim,Sim,Sim,4,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Sim (auto-renewal),Workeaser: RUNTIME scheduler inativo,Inferior
+Faturamento,Faturas recorrentes,Parcial (task morta),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: RUNTIME scheduler inativo,Inferior
+Faturamento,Cartao,Sim (Stripe teste),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CONFIG sk_test,Inferior (teste)
+Faturamento,ACH/direct debit,Ausente,Sim (Placepay),Sim (GoCardless),Sim,Nao confirmado,Sim (ACH/SEPA),Sim (Fidelity ACH),Sim (Stripe ACH),Sim (1% ACH),Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Faturamento,Inadimplencia/suspensao,Parcial (task morta),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: RUNTIME,Inferior
+Faturamento,Multiplos gateways,Ausente (só Stripe),Sim,Sim (100+),Sim,Nao confirmado,Sim,Sim (100+),Sim,Nao confirmado,Nao confirmado,Sim,Workeaser: CONFIG,Inferior
+Contabilidade,QuickBooks Online,Ausente (import pontual),Sim,Sim,Sim,Sim,Nao confirmado,Sim,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Workeaser: BANCO import pontual,Inferior
+Contabilidade,Xero,Ausente,Sim,Sim,Sim,3,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Nao confirmado,Workeaser: NAO_CONFIRMADO,Inferior
+Contabilidade,Reconciliacao bancaria,Parcial (Plaid task morta),Sim,Sim,Sim,4,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: RUNTIME,Inferior
+Controle acesso,Fechaduras (Kisi/Brivo/Salto),Ausente,Sim,Sim,Sim,4,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Controle acesso,QR/app/bluetooth,Ausente,Sim,Sim,Sim,4,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Visitantes,Gestao de visitantes,Ausente,Sim (Visitor Hub),Sim,Nao confirmado,5,Sim,Sim,Sim (Wave),Sim,Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Comunicacao,Email,Parcial (SES task morta),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: RUNTIME,Inferior
+Comunicacao,WhatsApp,Sim (Meta Cloud),Nao confirmado,Nao confirmado,Nao confirmado,2,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Workeaser: CODIGO,Superior (diferencial)
+Comunicacao,Mensagens internas,Parcial (0 dados),Sim,Sim,Sim,5,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Sim,Workeaser: BANCO chats=0,Inferior
+Comunidade,Eventos,Parcial (0),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO events=0,Inferior
+Comunidade,Marketplace,Parcial (página mínima),Sim,Sim,Sim,5,Sim,Sim,Sim,Nao confirmado,Sim (e-commerce),Sim,Workeaser: CODIGO página vazia,Inferior
+Relatorios,Receita/ocupacao,Parcial (0 dados),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: BANCO 0 dados,Inferior
+Relatorios,Churn/retencao,Parcial (cohorts),Sim,Sim (AI churn),Sim,4,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: CODIGO cohorts,Inferior
+Multi-unidades,Gestao centralizada,Sim (10 locations),Sim,Sim,Sim,5,Sim,Sim,Sim (multi-campus),Sim (multispace),Sim (switch workspace),Sim,Workeaser: BANCO,Equivalente
+Multi-unidades,Permissoes por unidade,Parcial (módulos globais),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: CODIGO,Inferior
+Permissoes,Perfis/funcoes,Sim (3 roles),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: CODIGO,Equivalente
+Permissoes,Auditoria,Sim (logs),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: BANCO logs=150,Equivalente
+Integracoes,API publica,Ausente,Sim (v2+webhooks),Sim (REST+webhooks),Sim (add-on),5,Sim (REST+OpenAPI+MCP),Sim (v2+webhooks),Nao confirmado,Nao confirmado,Nao confirmado,Sim (API+webhooks),Workeaser: NAO_CONFIRMADO,Inferior (crítico)
+Integracoes,Webhooks,Sim (6 internos),Sim,Sim,Sim,5,Sim,Sim,Nao confirmado,Nao confirmado,Nao confirmado,Sim,Workeaser: CODIGO webhooks,Equivalente
+Integracoes,Zapier/Make,Ausente,Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+Integracoes,Stripe,Sim (teste),Sim,Sim,Sim,5,Sim,Sim,Sim,Sim (Connect),Sim,Nao confirmado,Workeaser: CONFIG,Equivalente (código)
+IA,Assistente/chatbot,Ausente,Sim (AI Hub),Sim (Alex),Nao confirmado,5,Sim (Lem AI),Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Workeaser: NAO_CONFIRMADO,Inferior
+IA,Previsao ocupacao/churn,Ausente,Sim,Sim (AI insights),Nao confirmado,4,Sim (Lem),Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Nao confirmado,Workeaser: NAO_CONFIRMADO,Inferior
+App,App iOS/Android,Ausente,Sim,Sim,Sim,5,Sim,Sim,Sim,Sim,Sim,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+App,White label,Ausente,Sim (add-on),Sim (+$150),Sim,5,Sim,Sim,Sim (add-on),Sim (2 semanas),Nao confirmado,Sim,Workeaser: NAO_CONFIRMADO,Inferior
+App,Multi-idioma,Parcial (PT/EN),Sim,Sim,Sim,4,Sim,Sim,Sim,Nao confirmado,Nao confirmado,Sim,Workeaser: CODIGO parcial,Inferior

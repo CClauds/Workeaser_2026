@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant U as Usuário
+    participant F as Frontend (Next.js :3005)
+    participant API as workeaser-api (:3333)
+    participant H as Adonis Hash (argon2id)
+    participant DB as MySQL (users, api_tokens, logs)
+
+    U->>F: Acessa /login
+    F->>F: Exibe LoginBox (Login + Password)
+    U->>F: Preenche credenciais + clica LOG IN
+    F->>API: POST /api/auth/login {email, password}
+    API->>API: rateLimit:auth_login (in-memory, 35s cooldown)
+    API->>H: Hash.verify(password, user.password)
+    alt senha inválida
+        H-->>API: false
+        API-->>F: 400 "Email or password is incorrect"
+    else email não confirmado
+        API-->>F: 400 "Email address has not been confirmed yet"
+    else sucesso
+        H-->>API: true
+        API->>DB: INSERT api_tokens (OAT bearer, expira 1 dia)
+        API->>DB: INSERT logs (AUTH LOGIN_SUCCESS, ip, ua)
+        API-->>F: 200 { token, expires_at, user { role } }
+        F->>F: setCookie("user-token", token, {sameSite:strict, maxAge})
+        F->>F: api.defaults.headers.Authorization = Bearer token
+        alt role COWORKING/ADMIN
+            F-->>U: Redirect /dashboard
+        else role CLIENT
+            F-->>U: Redirect /spaces
+        end
+    end
+
+    U->>F: Clica logout
+    F->>API: POST /api/auth/logout (Bearer)
+    API->>DB: revoga token (api_tokens)
+    F->>F: destroyCookie("user-token")
+    F-->>U: Redirect /login

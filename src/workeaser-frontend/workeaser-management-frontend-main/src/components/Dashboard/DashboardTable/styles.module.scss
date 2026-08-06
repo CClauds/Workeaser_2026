@@ -1,0 +1,73 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  width: 100%;
+  border-spacing: 0;
+  padding: h.toRem(11);
+
+  thead {
+    text-align: left;
+    line-height: 2.5;
+    background-color: $color-dark-gray;
+
+    th {
+      font-size: 14px;
+      font-weight: $font-regular;
+
+      &:first-child {
+        padding-left: h.toRem(10);
+      }
+    }
+  }
+
+  tbody {
+    td {
+      font-size: 12px;
+      font-weight: $font-semibold;
+
+      padding: h.toRem(8) 0;
+
+      border-bottom: 1px solid $color-dark-gray;
+
+      &:first-child {
+        padding-left: h.toRem(10);
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 h.toRem(11);
+
+  margin-bottom: 0.75rem;
+
+  & > div {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    p {
+      font-size: 9px;
+      font-weight: $font-semibold;
+    }
+
+    span {
+      &:first-child {
+        transform: rotate(90deg);
+      }
+      &:last-child {
+        transform: rotate(-90deg);
+      }
+      &::before {
+        font-weight: $font-black;
+        color: $color-blue-800;
+      }
+    }
+  }
+}

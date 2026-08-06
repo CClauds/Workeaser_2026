@@ -1,0 +1,74 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.825rem;
+  font-weight: $font-bold;
+  // @include h.letter-spacing(100);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  white-space: nowrap;
+
+  padding: 0 25px;
+
+  transition: all 0.3s;
+
+  &.primary {
+    color: $color-white;
+    background-color: $color-blue-100;
+    border: 1px solid $color-blue-100;
+
+    &:hover:not(:disabled) {
+      color: $color-blue-100;
+      background-color: $color-white;
+    }
+    &:disabled {
+      border-color: $color-darker-gray;
+      background-color: $color-darker-gray;
+    }
+  }
+
+  &.danger {
+    color: $color-white;
+    background-color: $color-red-300;
+    border: 1px solid $color-red-300;
+
+    &:hover:not(:disabled) {
+      color: $color-red-300;
+      background-color: $color-white;
+    }
+    &:disabled {
+      border-color: $color-darker-gray;
+      background-color: $color-darker-gray;
+    }
+  }
+
+  &.secondary {
+    color: $color-blue-800;
+    background-color: $color-white;
+    border: 1px solid $color-blue-800;
+
+    &:hover:not(:disabled) {
+      color: $color-white;
+      background-color: $color-blue-800;
+    }
+  }
+
+  &.plain {
+    color: $color-blue-800;
+    padding: 0;
+    background: none;
+    border: none;
+
+    &:hover:not(:disabled) {
+      color: $color-darker-gray;
+      background: none;
+      border: none;
+    }
+  }
+}

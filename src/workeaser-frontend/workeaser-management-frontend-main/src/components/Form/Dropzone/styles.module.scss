@@ -1,0 +1,159 @@
+@use "../../../styles/utils/variables" as *;
+
+.wrapper {
+  position: relative;
+
+  & > span {
+    position: absolute;
+    bottom: -15px;
+    left: 10px;
+    font-size: 11px;
+
+    &.error {
+      color: $color-notify-fail;
+    }
+  }
+
+  canvas {
+    display: none;
+  }
+}
+
+.container {
+  max-width: 485px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 10px;
+
+  border: 1px solid $color-gray-300;
+
+  transition: box-shadow 0.3s;
+
+  cursor: pointer;
+
+  &.error {
+    border-color: $color-notify-fail;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 5px rgba($color: #000000, $alpha: 0.2);
+  }
+
+  & > label {
+    font-size: 18px;
+    font-weight: $font-semibold;
+  }
+
+  ul {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 5px;
+
+    list-style: none;
+    scroll-snap-type: x;
+    overflow-x: auto;
+
+    scrollbar-color: $color-light-gray $color-white;
+    scrollbar-width: thin;
+
+    li {
+      position: relative;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+      }
+
+      button {
+        position: absolute;
+        top: -6px;
+        right: -5px;
+
+        width: 16px;
+        height: 16px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: $color-light-gray;
+        // border: 1px solid $color-light-gray;
+        border-radius: 8px;
+        box-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.2);
+
+        transition: filter 0.3s;
+        cursor: pointer;
+        z-index: 1;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+
+      span {
+        display: inline-block;
+        max-width: 375px;
+        font-size: 12px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $color-dark-gray;
+      border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 100%;
+      background-color: $color-gray-200;
+      border-radius: 8px;
+
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $color-darker-gray;
+      }
+    }
+
+    &.column {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 5px 0;
+      overflow-y: auto;
+
+      button {
+        top: -2px;
+        right: -20px;
+
+        width: 14px;
+        height: 14px;
+
+        font-size: 12px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        width: 100%;
+        background-color: $color-gray-200;
+        border-radius: 8px;
+      }
+    }
+  }
+}

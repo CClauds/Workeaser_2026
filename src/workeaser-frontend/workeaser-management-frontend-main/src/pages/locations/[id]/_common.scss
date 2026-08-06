@@ -1,0 +1,11 @@
+@use "../../../styles/utils/variables" as *;
+
+.buttonsContainer {
+  a + a {
+    margin-left: 15px;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}

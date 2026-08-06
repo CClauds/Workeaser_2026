@@ -1,0 +1,91 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.container {
+  flex: 0 1 h.toRem(275);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 15px;
+
+  background-color: $color-light-gray;
+  border: 1px solid $color-gray-300;
+
+  header {
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid $color-gray-300;
+
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+
+    div.header__infos {
+      margin-left: 10px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: $font-semibold;
+    }
+    h3 {
+      font-size: 12px;
+      font-weight: $font-regular;
+    }
+  }
+}
+
+.infos {
+  border-bottom: 1px solid $color-gray-300;
+
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 17px;
+    font-weight: $font-semibold;
+  }
+
+  .content {
+    margin-top: 15px;
+  }
+}
+
+.infosRow {
+  display: flex;
+  align-items: center;
+
+  & + div {
+    margin-top: 15px;
+  }
+
+  p {
+    font-size: 13px;
+    font-weight: $font-semibold;
+    margin-left: 10px;
+  }
+
+  span {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $color-dark-gray;
+    border-radius: 5px;
+
+    &::before {
+      color: $color-blue-800;
+    }
+  }
+}
+
+.negotiations {
+  h1 {
+    font-size: 17px;
+    font-weight: $font-semibold;
+  }
+}

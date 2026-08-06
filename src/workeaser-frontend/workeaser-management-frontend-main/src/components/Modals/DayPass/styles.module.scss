@@ -1,0 +1,52 @@
+@use "../../../styles/utils/variables" as *;
+
+.formContent {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 30px;
+
+  section {
+    flex: 1 0 340px;
+    width: 340px;
+
+    & > div + div {
+      margin-top: 12px;
+    }
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    p {
+      font-size: 14px;
+      font-weight: $font-regular;
+    }
+
+    .subRowContainer {
+      display: flex;
+      gap: 5px;
+    }
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+
+  button {
+    width: 255px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}
+
+.timePicker {
+  padding: 8px;
+}

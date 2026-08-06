@@ -1,0 +1,40 @@
+flowchart TB
+    subgraph Scheduler["adonis5-scheduler (cron) — ⚠️ NÃO ESTÁ RODANDO no container"]
+        GINV["GenerateInvoice\n0 2 * * * (2h diária)"]
+        OINV["OverdueInvoice\n0 5 * * * * (hora)"]
+        PLAID["PlaidReconciliation\n0 */2 * * * (2h)"]
+        LGPD["ProcessDataDeletion\n0 3 * * * (3h)"]
+        EMAILQ["ProcessEmailQueue\n* * * * * (1min)"]
+        WEBQ["ProcessWebhookRetryQueue\n*/5 * * * * (5min)"]
+        WAQ["ProcessWhatsappQueue\n* * * * * (1min)"]
+        RENEW["RenewContractTask\n0 1 * * * (1h)"]
+    end
+
+    subgraph Filas["Filas (tabelas MySQL)"]
+        EQ[("email_queue")]
+        DLQ[("webhook_dead_letter_queue")]
+        WAQ_T[("whatsapp_messages")]
+        LGPD_T[("data_deletion_requests")]
+    end
+
+    subgraph Eventos["Eventos"]
+        EV["user:email_confirmed\n→ OnboardingEmailService.scheduleSequence\n(3 emails: dia 0, 3, 7)"]
+    end
+
+    subgraph Entrada["Gatilhos externos"]
+        WH["Webhooks\n(Stripe/SES/WhatsApp/eSign)"]
+    end
+
+    EV --> EQ
+    GINV -->|"gera invoices"| INV_T["invoices"]
+    OINV -->|"marca vencidas"| INV_T
+    PLAID -->|"match transação→invoice"| INV_T
+    LGPD --> LGPD_T
+    EMAILQ --> EQ
+    WEBQ --> DLQ
+    WAQ --> WAQ_T
+    RENEW -->|"renova contracts"| CONTR_T["contracts"]
+    WH -->|"falha → DLQ"| DLQ
+
+    style Scheduler fill:#f66,color:#000
+    style EV fill:#dfd,color:#000

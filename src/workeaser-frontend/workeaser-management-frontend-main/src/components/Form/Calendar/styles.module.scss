@@ -1,0 +1,30 @@
+@use "../../../styles/utils/variables" as *;
+
+.calendar {
+  border: 1px solid $color-dark-gray;
+
+  & > div {
+    padding-bottom: 0;
+  }
+}
+
+.DayPicker-Day {
+  padding: 2px;
+}
+
+.day {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+  font-weight: $font-semibold;
+
+  border: 1px solid $color-dark-gray;
+
+  &.selected {
+    border: none;
+  }
+}

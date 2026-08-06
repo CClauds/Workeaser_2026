@@ -1,0 +1,43 @@
+# Frontend Next.js — Dockerfile multi-stage com standalone output
+FROM node:22-bullseye-slim AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund --legacy-peer-deps
+
+FROM node:22-bullseye-slim AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_ADMIN_API_URL
+ARG NEXT_PUBLIC_MAPBOX_KEY
+ARG NEXT_IGNORE_BUILD_ERRORS
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_IGNORE_BUILD_ERRORS=$NEXT_IGNORE_BUILD_ERRORS
+ENV NEXT_PUBLIC_ADMIN_API_URL=$NEXT_PUBLIC_ADMIN_API_URL
+ENV NEXT_PUBLIC_MAPBOX_KEY=$NEXT_PUBLIC_MAPBOX_KEY
+RUN npm run build
+
+FROM node:22-bullseye-slim AS runtime
+ENV NODE_ENV=production
+WORKDIR /app
+
+RUN groupadd -r app && useradd -r -g app -d /app -s /sbin/nologin app
+RUN apt-get update && apt-get install -y --no-install-recommends tini wget && rm -rf /var/lib/apt/lists/*
+
+# Cópia dos artefatos do build Next (assume saída padrão; ajustar se usar standalone)
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./
+COPY --from=build /app/next.config.js ./
+
+RUN chown -R app:app /app
+USER app
+EXPOSE 3000
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["npm", "start"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD wget --spider -q http://127.0.0.1:3000/ || exit 1

@@ -1,0 +1,31 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  position: relative;
+  border-radius: 10px;
+
+  &.statusOn::after {
+    @extend %status-container;
+    background-color: $color-green-600;
+  }
+  &.statusOff::after {
+    @extend %status-container;
+    background-color: $color-red-500;
+  }
+}
+
+.avatar {
+  border-radius: 5px;
+  // margin-left: 20px;
+}
+
+%status-container {
+  content: " ";
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+
+  border: 3px solid $color-white;
+}

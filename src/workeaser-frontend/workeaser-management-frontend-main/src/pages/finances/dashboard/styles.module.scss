@@ -1,0 +1,15 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 15px;
+
+  .chart__big {
+    flex: 2;
+  }
+  .chart__small {
+    flex: 1;
+  }
+}

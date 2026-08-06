@@ -1,0 +1,16 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  position: relative;
+  width: 100%;
+
+  text-align: inherit;
+
+  &.error {
+    outline: 1px solid $color-notify-fail;
+  }
+
+  input {
+    text-align: inherit;
+  }
+}

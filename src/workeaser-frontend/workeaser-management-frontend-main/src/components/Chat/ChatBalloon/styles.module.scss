@@ -1,0 +1,46 @@
+@use "../../../styles/utils/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  p {
+    font-size: 11px;
+    font-weight: $font-regular;
+
+    margin-top: 5px;
+
+    &.right {
+      text-align: right;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+
+  &.right {
+    justify-content: flex-end;
+  }
+}
+
+.content {
+  max-width: 65%;
+
+  padding: 15px;
+  background-color: $color-gray-300;
+  border-radius: 5px;
+
+  & > span.text {
+    font-size: 13px;
+    font-weight: $font-regular;
+  }
+
+  &.right {
+    order: -1;
+    background-color: $color-dark-gray;
+  }
+}

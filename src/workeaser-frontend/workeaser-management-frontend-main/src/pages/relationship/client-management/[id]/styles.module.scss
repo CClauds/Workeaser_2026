@@ -1,0 +1,81 @@
+@use "../../../../styles/utils/variables" as *;
+@use "../../../../styles/utils/helpers" as h;
+
+.container {
+  height: $main-content-height;
+  display: flex;
+  gap: 15px;
+}
+
+.contentContainer {
+  flex: 1;
+  overflow: hidden;
+}
+
+button.viewButton {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 12px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+
+  & + div {
+    margin-top: 15px;
+  }
+
+  &__card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid $color-dark-gray;
+    overflow: hidden;
+
+    p {
+      font-size: h.toRem(11);
+    }
+
+    h3 {
+      font-size: h.toRem(14);
+      font-weight: $font-semibold;
+      line-height: 1.5;
+    }
+
+    .numberContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      p {
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
+      span.number {
+        font-size: h.toRem(35);
+        font-weight: $font-black;
+        color: $color-blue-100;
+      }
+    }
+  }
+}
+
+.overview__content {
+  & > div + div {
+    margin-top: 0.8rem;
+  }
+}
+
+.tableContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

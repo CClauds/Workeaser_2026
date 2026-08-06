@@ -1,0 +1,20 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: $font-semibold;
+    @include h.letter-spacing(150);
+  }
+}

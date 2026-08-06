@@ -1,0 +1,48 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/helpers" as h;
+
+.textCenter {
+  text-align: center;
+}
+
+.thumbnail {
+  text-align: left;
+  display: flex;
+  // width: 70px;
+
+  img {
+    object-fit: cover;
+    border-radius: 15px;
+  }
+}
+
+.name {
+  h3 {
+    font-size: 13px;
+    font-weight: $font-semibolder;
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: $font-book;
+  }
+}
+
+.green {
+  @extend %span-background;
+  span {
+    background-color: $color-tablebackground-green;
+  }
+}
+.red {
+  @extend %span-background;
+  span {
+    background-color: $color-tablebackground-red;
+  }
+}
+.yellow {
+  @extend %span-background;
+  span {
+    background-color: $color-tablebackground-yellow;
+  }
+}

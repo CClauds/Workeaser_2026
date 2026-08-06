@@ -1,0 +1,42 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  padding: 10px 0;
+
+  div:nth-child(1) {
+    height: 2px;
+    background-color: $color-blue-800;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  div:nth-child(2) {
+    height: 2px;
+    background-color: $color-tablebackground-yellow;
+    &.yellow {
+      background-color: $color-yellow-400;
+    }
+  }
+  div:nth-child(3) {
+    height: 2px;
+    background-color: $color-tablebackground-red;
+    &.red {
+      background-color: $color-orange-500;
+    }
+  }
+  div:nth-child(4) {
+    height: 2px;
+    background-color: $color-light-gray;
+    &.blue {
+      background-color: $color-blue-100;
+    }
+  }
+  div:nth-child(5) {
+    height: 2px;
+    background-color: $color-tablebackground-green;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+}

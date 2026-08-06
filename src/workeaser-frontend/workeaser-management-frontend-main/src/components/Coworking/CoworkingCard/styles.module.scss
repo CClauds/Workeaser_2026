@@ -1,0 +1,92 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  border: 1px solid $color-dark-gray;
+
+  user-select: none;
+
+  &.active {
+    border-color: $color-blue-800;
+  }
+
+  figure {
+    height: 220px;
+    position: relative;
+    cursor: pointer;
+  }
+}
+
+.infos {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+
+  &.active {
+    background-color: $color-light-gray;
+  }
+
+  h1,
+  h2 {
+    max-width: clamp(325px, 30vw, 460px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h1 {
+    font-size: 15px;
+    font-weight: $font-bold;
+  }
+  h2 {
+    font-size: 12px;
+    font-weight: $font-regular;
+    margin-top: 8px;
+  }
+
+  p.price {
+    font-size: 15px;
+    font-weight: $font-bold;
+    color: $color-blue-200;
+  }
+}
+
+.no__image {
+  height: 220px;
+  position: relative;
+
+  display: flex;
+  place-items: center;
+  justify-content: center;
+
+  border: 2px solid $color-dark-gray;
+  cursor: pointer;
+}
+
+.servicesContainer {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.ribbon {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
+  padding: 0.25rem 0.5rem;
+  background-color: $color-white;
+
+  span {
+    font-size: 12px;
+    font-weight: $font-semibold;
+
+    & + span:before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: $color-blue-200;
+      border-radius: 50%;
+      margin: 0 0.5rem;
+    }
+  }
+}

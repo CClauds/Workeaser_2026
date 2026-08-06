@@ -1,0 +1,65 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  padding: 10px;
+  margin-top: 20px;
+
+  background-color: $color-light-gray;
+  border: 1px solid $color-light-gray;
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 10px;
+  }
+}
+
+.textboxContainer {
+  display: flex;
+  align-items: flex-start;
+
+  figure {
+    margin-right: 5px;
+    border-radius: 7px;
+  }
+
+  .textArea {
+    flex: 1;
+    div {
+      height: 75px;
+    }
+
+    textarea {
+      background-color: $color-white;
+      border-radius: 0;
+    }
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.sendButtonsContainer {
+  display: flex;
+
+  .translate {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    span {
+      font-size: 12px;
+      margin-left: 5px;
+    }
+  }
+
+  button {
+    height: 28px;
+    font-size: 12px;
+    margin-left: 12px;
+  }
+}

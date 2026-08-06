@@ -1,0 +1,29 @@
+@use "../../../../styles/utils/variables" as *;
+
+.container {
+  font-size: 12px;
+  font-weight: $font-semibolder;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+
+  padding: 6px 10px;
+
+  &.transparent {
+    background-color: transparent;
+  }
+  &.green {
+    background-color: $color-tablebackground-green;
+  }
+  &.gray {
+    background-color: $color-dark-gray;
+  }
+  &.red {
+    background-color: $color-tablebackground-red;
+  }
+  &.yellow {
+    background-color: $color-tablebackground-yellow;
+  }
+  &.blue {
+    background-color: $color-tablebackground-blue;
+  }
+}

@@ -1,0 +1,47 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  width: 100%;
+  height: 130px;
+
+  border: 1px solid $color-light-gray;
+  border-radius: 5px;
+
+  padding: 10px;
+
+  h2 {
+    font-size: 14px;
+    font-weight: $font-regular;
+
+    strong {
+      font-weight: $font-bold;
+    }
+  }
+
+  & > div,
+  h2 + div {
+    margin-top: 10px;
+  }
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+
+  p {
+    flex: 1;
+
+    font-size: 12px;
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: $font-bold;
+  }
+
+  .input {
+    margin-left: 5px;
+    flex: 0.2;
+    height: 36px;
+  }
+}

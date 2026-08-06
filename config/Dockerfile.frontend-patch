@@ -1,0 +1,9 @@
+# Patch do frontend: troca URLs do NAS (172.16.4.23) pelas do PC (172.16.4.26)
+# Evita rebuild completo do Next.js — sed nos arquivos estáticos do .next
+FROM workeaser-frontend:latest
+USER root
+RUN grep -rlI "172\.16\.4\.23" /app/.next /app/public 2>/dev/null | while read -r f; do \
+      sed -i 's|http://172\.16\.4\.23:3333/api|http://172.16.4.26:3333/api|g; s|http://172\.16\.4\.23:3334/api|http://172.16.4.26:3334/api|g' "$f"; \
+    done; \
+    echo "Arquivos patcheados:"; grep -rlI "172\.16\.4\.26" /app/.next /app/public 2>/dev/null | head -20
+USER app

@@ -1,0 +1,14 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+
+  aside {
+    flex: 0 1 500px;
+  }
+}
+
+.mapContainer {
+  flex: 1;
+  height: 500px;
+}

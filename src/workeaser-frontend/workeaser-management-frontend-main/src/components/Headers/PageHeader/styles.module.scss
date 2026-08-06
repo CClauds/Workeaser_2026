@@ -1,0 +1,73 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  height: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid $color-gray-300;
+
+  h1 {
+    font-size: 1.2rem;
+    font-weight: $font-semibolder;
+  }
+
+  h2 {
+    font-size: 1rem;
+    font-weight: $font-book;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+
+    a {
+      transition: color 0.3s;
+
+      &:hover {
+        color: $color-blue-100;
+      }
+    }
+
+    // & > button + button {
+    //   margin-left: 15px;
+    // }
+
+    & > %headings {
+      & + %headings {
+        display: flex;
+        align-items: center;
+        &::before {
+          content: "";
+          display: block;
+          margin: 15px;
+          width: 1px;
+          height: 35px;
+          background-color: $color-gray-300;
+          transform: rotate(10deg);
+        }
+      }
+    }
+  }
+
+  p {
+    font-size: 15px;
+    font-weight: $font-book;
+    strong {
+      font-weight: $font-semibolder;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %headings !optional;
+}

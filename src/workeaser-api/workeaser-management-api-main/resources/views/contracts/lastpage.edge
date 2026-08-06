@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>Contract Last Page</title>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      article {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        flex-grow: 1;
+      }
+      header, main, footer {
+        flex-shrink: 0;
+      }
+      header {
+        height: fit-content;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        font-size: 1rem;
+        flex-direction: column;
+      }
+      header > span {
+        height: 100%;
+      }
+      main {
+        height: max-content;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+      }
+      main > .signer_area {
+        width: 50%;
+      }
+      main > .signer_area > .signer_line {
+        width: 70%;
+        border: 1px solid #000000;
+      }
+      main > .signer_area > .signer_anchor {
+        color: #ffffff;
+        text-align: center;
+        font-size: 0.1rem;
+      }
+      main > .signer_area > .signer_name {
+        text-align: center;
+        font-size: 1rem;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <article>
+      <header>
+        <span>Notice to those involved:</span>
+
+        <ol type="a">
+          <li>Do not sign this contract before you read it.</li>
+          <li>You are entitled to an exact copy of the contract you signed. An exact copy of this document will be sent to your emails. Keep it to protect your legal rigths.</li>
+        </ol>
+        <br /><br />
+        <ol type="a">
+          <p>Signature: </p>
+          <p>Email: {{coworkEmail}} </p> <br /> <br />
+
+          <p>Signature: </p>
+          <p>Email: {{customerEmail}} </p> 
+        </ol>
+      </header>
+    </article>
+  </body>
+</html>

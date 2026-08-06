@@ -1,0 +1,15 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  flex: 1;
+  border: 1px solid $color-dark-gray;
+
+  h1 {
+    font-size: h.toRem(13);
+    font-weight: $font-regular;
+    line-height: 3;
+    text-align: center;
+    background-color: $color-dark-gray;
+  }
+}

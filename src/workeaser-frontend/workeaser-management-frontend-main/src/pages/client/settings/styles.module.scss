@@ -1,0 +1,361 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.informationContainer {
+  max-width: 700px;
+  width: 100%;
+
+  section {
+    & + section {
+      margin-top: 25px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        font-size: 14px;
+        font-weight: $font-regular;
+      }
+
+      .line {
+        flex: 1;
+        display: inline-block;
+        height: 1px;
+        background-color: $color-blue-800;
+
+        margin-left: 10px;
+      }
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+
+      margin-top: 20px;
+    }
+  }
+}
+
+.subscriptionsContainer {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 25px;
+
+  section {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+
+    & + section {
+      margin-top: 30px;
+    }
+
+    & > div {
+      flex: 1;
+    }
+
+    &.footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      a {
+        font-size: 10px;
+        font-weight: $font-regular;
+        @include h.letter-spacing(100);
+      }
+    }
+  }
+}
+
+.walletContainer {
+  max-width: 800px;
+  width: 100%;
+
+  section {
+    & + section {
+      margin-top: 25px;
+    }
+
+    &.buttonContainer {
+      display: flex;
+      justify-content: flex-end;
+
+      &.spaceBetween {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.walletFormContainer {
+  max-width: 500px;
+  width: 100%;
+
+  section {
+    & + section {
+      margin-top: 25px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        font-size: 14px;
+        font-weight: $font-regular;
+      }
+
+      .line {
+        flex: 1;
+        display: inline-block;
+        height: 1px;
+        background-color: $color-blue-800;
+
+        margin-left: 10px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      font-size: $font-regular;
+    }
+
+    .checkbox__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      margin-top: 20px;
+
+      & > label {
+        flex-grow: 0.33;
+      }
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+
+      margin-top: 15px;
+    }
+  }
+}
+
+.paymentContainer {
+  max-width: 800px;
+  width: 100%;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+
+  p {
+    flex: 1;
+
+    font-size: 14px;
+  }
+}
+
+.inputFieldsContainer {
+  flex: 1;
+  // display: flex;
+  // justify-content: center;
+
+  & > div + div {
+    margin-top: 15px;
+  }
+
+  .inputFieldsRow {
+    display: flex;
+    gap: 15px;
+
+    & > div {
+      flex: 1;
+    }
+  }
+}
+.membersInputFieldsContainer {
+  flex: 1;
+  margin-top: 15px;
+
+  & > div + div {
+    margin-top: 15px;
+  }
+
+  .inputFieldsRow {
+    display: flex;
+    gap: 15px;
+
+    & > div {
+      flex: 1;
+    }
+  }
+}
+
+.selectContainer {
+  margin-top: 30px;
+}
+
+input.searchInput {
+  background-color: $color-light-gray;
+  width: 275px;
+  background-color: "red";
+  input {
+    &:not([readOnly]):focus {
+      border-color: $color-darker-gray;
+    }
+  }
+
+  span {
+    &:before {
+      color: $color-blue-800;
+    }
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 30px 0;
+
+  button {
+    width: 235px;
+
+    &.loading {
+      width: 69px;
+    }
+  }
+}
+
+.cardInput {
+  padding: 9px 10px;
+
+  font-size: 14px;
+  color: $color-blue-800;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: $color-dark-gray;
+  border-radius: 5px;
+
+  cursor: text;
+  transition: border-color 0.3s;
+
+  &.focus {
+    border-color: $color-blue-200;
+  }
+
+  &.error {
+    border-color: $color-notify-fail;
+  }
+}
+
+.members__form {
+  max-width: 500px;
+  width: 100%;
+  margin-top: 25px;
+
+  section {
+    & + section {
+      margin-top: 25px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        font-size: 14px;
+        font-weight: $font-regular;
+      }
+
+      .line {
+        flex: 1;
+        display: inline-block;
+        height: 1px;
+        background-color: $color-blue-800;
+
+        margin-left: 10px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      font-size: $font-regular;
+      margin-top: 15px;
+    }
+
+    .checkbox__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      margin-top: 20px;
+
+      & > label {
+        flex-grow: 0.33;
+      }
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+
+      margin-top: 20px;
+
+      .inputFieldsContainer {
+        flex: 1;
+
+        & > div + div {
+          margin-top: 15px;
+        }
+
+        .inputFieldsRow {
+          display: flex;
+          gap: 15px;
+        }
+      }
+    }
+  }
+
+  .buttonsContainer {
+    display: flex;
+    justify-content: flex-end;
+
+    margin: 30px 0;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  padding-left: 0.5rem;
+  border: 1px solid $color-gray-300;
+
+  input {
+    border: none;
+    cursor: context-menu;
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "workeaser-admin-api",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "overrides": {
+    "lodash": "^4.17.21",
+    "path-to-regexp": "^3.3.0",
+    "semver": "^7.5.2",
+    "minimatch": "^9.0.5",
+    "validator": "^13.15.21",
+    "tar": "^7.5.11"
+  },
+  "scripts": {
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
+    "dev": "node ace serve --watch",
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "test": "node ace test",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": false,
+    "quoteProps": "consistent",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.9.5",
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.2.2",
+    "@types/proxy-addr": "^2.0.0",
+    "@types/source-map-support": "^0.5.6",
+    "adonis-jest": "^4.0.0",
+    "adonis-preset-ts": "^2.1.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-adonis": "^2.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "pino-pretty": "^9.1.1",
+    "prettier": "^2.8.1",
+    "typescript": "^5.6.3",
+    "husky": "^8.0.3",
+    "youch": "^3.2.2",
+    "youch-terminal": "^2.1.5"
+  },
+  "dependencies": {
+    "@adonisjs/auth": "^8.2.3",
+    "@adonisjs/core": "^5.9.0",
+    "@adonisjs/lucid": "^18.3.0",
+    "@adonisjs/repl": "^3.1.11",
+    "axios": "^1.7.7",
+    "luxon": "^3.5.0",
+    "mysql2": "^3.11.5",
+    "phc-bcrypt": "^1.0.8",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "sinon": "^15.2.0",
+    "source-map-support": "^0.5.21",
+    "uuid": "^9.0.1"
+  }
+}

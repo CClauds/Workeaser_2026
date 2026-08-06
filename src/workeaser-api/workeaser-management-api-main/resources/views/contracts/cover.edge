@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <title>Contract cover</title>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      article {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        flex-grow: 1;
+      }
+      header, main, footer {
+        flex-shrink: 0;
+      }
+      header {
+        height: fit-content;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      header > img {
+        max-height: 250px;
+      }
+      main {
+        height: max-content;
+        padding: 1rem;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        flex-direction: column;
+      }
+      main > .contract_date {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #2F3853;
+        margin-bottom: 0.5rem;
+      }
+      main > .contract_title {
+        color: #2F3853;
+        font-size: 2.5rem;
+        text-align: center;
+      }
+      footer {
+        height: fit-content;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+      footer > .column {
+        width: 50%;
+        font-size: 1rem;
+      }
+      footer > .column > p {
+        margin: 0;
+      }
+      footer > .column :first-child {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <article>
+      <header>
+        @if(coworkLogo)
+          <img src="{{ coworkLogo }}" alt="{{ coworkName }}">
+        @endif
+      </header>
+
+      <main>
+        <h3 class="contract_date">{{ todayDate }}</h3>
+        <h1 class="contract_title">{{ serviceCategory }} Contract <br /> for {{ serviceName }}</h1>
+      </main>
+
+      <footer>
+        <div class="column">
+          <p>Made for:</p>
+          <p>{{ customerName }}</p>
+          <p>{{ customerCompany }}</p>
+          <p>{{ customerAddress }}</p>
+          <p>{{ customerEmail }}</p>
+        </div>
+        <div class="column">
+          <p>Created by:</p>
+          <p>{{ coworkOwner }}</p>
+          <p>{{ coworkName }}</p>
+          <p>{{ coworkEmail }}</p>
+        </div>
+      </footer>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+@use "../../../styles/utils/variables" as *;
+
+.container {
+  flex: 1;
+  display: flex;
+
+  gap: 15px;
+
+  &.client__layout {
+    padding: 1rem;
+  }
+}
+
+.conversations {
+  flex: 0 1 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid $color-gray-300;
+
+  overflow: auto;
+
+  header {
+    width: 100%;
+    background-color: $color-light-gray;
+    border-bottom: 1px solid $color-gray-300;
+
+    h1 {
+      font-size: 15px;
+      line-height: 2.5;
+      font-weight: $font-semibold;
+
+      margin-left: 15px;
+    }
+  }
+
+  & > div {
+    width: 100%;
+    padding: 15px;
+
+    overflow: auto;
+
+    scrollbar-color: $color-gray-300 $color-white;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 100%;
+      background: $color-gray-300;
+      border-radius: 8px;
+    }
+
+    & > div ~ div {
+      margin-top: 15px;
+    }
+  }
+
+  &.cowork {
+    & > div {
+      max-height: calc(100vh - 205px);
+    }
+  }
+  &.client {
+    & > div {
+      max-height: calc(100vh - 145px);
+    }
+  }
+}
+
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .messagesContainer {
+    padding: 0 12px;
+    overflow-y: auto;
+
+    &.cowork {
+      max-height: calc(100vh - 315px);
+    }
+    &.client {
+      max-height: calc(100vh - 255px);
+    }
+
+    & > div ~ div {
+      margin-top: 16px;
+    }
+    scrollbar-color: $color-gray-300 $color-white;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      // border: 1px solid $color-light-gray;
+      // border-top-right-radius: 0.5rem;
+      // border-bottom-right-radius: 0.5rem;
+    }
+    // &::-webkit-scrollbar-track {
+    // }
+    &::-webkit-scrollbar-thumb {
+      width: 100%;
+      background: $color-gray-300;
+      border-radius: 8px;
+      // border-top-right-radius: 0.5rem;
+      // border-bottom-right-radius: 0.5rem;
+    }
+  }
+}
+
+.infos {
+  background-color: $color-gray-300;
+  border: 1px solid $color-gray-300;
+}
+
+.skeleton__wrapper {
+  display: flex;
+  flex-direction: column;
+
+  & > div ~ div {
+    margin-top: 16px;
+  }
+
+  .skeleton__container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    & p {
+      width: 100%;
+      font-size: 11px;
+    }
+
+    & > div {
+      max-width: 60%;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+
+      & > div {
+        width: inherit;
+        height: inherit;
+      }
+    }
+
+    &.align__right {
+      align-items: flex-end;
+      text-align: right;
+
+      & > div {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}

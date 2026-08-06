@@ -1,0 +1,16 @@
+@use "../../styles/utils/variables" as *;
+
+.container {
+  .row {
+    display: flex;
+    gap: 1rem;
+
+    & + div {
+      margin-top: 1rem;
+
+      table {
+        padding: 10px 10px 0;
+      }
+    }
+  }
+}

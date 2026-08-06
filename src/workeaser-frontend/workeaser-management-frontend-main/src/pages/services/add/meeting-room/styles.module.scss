@@ -1,0 +1,169 @@
+@use "../../../../styles/utils/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    font-size: 26px;
+    margin: 26px auto;
+  }
+}
+
+.formContainer {
+  position: relative;
+  flex: 1;
+  max-width: 1000px;
+  width: 100%;
+
+  margin: 0 auto;
+}
+
+.formContent {
+  position: relative;
+  width: 100%;
+  max-height: 375px;
+  height: 100%;
+}
+
+.formElements {
+  position: absolute;
+  // height: 420px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  transition: all 1s;
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  & > div {
+    flex: 1;
+
+    & > div + div {
+      margin-top: 10px;
+    }
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: $font-regular;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  p {
+    flex: 1;
+    font-size: 14px;
+
+    strong {
+      font-weight: $font-bold;
+    }
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: $font-bold;
+  }
+}
+.footerText {
+  font-size: 10px;
+
+  margin-top: 10px;
+
+  a {
+    font-weight: $font-bold;
+  }
+}
+
+.radioContainer {
+  & > label + label {
+    margin-left: 10px;
+  }
+}
+
+.text__center {
+  text-align: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  button {
+    text-transform: uppercase;
+
+    width: 257px;
+
+    &.loading {
+      width: 69px;
+    }
+
+    &.button__plain {
+      transition: opacity 0.3s, visibility 0.3s;
+
+      &.visible {
+        opacity: 1;
+      }
+      &.hidden {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.inputGroupContainer {
+  h5 {
+    font-size: 14px;
+    font-weight: $font-regular;
+  }
+
+  & > div {
+    display: flex;
+    gap: 10px;
+
+    padding: 10px;
+    margin-top: 10px;
+    background-color: $color-light-gray;
+    border: 1px solid $color-gray-300;
+
+    & > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      label {
+        font-size: 12px;
+        font-weight: $font-bold;
+      }
+
+      input {
+        background-color: $color-white;
+      }
+    }
+  }
+}

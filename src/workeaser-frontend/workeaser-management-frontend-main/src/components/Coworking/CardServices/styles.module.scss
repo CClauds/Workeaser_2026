@@ -1,0 +1,26 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.container {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.labelWrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  @extend %block-centered;
+
+  background-color: $color-white;
+
+  cursor: context-menu;
+
+  span {
+    font-size: 10px;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    @include h.letter-spacing(50);
+  }
+}

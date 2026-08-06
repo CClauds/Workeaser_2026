@@ -1,0 +1,133 @@
+@use "../../../styles/utils/variables" as *;
+@use "../../../styles/utils/helpers" as h;
+
+.wrapper {
+  position: absolute;
+  top: 137px;
+  left: 11px;
+
+  width: 690px;
+  height: 0;
+
+  padding: 0;
+
+  background-color: $color-white;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 0 25px rgba($color: $color-dark-gray, $alpha: 0.8);
+
+  z-index: 100;
+
+  overflow: hidden;
+
+  &.sidebarOpen {
+    left: 17px;
+  }
+
+  &.open {
+    height: 220px;
+    padding: 30px;
+    border: 1px solid $color-light-gray;
+    animation: open 0.5s;
+    overflow: visible;
+  }
+
+  @keyframes open {
+    from {
+      height: 0;
+      padding: 0;
+    }
+    to {
+      height: 220px;
+      padding: 30px;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    left: 10px;
+
+    width: 0;
+    height: 0;
+
+    border: 8px solid transparent;
+    border-top: 0;
+    border-bottom: 16px solid $color-white;
+  }
+}
+
+.container {
+  display: flex;
+  // visibility: hidden;
+  opacity: 0;
+
+  transition: opacity 1s;
+
+  &.open {
+    // visibility: visible;
+    opacity: 1;
+  }
+
+  gap: 15px;
+
+  & > div {
+    flex: 1;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-dark-gray;
+
+    span::before {
+      font-size: 21px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: $font-black;
+      text-transform: uppercase;
+      @include h.letter-spacing(50);
+
+      margin-left: 5px;
+    }
+  }
+
+  ul {
+    font-size: 11px;
+    font-weight: $font-regular;
+    text-transform: uppercase;
+    @include h.letter-spacing(50);
+
+    margin-top: 13px;
+
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      line-height: 2.5;
+
+      cursor: pointer;
+
+      transition: filter 0.3s;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 1em;
+        height: 1px;
+        margin-right: 5px;
+        background-color: $color-blue-800;
+      }
+
+      &:hover {
+        filter: brightness(0);
+      }
+    }
+  }
+}

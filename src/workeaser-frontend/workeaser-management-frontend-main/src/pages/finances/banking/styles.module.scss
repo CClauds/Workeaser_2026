@@ -1,0 +1,15 @@
+.header__row {
+  display: flex;
+  gap: 15px;
+
+  button {
+    width: 117px;
+    height: 36px;
+  }
+}
+
+.tableContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
