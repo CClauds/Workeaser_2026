@@ -38,3 +38,13 @@
 - **Archivos entregados**: AUDITORIA_CODE_WORKEASER_2026-08-06.md, CONTEXTO_WORKEASER.md, BITACORA_WORKEASER.md
 - **Total commits en el repo**: 2 (88fba1a backup inicial + 15791ef auditoría)
 
+### Auditoría complementaria QBO — 2026-08-06
+- **Archivo**: AUDITORIA_QBO_WORKEASER_2026-08-06.md
+- **Método**: 4 agentes de exploración paralelos (API, DB, scripts, frontend/docs) + sub-auditor independiente
+- **Hallazgo central**: NO existe integración QBO en el código. Cero SDK, cero rutas, cero columnas, cero env vars.
+- **240 clientes**: importados con script Python one-shot (direct DB, no API) el 2026-07-23. Sin mapeo de IDs QBO.
+- **Sub-auditor**: encontró 5 errores menores (líneas, conteo migraciones 315→317, mecanismo del script). Corregidos. Conclusión central confirmada 100%.
+- **Veredicto sub-auditor**: "FAIL inicial → correcciones aplicadas → conclusión central correcta: no existe integración QBO"
+- **Modelo objetivo**: 12 capacidades, TODAS etiquetadas A CONSTRUIR (nada que rescatar)
+- **Hash commit**: *(pendiente)*
+
