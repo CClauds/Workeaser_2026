@@ -338,3 +338,11 @@
   - Setup placeholders: Contract Templates, Invoice Settings, Payment Methods, Visual Identity
 - **Hash commits**: `58c6a28` (base), `807a295` (shell+clients), `d7bb917` (setup), `ad70f2f` (daily use)
 - **NO desplegado** — espera aprobación de Claudio
+
+### B3 Fixes batch — 2026-08-09
+- Dashboard: 5 KPIs, icons, pending items table, Export/Add buttons
+- All Clients: icons, filters, export, avatars, Add Client as MODAL
+- Contracts: segmented filter (All/Signed/Pending), date columns, icons
+- Billing: 4 KPI cards, filter toolbar, icons
+- 10 placeholder screens with proper DOM structure
+- Hash commits: bee2240, c8b7c66, eb62afa, (pending)
