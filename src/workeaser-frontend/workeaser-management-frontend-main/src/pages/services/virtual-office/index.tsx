@@ -301,7 +301,7 @@ const VirtualOfficePage = ({
 
   const tableData = useMemo(
     () =>
-      data?.map((virtualOffice) => ({
+      data?.filter(Boolean).map((virtualOffice) => ({
         thumbnail: virtualOffice.photos[0],
         name: `${virtualOffice.name}&${virtualOffice.location}`,
         activeMembers: virtualOffice.active_members,

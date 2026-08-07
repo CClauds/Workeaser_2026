@@ -298,7 +298,7 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
 
   const tableData = useMemo(
     () =>
-      data?.map((room) => ({
+      data?.filter(Boolean).map((room) => ({
         id: room.room_local_account_id,
         thumbnail: room.photo[0],
         name: `${room.name}&${room.location}`,

@@ -7,6 +7,7 @@ import { theme } from "@styles/themes";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { ReactElement, ReactNode } from "react";
 import Modal from "react-modal";
 import { ToastContainer } from "react-toastify";
@@ -35,6 +36,8 @@ interface AppCustomProps extends AppProps {
 }
 
 const MyApp = ({ Component, pageProps }: AppCustomProps) => {
+  const router = useRouter();
+
   const getLayout =
     Component.getLayout ??
     ((page) => (
@@ -60,7 +63,7 @@ const MyApp = ({ Component, pageProps }: AppCustomProps) => {
   return (
     <ErrorBoundary>
       {getLayout(
-        <ErrorBoundary>
+        <ErrorBoundary key={router.asPath}>
           <Component {...pageProps} />
         </ErrorBoundary>,
         Component

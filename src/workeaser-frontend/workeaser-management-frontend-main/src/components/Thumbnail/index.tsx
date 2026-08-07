@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/legacy/image";
 import { Figure, Preview } from "./styles";
 import { api } from "@services/api";
 
@@ -20,13 +19,12 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
 }) => (
   <Figure size={size} radius={radius}>
     {url || fullUrl ? (
-      <Image
+      <img
         src={fullUrl ?? `${api.defaults.baseURL}/photos/${url}`}
         width={size}
         height={size}
         alt={alt}
-        objectFit="cover"
-        objectPosition="center"
+        style={{ objectFit: "cover", objectPosition: "center" }}
       />
     ) : (
       <Preview size={size} radius={radius} />

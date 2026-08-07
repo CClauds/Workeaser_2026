@@ -295,7 +295,7 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
 
   const tableData = useMemo(
     () =>
-      data?.map((meetingRoom) => ({
+      data?.filter(Boolean).map((meetingRoom) => ({
         thumbnail: meetingRoom.photos[0],
         name: `${meetingRoom.name}&${meetingRoom.location}`,
         category: MeetingRoomType[meetingRoom.category],

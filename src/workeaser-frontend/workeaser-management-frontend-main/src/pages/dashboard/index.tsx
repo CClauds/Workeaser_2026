@@ -132,7 +132,7 @@ const Dashboard = ({ fallback }: DashboardProps) => {
 
   const bookingsData = useMemo(
     () =>
-      dashboardData?.upcoming_bookings.map((booking) => ({
+      dashboardData?.upcoming_bookings?.filter(Boolean).map((booking) => ({
         reservationType: booking.reservation_type,
         unitRoomName: booking.name,
         dateAndTime: booking.datetime,
@@ -143,7 +143,7 @@ const Dashboard = ({ fallback }: DashboardProps) => {
 
   const membersData = useMemo(
     () =>
-      dashboardData?.mailbox_requests.map((member) => ({
+      dashboardData?.mailbox_requests?.filter(Boolean).map((member) => ({
         activityType: member.activity_type,
         memberName: member.name,
         priorityRequest: member.request,

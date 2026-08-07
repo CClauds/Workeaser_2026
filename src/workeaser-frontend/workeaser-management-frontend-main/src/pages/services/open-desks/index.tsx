@@ -305,7 +305,7 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
   }, [data, mutate, router]);
   const tableData = useMemo(
     () =>
-      data?.map((desk) => ({
+      data?.filter(Boolean).map((desk) => ({
         thumbnail: desk.photos[0],
         name: `${desk.name}&${desk.location}`,
         shareability: desk.shareability,

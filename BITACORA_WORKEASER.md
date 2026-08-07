@@ -143,3 +143,14 @@
 - **Rate-limit 429**: esperado tras múltiples intentos fallidos de login. Se resuelve solo al expirar la ventana.
 - **Hash commit**: *(pendiente)*
 
+
+### Corrección 1A — 3 fallos de estabilización — 2026-08-07
+- **FALLO A**: Next.js Image Optimizer rechazaba fotos con 400 (w=6475 fuera de deviceSizes).
+  Fix: Thumbnail usa `<img>` nativo en vez de `next/legacy/image`. Las fotos de `/api/photos/` no necesitan optimización.
+- **FALLO B**: `.map()` sobre data con elementos null crasheaba ("Cannot read properties of null").
+  Fix: `.filter(Boolean).map()` en 4 páginas de servicios + dashboard (6 ocurrencias).
+- **FALLO C**: ErrorBoundary no reseteaba al navegar — "Something went wrong" persistía entre rutas.
+  Fix: `key={router.asPath}` en ErrorBoundary interior de `_app.tsx`.
+- **Sub-auditor**: PASS — Fixes A/B/C verificados. Solo 7 archivos modificados, scope respetado.
+- **NO desplegado** — espera aprobación de Claudio para deploy.
+- **Hash commit**: *(pendiente)*
