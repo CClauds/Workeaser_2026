@@ -1,16 +1,9 @@
-/**
- * B3-B: All Clients — list from client_accounts JOIN service_contracts (B2 tables).
- * Filters: company, name, room, service. Global search.
- * Cableado: CRUD completo vía /api/cowork/v2/clients.
- */
-import OperatorLayout from '@components/OperatorShell/OperatorLayout';
-import { getAPIClient } from '@services/apiClient';
-import { useFetch } from 'hooks/useFetch';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
+import { Shell } from '@components/OperatorShell/Shell';
+import { useFetch } from 'hooks/useFetch';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -19,111 +12,63 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return { props: {} };
 };
 
-export default function AllClientsPage() {
-  const router = useRouter();
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-
-  const { data, error, isValidating, mutate } = useFetch<any>(
-    `/cowork/v2/clients?page=${page}&perPage=25${search ? `&search=${search}` : ''}`
-  );
-
-  const clients = data?.data ?? data?.result ?? [];
-  const pagination = data?.meta ?? data?.pagination ?? {};
-
+function ClientModal({ client, onClose }: { client?: any; onClose: () => void }) {
+  if (!client) return null;
+  const contracts = client.serviceContracts || [];
   return (
-    <OperatorLayout>
-      <Head><title>All Clients | Workeaser</title></Head>
-
-      <div style={{ fontFamily: "'Laca', 'Be Vietnam Pro', sans-serif" }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#2B3450', margin: 0 }}>All Clients</h1>
-          <Link href="/operator/clients/add" style={{
-            background: '#00A2DD', color: '#fff', padding: '10px 20px', borderRadius: 6,
-            textDecoration: 'none', fontWeight: 600, fontSize: 14,
-          }}>
-            + Add Client
-          </Link>
+    <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center" onClick={onClose}>
+      <div className="bg-surface rounded-xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="p-6 border-b border-border flex justify-between items-center">
+          <h2 className="text-[18px] font-semibold text-[#2B3450]">{client.contact_first_name} {client.contact_last_name}</h2>
+          <button onClick={onClose} className="text-outline hover:text-on-surface text-[24px] leading-none">&times;</button>
         </div>
-
-        {/* Search */}
-        <input
-          type="search" placeholder="Search by company, name, phone..."
-          value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-          style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: 6, marginBottom: 16, fontSize: 14, outline: 'none' }}
-        />
-
-        {/* Loading/Error/Empty */}
-        {isValidating && !clients.length && (
-          <div style={{ textAlign: 'center', padding: 40, color: '#64748b' }}>Loading clients...</div>
-        )}
-        {error && !clients.length && (
-          <div style={{ textAlign: 'center', padding: 40, color: '#b91c1c' }}>Failed to load clients. Server may be unavailable.</div>
-        )}
-        {!isValidating && !error && !clients.length && (
-          <div style={{ textAlign: 'center', padding: 40, color: '#64748b' }}>No clients found.</div>
-        )}
-
-        {/* Table */}
-        {clients.length > 0 && (
-          <table style={{ width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: 8, overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-            <thead>
-              <tr style={{ background: '#f1f5f9', textAlign: 'left', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748b' }}>
-                <th style={th}>Client</th><th style={th}>Company</th><th style={th}>Email</th><th style={th}>Phone</th>
-                <th style={th}>Services</th><th style={th}>Room</th><th style={th}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {clients.map((c: any) => {
-                const contracts = c.serviceContracts ?? [];
-                const firstContract = contracts[0];
-                return (
-                  <tr key={c.id} onClick={() => router.push(`/operator/clients/${c.id}`)}
-                    style={{ cursor: 'pointer', borderBottom: '1px solid #e2e8f0', fontSize: 13, color: '#2B3450' }}>
-                    <td style={td}>
-                      <strong>{c.contact_first_name} {c.contact_last_name}</strong>
-                    </td>
-                    <td style={td}>{c.company_name ?? '—'}</td>
-                    <td style={td}>{c.company_email ?? c.contact_email ?? '—'}</td>
-                    <td style={td}>{c.company_phone ?? c.contact_phone ?? '—'}</td>
-                    <td style={td}>
-                      {contracts.length > 0
-                        ? contracts.map((sc: any) => sc.serviceType?.name).filter(Boolean).join(', ')
-                        : '—'}
-                    </td>
-                    <td style={td}>{firstContract?.roomsUnit?.display_name ?? '—'}</td>
-                    <td style={td}>
-                      <span style={{ padding: '2px 8px', borderRadius: 10, fontSize: 11,
-                        background: firstContract?.status === 'ACTIVE' ? '#dcfce7' : '#fef3c7',
-                        color: firstContract?.status === 'ACTIVE' ? '#166534' : '#92400e',
-                      }}>
-                        {firstContract?.status ?? 'No services'}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-
-        {/* Pagination */}
-        {pagination?.lastPage > 1 && (
-          <div style={{ display: 'flex', gap: 8, marginTop: 16, justifyContent: 'center' }}>
-            {Array.from({ length: pagination.lastPage }, (_, i) => i + 1).map((p) => (
-              <button key={p} onClick={() => setPage(p)}
-                style={{ padding: '6px 12px', border: '1px solid #cbd5e1', borderRadius: 4,
-                  background: p === page ? '#00A2DD' : '#fff', color: p === page ? '#fff' : '#2B3450',
-                  cursor: 'pointer', fontWeight: p === page ? 700 : 400 }}>
-                {p}
-              </button>
+        <div className="p-6">
+          <div className="grid grid-cols-2 gap-3 text-[13px] mb-6">
+            {[{l:'Company',v:client.company_name},{l:'Email',v:client.company_email||client.contact_email},{l:'Phone',v:client.company_phone||client.contact_phone},{l:'PMB',v:client.pmb_number},{l:'EIN',v:client.ein},{l:'Address',v:client.address},{l:'Notes',v:client.notes}].map(r=>(
+              <div key={r.l}><span className="text-outline">{r.l}:</span> <span className="text-on-surface">{r.v||'—'}</span></div>
             ))}
           </div>
-        )}
+          <h3 className="text-[14px] font-semibold text-[#2B3450] mb-3">Service Contracts ({contracts.length})</h3>
+          <table className="w-full text-[13px] border-collapse">
+            <thead><tr className="text-left border-b-2 border-border text-[11px] text-outline uppercase"><th className="p-2">Service</th><th className="p-2">Room</th><th className="p-2">Price</th><th className="p-2">Channel</th><th className="p-2">Status</th></tr></thead>
+            <tbody>{contracts.map((sc:any)=>(<tr key={sc.id} className="border-b border-border">
+              <td className="p-2 font-medium">{sc.serviceType?.name||'—'}</td><td className="p-2">{sc.roomsUnit?.display_name||'—'}</td>
+              <td className="p-2">${((sc.price_cents||0)/100).toFixed(2)}</td>
+              <td className="p-2"><span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${sc.billing_channel==='DIRECT'?'bg-blue-100 text-blue-800':'bg-amber-100 text-amber-800'}`}>{sc.billing_channel}</span></td>
+              <td className="p-2"><span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${sc.status==='ACTIVE'?'bg-green-100 text-green-800':'bg-amber-100 text-amber-800'}`}>{sc.status}</span></td>
+            </tr>))}</tbody>
+          </table>
+          {contracts.length===0 && <p className="text-outline text-center py-6">No active services.</p>}
+        </div>
       </div>
-    </OperatorLayout>
+    </div>
   );
 }
 
-const th: any = { padding: '10px 14px', borderBottom: '2px solid #e2e8f0' };
-const td: any = { padding: '10px 14px' };
+export default function AllClientsPage() {
+  const router = useRouter();
+  const [search, setSearch] = useState('');
+  const [selected, setSelected] = useState<any>(null);
+  const { data } = useFetch<any>('/cowork/v2/clients?perPage=100'+(search?`&search=${search}`:''));
+  const clients = (data?.data ?? data?.result ?? []) as any[];
+
+  return (<Shell><Head><title>All Clients | Workeaser</title></Head>
+    <div className="flex justify-between items-center mb-6">
+      <h1 className="text-[24px] font-bold text-[#2B3450]">All Clients</h1>
+      <button onClick={()=>router.push('/operator/clients/add')} className="bg-primary text-on-primary px-5 py-2.5 rounded-lg text-[14px] font-semibold cursor-pointer border-none">+ Add Client</button>
+    </div>
+    <input type="search" placeholder="Search by company, name, phone..." value={search} onChange={e=>setSearch(e.target.value)} className="w-full px-3.5 py-2.5 border border-outline-variant rounded-lg text-[14px] mb-4 outline-none" />
+    <div className="bg-surface border border-border rounded-lg overflow-hidden">
+      <table className="w-full text-[13px] border-collapse">
+        <thead><tr className="bg-[#2B3450] text-white text-left text-[11px] uppercase"><th className="p-3">Client</th><th className="p-3">Company</th><th className="p-3">Email</th><th className="p-3">Phone</th><th className="p-3">Services</th><th className="p-3">Room</th><th className="p-3">Status</th></tr></thead>
+        <tbody>{clients.map((c:any)=>{const sc=c.serviceContracts||[];const f=sc[0];return(<tr key={c.id} onClick={()=>setSelected(c)} className="border-b border-border cursor-pointer hover:bg-surface-container-low">
+          <td className="p-3 font-medium">{c.contact_first_name} {c.contact_last_name}</td><td className="p-3">{c.company_name||'—'}</td><td className="p-3">{c.company_email||c.contact_email||'—'}</td><td className="p-3">{c.company_phone||c.contact_phone||'—'}</td>
+          <td className="p-3">{sc.map((s:any)=>s.serviceType?.name).filter(Boolean).join(', ')||'—'}</td><td className="p-3">{f?.roomsUnit?.display_name||'—'}</td>
+          <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${f?.status==='ACTIVE'?'bg-green-100 text-green-800':'bg-amber-100 text-amber-800'}`}>{f?.status||'No services'}</span></td>
+        </tr>)})}</tbody>
+      </table>
+      {clients.length===0 && <p className="text-outline text-center py-10">No clients found.</p>}
+    </div>
+    {selected && <ClientModal client={selected} onClose={()=>setSelected(null)} />}
+  </Shell>);
+}
