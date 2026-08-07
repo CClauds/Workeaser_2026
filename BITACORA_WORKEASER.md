@@ -320,3 +320,21 @@
   - /dashboard (old): 307 (redirect behind auth) ✅
   - httpOnly: preservado (cookie sigue HttpOnly, SameSite=Lax)
 - **Hash commit**: `b99875a`
+
+### B3 Redesign — Tailwind + Material Symbols + Shell + 19 pantallas — 2026-08-09
+- **PASO 0**: Tailwind CDN con 52 tokens de DESIGN.md, Material Symbols, Laca.
+- **Shell**: componente reusable con sidebar §7 (submenús, role-gated) + header.
+- **Pantallas portadas (13 con datos reales, 6 placeholder)**:
+  - Dashboard: KPIs + charts placeholder
+  - All Clients: tabla con datos B2 + modal de detalle
+  - Add Client: form con N service_contracts, billing_channel per contract
+  - Client Detail: modal sobre All Clients
+  - Contracts: solo-lectura service_contracts
+  - Billing: invoices desde API
+  - Partners: CRUD resellers
+  - Rooms & Services: CRUD rooms_units + locations + service_types
+  - Users & Roles: lista desde API real
+  - Messages, Chat, Documents, Bookings, Reports: placeholder
+  - Setup placeholders: Contract Templates, Invoice Settings, Payment Methods, Visual Identity
+- **Hash commits**: `58c6a28` (base), `807a295` (shell+clients), `d7bb917` (setup), `ad70f2f` (daily use)
+- **NO desplegado** — espera aprobación de Claudio
