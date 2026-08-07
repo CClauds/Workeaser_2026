@@ -21,12 +21,10 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextDate);
 
 export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
-  const { "user-token": token } = parseCookies();
   const { cache } = useSWRConfig() as any;
 
   // 1B.2-httpOnly fix: la cookie es httpOnly → parseCookies() cliente NO la lee.
   // Siempre llamar /me con withCredentials (el navegador envía la cookie httpOnly).
-  // Si es SSR, parseCookies(ctx) SÍ la lee y pasamos token al primer fetch.
   const { data, error } = useFetch<{ result: UserCoworking[] & UserClient[] }>(
     "/me"
   );
@@ -36,8 +34,6 @@ export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
   const isAuthenticated = !!user;
 
   let role = user?.role;
-  let allowed = true;
-
   const router = useRouter();
 
   useEffect(() => {
@@ -51,14 +47,14 @@ export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
     }
 
     let nextPath: string;
-    if (role === "COWORKING") {
-      nextPath = router.asPath === "/" ? "/dashboard" : router.asPath;
+    if (role === "COWORKING" || role === "ADMIN") {
+      // B3: redirect to new operator panel
+      nextPath = router.asPath === "/" ? "/operator/dashboard" : router.asPath;
     } else if (role === "CLIENT") {
       nextPath = router.asPath === "/" ? "/spaces" : router.asPath;
     }
 
     // Solo redirigir si /me devolvió error (401 = no autenticado).
-    // Ya NO chequeamos token en JS porque es httpOnly.
     if (error && !data) {
       toast.warn("Sorry, you are not authenticated.");
       cache.clear();

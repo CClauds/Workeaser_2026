@@ -5,25 +5,12 @@ import { toast } from "react-toastify";
 import { api } from ".";
 
 export const swrMiddleware: Middleware = (useSWRNext: SWRHook) => {
-  // const router = useRouter();
   return (key, fetcher, config) => {
-    // Before hook runs...
-    // console.log("key", key);
-    // console.log("fetcher", fetcher);
-    // console.log("config", config);
-    const { "user-token": token } = parseCookies();
-    // console.log("TOKEN!", token);
-    if (!token) {
-      console.log("Session Expired");
-      // console.log(router);
-      // toast.error("Session Expired");
-      // router.push("/login");
-    }
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
-    // Handle the next middleware, or the `useSWR` hook if this is the last one.
+    // 1B.2-httpOnly fix: la cookie es httpOnly → parseCookies() cliente NO la lee.
+    // El navegador envía la cookie automáticamente (withCredentials). CookieAuth
+    // middleware en backend la inyecta como Bearer. NO setear Authorization header
+    // desde JS — era `Bearer undefined` y pisaba el header correcto.
     const swr = useSWRNext(key, fetcher, config);
-
-    // After hook runs...
     return swr;
   };
 };

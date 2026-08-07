@@ -87,8 +87,8 @@ export const LoginBox: React.FC<LoginBoxProps> = ({}) => {
       // const { returnTo } = router.query;
 
       if (user.role === "COWORKING" || user.role === "ADMIN") {
-        // router.push((returnTo as string) ?? "/dashboard");
-        router.push("/dashboard");
+        // B3: redirect to new operator panel
+        router.push("/operator/dashboard");
       } else if (user.role === "CLIENT") {
         router.push("/spaces");
       }
