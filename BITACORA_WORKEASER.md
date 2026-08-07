@@ -211,3 +211,12 @@
 - **Sub-auditor**: FAIL inicial (httpOnly false) → trade-off documentado → 9/10 PASS, 1 aceptado
 - **Hash commit**: `9d227d1` (1B) + `f03a35e` (trade-off doc)
 - **NO desplegado** — espera aprobación de Claudio
+
+### 1B.2-httpOnly: Cookie de sesión httpOnly=true — 2026-08-08
+- **Solución**: CookieAuth middleware global (lee cookie → Bearer header). Backend setea httpOnly=true.
+- **Archivos**: 6 (CookieAuth.ts nuevo, kernel.ts, config/app.ts, AuthController.ts, LoginBox/index.tsx, apiClient/index.ts)
+- **LoginBox**: ya no usa nookies setCookie. Token en memoria (api.defaults.headers.Authorization).
+- **apiClient**: withCredentials=true en cliente (navegador envía httpOnly cookie automático).
+- **Sub-auditor**: PASS — 6/6 checks.
+- **Hash commit**: `dcc7b42`
+- **NO desplegado** — espera aprobación de Claudio
