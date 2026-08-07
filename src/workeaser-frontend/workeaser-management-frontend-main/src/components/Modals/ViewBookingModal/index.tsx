@@ -109,7 +109,7 @@ export const ViewBookingModal: React.FC<ViewBookingModalProps> = ({
                 <InputComponent
                   name="company_name"
                   // value={
-                  //   event.lead ? event.lead.clientAccount.company_name : ""
+                  //   event.lead ? event.lead?.clientAccount?.company_name : ""
                   // }
                   readOnly
                 />

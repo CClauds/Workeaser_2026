@@ -41,7 +41,7 @@ export const DayPass: React.FC<DayPassProps> = ({ event }) => {
         </div>
         <div>
           <InputComponent
-            value={client ? "Not informed" : lead.clientAccount.company_name}
+            value={client ? "Not informed" : lead?.clientAccount?.company_name}
             readOnly
           />
         </div>

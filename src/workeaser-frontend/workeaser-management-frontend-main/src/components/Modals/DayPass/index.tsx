@@ -167,7 +167,7 @@ export const DayPass: React.FC<DayPassProps> = ({ isOpen, onRequestClose }) => {
         );
         // formRef.current.setFieldValue(
         //   "companyName",
-        //   client.clientAccount.company_name
+        //   client?.clientAccount?.company_name
         // );
       } else {
         const lead = leads.find((lead) => lead.id === option.value);
@@ -268,7 +268,7 @@ export const DayPass: React.FC<DayPassProps> = ({ isOpen, onRequestClose }) => {
                         photo: client.photo?.file,
                         first_name: client.first_name,
                         last_name: client.last_name,
-                        company_name: client.clientAccount.company_name,
+                        company_name: client?.clientAccount?.company_name,
                         email: client.email,
                         personal_phone: client.personal_phone,
                       }))
@@ -278,7 +278,7 @@ export const DayPass: React.FC<DayPassProps> = ({ isOpen, onRequestClose }) => {
                         photo: null,
                         first_name: lead.clientAccount.user.first_name,
                         last_name: lead.clientAccount.user.last_name,
-                        company_name: lead.clientAccount.company_name,
+                        company_name: lead?.clientAccount?.company_name,
                         email: lead.clientAccount.user.email,
                         personal_phone: lead.clientAccount.user.personal_phone,
                       }))

@@ -43,7 +43,7 @@ export const Meetroom: React.FC<MeetroomProps> = ({ event }) => {
       name: `${loggedUser.first_name} ${loggedUser.last_name}`,
       email: loggedUser.email,
       phone: loggedUser.personal_phone,
-      company: loggedUser.clientAccount.company_name,
+      company: loggedUser?.clientAccount?.company_name,
     };
   }
 

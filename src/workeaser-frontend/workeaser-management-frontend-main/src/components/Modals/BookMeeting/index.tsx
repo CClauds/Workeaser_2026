@@ -276,7 +276,7 @@ export const BookMeeting: React.FC<BookMeetingProps> = ({
       );
       formRef.current.setFieldValue(
         "companyName",
-        client.clientAccount.company_name
+        client?.clientAccount?.company_name
       );
     } else {
       formRef.current.clearField("firstName");
@@ -404,7 +404,7 @@ export const BookMeeting: React.FC<BookMeetingProps> = ({
                   photo: client.photo?.file,
                   first_name: client.first_name,
                   last_name: client.last_name,
-                  company_name: client.clientAccount.company_name,
+                  company_name: client?.clientAccount?.company_name,
                   email: client.email,
                   personal_phone: client.personal_phone,
                 }))}

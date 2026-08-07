@@ -327,7 +327,7 @@ const CreateInvoice = ({
       formRef.current.setFieldValue("customer_phone", client.personal_phone);
       formRef.current.setFieldValue(
         "company_name",
-        client.clientAccount.company_name
+        client?.clientAccount?.company_name
       );
     } else {
       formRef.current.clearField("customer_name");

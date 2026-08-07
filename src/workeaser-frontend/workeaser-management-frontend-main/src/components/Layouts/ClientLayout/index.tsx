@@ -28,21 +28,13 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({
   return (
     <AuthProvider roles={componentProps?.authRoles}>
       <ThemeProvider theme={theme}>
-        {stripePromise ? (
-          <Elements stripe={stripePromise} options={{ locale: "en" }}>
-            <SpacesProvider>
-              <ClientHeader />
-              <Main>{children}</Main>
-              <ToastContainer />
-            </SpacesProvider>
-          </Elements>
-        ) : (
+        <Elements stripe={stripePromise} options={{ locale: "en" }}>
           <SpacesProvider>
             <ClientHeader />
             <Main>{children}</Main>
             <ToastContainer />
           </SpacesProvider>
-        )}
+        </Elements>
       </ThemeProvider>
     </AuthProvider>
   );

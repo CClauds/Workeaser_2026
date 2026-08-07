@@ -28,7 +28,7 @@ export const Tour: React.FC<TourProps> = ({ event }) => {
           />
         </div>
         <div>
-          <InputComponent value={lead.clientAccount.company_name} readOnly />
+          <InputComponent value={lead?.clientAccount?.company_name} readOnly />
         </div>
         <div>
           <InputComponent value={location.name} readOnly />

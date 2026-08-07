@@ -222,13 +222,17 @@ export const AttachContract: React.FC<AttachContractProps> = ({
   }
 
   const FetchBoldSignIdentity = async () => {
-    const { data: { result: identity } = {} } = await api.get<{
-      result: IdentityResponse;
-      error: {
-        message: string;
-      };
-    }>("/cowork/boldsign/identities/me");
-    setBsIdentity(identity);
+    try {
+      const { data: { result: identity } = {} } = await api.get<{
+        result: IdentityResponse;
+        error: {
+          message: string;
+        };
+      }>("/cowork/boldsign/identities/me");
+      setBsIdentity(identity);
+    } catch {
+      // BoldSign integration not configured — neutral state
+    }
   };
 
   const { data: { result: selectedResource } = {} } =
@@ -492,7 +496,7 @@ export const AttachContract: React.FC<AttachContractProps> = ({
         );
         formRef.current.setFieldValue(
           "client.company_name",
-          client.clientAccount.company_name
+          client?.clientAccount?.company_name
         );
         return;
       }

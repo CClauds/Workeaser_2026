@@ -7,28 +7,31 @@ export const mapApi = axios.create({
   baseURL: "https://api.mapbox.com/geocoding/v5/",
 });
 
-function assertToken(): string {
-  if (!MAPBOX_TOKEN) {
-    throw new Error(
-      "Mapbox access token is missing. Set NEXT_PUBLIC_MAPBOX_KEY in your environment."
-    );
-  }
-  return MAPBOX_TOKEN;
+function hasToken(): boolean {
+  return !!MAPBOX_TOKEN;
 }
 
 export const getGeoLocation = async (value: string) => {
-  const token = assertToken();
+  if (!MAPBOX_TOKEN) return null;
   const textEncoded = encodeURIComponent(value);
-  const url = `/mapbox.places/${textEncoded}.json?access_token=${token}`;
-  const res = await mapApi.get<Geocode>(url);
-  return res.data;
+  const url = `/mapbox.places/${textEncoded}.json?access_token=${MAPBOX_TOKEN}`;
+  try {
+    const res = await mapApi.get<Geocode>(url);
+    return res.data;
+  } catch {
+    return null;
+  }
 };
 
 export const getReverseGeoLocation = async (lon: number, lat: number) => {
-  const token = assertToken();
-  const url = `/mapbox.places/${lon},${lat}.json?access_token=${token}`;
-  const res = await mapApi.get<Geocode>(url);
-  return res.data;
+  if (!MAPBOX_TOKEN) return null;
+  const url = `/mapbox.places/${lon},${lat}.json?access_token=${MAPBOX_TOKEN}`;
+  try {
+    const res = await mapApi.get<Geocode>(url);
+    return res.data;
+  } catch {
+    return null;
+  }
 };
 
 export const getLeadFeatureFlagEnv = () => {

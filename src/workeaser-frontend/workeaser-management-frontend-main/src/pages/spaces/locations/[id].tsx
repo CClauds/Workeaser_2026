@@ -278,7 +278,7 @@ const SingleSpaceLocation = ({
                     zoom: 14,
                   }}
                   mapStyle="mapbox://styles/mapbox/streets-v9"
-                  mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
+                  mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY || ""}
                 >
                   <Source id="my-data" type="geojson" data={geojson}>
                     <Layer {...layerStyle} />

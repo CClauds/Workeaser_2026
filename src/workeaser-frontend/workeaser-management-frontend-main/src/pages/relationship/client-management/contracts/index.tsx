@@ -113,13 +113,17 @@ const Contracts = ({ fallback, fallbackNextPage }: ContractsProps) => {
   const router = useRouter();
 
   const FetchBoldSignIdentity = async () => {
-    const { data: { result: identity } = {} } = await api.get<{
-      result: IdentityResponse;
-      error: {
-        message: string;
-      };
-    }>("/cowork/boldsign/identities/me");
-    setBsIdentity(identity);
+    try {
+      const { data: { result: identity } = {} } = await api.get<{
+        result: IdentityResponse;
+        error: {
+          message: string;
+        };
+      }>("/cowork/boldsign/identities/me");
+      setBsIdentity(identity);
+    } catch {
+      // BoldSign integration not configured — neutral state
+    }
   };
 
   const { data: { result: contracts, pagination } = {}, mutate } =

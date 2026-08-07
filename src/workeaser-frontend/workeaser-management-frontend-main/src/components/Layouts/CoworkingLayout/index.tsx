@@ -27,18 +27,7 @@ export const CoworkingLayout: React.FC<CoworkingLayoutProps> = ({
   return (
     <AuthProvider roles={componentProps?.authRoles}>
       <ThemeProvider theme={theme}>
-        {stripePromise ? (
-          <Elements stripe={stripePromise} options={{ locale: "en" }}>
-            <MenuProvider>
-              <Header />
-              <Content>
-                <Sidebar />
-                <div>{children}</div>
-              </Content>
-              <ToastContainer />
-            </MenuProvider>
-          </Elements>
-        ) : (
+        <Elements stripe={stripePromise} options={{ locale: "en" }}>
           <MenuProvider>
             <Header />
             <Content>
@@ -47,7 +36,7 @@ export const CoworkingLayout: React.FC<CoworkingLayoutProps> = ({
             </Content>
             <ToastContainer />
           </MenuProvider>
-        )}
+        </Elements>
       </ThemeProvider>
     </AuthProvider>
   );

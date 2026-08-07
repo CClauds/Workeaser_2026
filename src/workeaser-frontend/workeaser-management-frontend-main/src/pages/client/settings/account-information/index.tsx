@@ -57,7 +57,7 @@ const AccountInformation = () => {
         photo_id: user.photo ?? null,
         client: {
           ...user.clientAccount,
-          name: user.clientAccount.company_name ?? "",
+          name: user?.clientAccount?.company_name ?? "",
           email: user.clientAccount.company_email ?? "",
           phone: user.clientAccount.company_phone ?? "",
           company_photo_id: user.clientAccount.companyPhoto ?? null,
