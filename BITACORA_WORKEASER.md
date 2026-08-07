@@ -48,3 +48,34 @@
 - **Modelo objetivo**: 12 capacidades, TODAS etiquetadas A CONSTRUIR (nada que rescatar)
 - **Hash commit**: `cf6f6ba`
 
+### Deploy STAGING — 2026-08-06/07
+- **VPS**: Hetzner CX33 (4 vCPU / 8 GB / 80 GB), Ubuntu 26.04 LTS "Resolute Raccoon", Helsinki
+- **IP**: 62.238.102.24
+- **Acceso**: Solo llave SSH (PasswordAuthentication disabled, ufw 22/80/443, fail2ban sshd)
+- **Docker**: Engine 29.7.2 + Compose v5.4.0. Método: `get.docker.com` (Docker repo oficial SÍ tiene paquetes para "resolute")
+- **Ruta deploy**: `/opt/workeaser` (rsync desde disco, excluyendo node_modules, .git, .env, credenciales, uploads, dumps)
+- **Contenedores**: 4/4 UP — mysql:8.4, workeaser-api (3333), admin-api (3334), frontend (3000)
+- **DB**: MySQL 8.4, 110 tablas (importadas del dump del snapshot)
+- **Migraciones**: 313 archivos presentes pero no ejecutables en Docker (ESM module resolution). Datos cargados vía SQL dump.
+- **URLs staging**: http://62.238.102.24:3000 (frontend), :3333 (API), :3334 (admin)
+- **Fixes aplicados para build**:
+  - Dockerfiles: `npm ci` → `npm install` (lockfile incompatible con npm 10.9 del container node:22)
+  - Dockerfiles: +`--legacy-peer-deps` (peer dependency conflicts)
+  - Dockerfiles: +`NODE_OPTIONS=--max-old-space-size=4096` (OOM en build)
+  - Código: 17x `AppError.SERVER_ERROR` → `AppError.LOGIC_ERROR` (no compilaba TypeScript)
+  - Dockerfile frontend: `package-lock.json` no existía (solo yarn.lock)
+  - Compose staging: context paths, env vars, MYSQL_USER/PASSWORD
+- **Credenciales**: en `workeaser_credentials.txt` (gitignored). MySQL: workeaser / JJ8AMVvmtL1htNU5YOBaoH0m / workeaser_local
+- **Sub-verificador**: PASS en 10/10 checks (SSH, ufw, fail2ban, Docker, APIs, frontend, DB, disk, sin secretos en repo)
+- **Observación**: Puertos Docker en 0.0.0.0 (mitigado por ufw default deny). Recomendado: bind a 127.0.0.1 o reverse proxy.
+- **Hash commit**: *(pendiente)*
+
+### PENDIENTE (fases posteriores)
+- **Dominio + SSL**: sin configurar (esperado: fase posterior tras end-to-end funcional)
+- **Credenciales sandbox reales**: Stripe test keys, Verdocs, Plaid, Google OAuth — todos en PLACEHOLDER
+- **Login**: passwords del dump snapshot requieren re-hash o reset para staging
+- **Reverse proxy**: nginx/Caddy para exponer solo 80/443 y terminación HTTPS
+- **Puertos Docker**: bind a 127.0.0.1 en vez de 0.0.0.0 (defensa en profundidad)
+- **Fix migraciones**: resolver ESM module resolution para `node ace migration:run` en Docker
+- **Dockerfiles**: versionar los fixes aplicados (npm install, --legacy-peer-deps, NODE_OPTIONS, AppError fix)
+
