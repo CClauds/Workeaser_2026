@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Communication Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb875",
+                      "outline": "#6e7880",
+                      "on-secondary": "#ffffff",
+                      "info": "#3B82F6",
+                      "on-secondary-fixed": "#2B3450",
+                      "inverse-primary": "#80d0ff",
+                      "on-surface": "#171c20",
+                      "surface-container": "#eaeef3",
+                      "secondary-fixed": "#dbe1ff",
+                      "surface-dim": "#d6dadf",
+                      "primary-fixed-dim": "#80d0ff",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2B3450",
+                      "on-tertiary-container": "#4b2700",
+                      "on-tertiary-fixed": "#2d1600",
+                      "surface-container-high": "#e4e9ee",
+                      "primary-container": "#00A2DD",
+                      "surface": "#FFFFFF",
+                      "inverse-on-surface": "#edf1f6",
+                      "secondary": "#545d7c",
+                      "surface-container-low": "#f0f4f9",
+                      "surface-tint": "#00A2DD",
+                      "background": "#F8FAFC",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#bdc5e8",
+                      "warning": "#F59E0B",
+                      "on-primary-fixed": "#2B3450",
+                      "surface-variant": "#dee3e8",
+                      "on-secondary-fixed-variant": "#3d4663",
+                      "on-background": "#171c20",
+                      "on-primary-container": "#00344a",
+                      "on-secondary-container": "#555e7c",
+                      "surface-container-highest": "#dee3e8",
+                      "surface-bright": "#f5faff",
+                      "primary": "#00A2DD",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bdc8d1",
+                      "tertiary-fixed": "#ffdcc0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "secondary-container": "#d0d9fd",
+                      "border": "#E2E8F0",
+                      "on-surface-variant": "#3e484f",
+                      "error": "#EF4444",
+                      "tertiary-container": "#da8320",
+                      "primary-fixed": "#c5e7ff",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#8d4f00",
+                      "on-tertiary-fixed-variant": "#6b3b00",
+                      "on-primary-fixed-variant": "#004c6a",
+                      "success": "#10B981"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-grid": "8px",
+                      "container-padding": "24px",
+                      "gutter": "24px",
+                      "sidebar-width": "240px",
+                      "sidebar-collapsed": "64px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "body-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "label-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-lg": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #F8FAFC; color: #171c20; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #bdc8d1; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-body-md text-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar (Semantic Map: Chat -> Communication) -->
+<nav class="hidden md:flex flex-col h-full py-base-grid bg-on-secondary-fixed dark:bg-on-secondary-fixed text-primary dark:text-inverse-primary font-body-md text-body-md fixed left-0 top-0 w-[240px] border-r border-outline-variant z-50">
+<!-- Brand Header -->
+<div class="px-gutter mb-8 mt-2">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Workeaser</h1>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider mt-1">Operator Panel</p>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-2 space-y-1">
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+<span>Contracts</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">event</span>
+<span>Bookings</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">receipt_long</span>
+<span>Billing &amp; Payments</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center px-4 py-2 rounded-lg bg-primary text-on-primary font-semibold opacity-90 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">chat</span>
+<span>Communication</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">folder</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span>Reports</span>
+</a>
+<div class="my-4 border-t border-on-secondary-fixed-variant mx-4"></div>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider px-4 mb-2">Setup</p>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">handshake</span>
+<span>Partners</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">location_on</span>
+<span>Locations</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">edit_document</span>
+<span>Contract Templates</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">settings_applications</span>
+<span>Invoice Settings</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+<span>Payment Methods</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">palette</span>
+<span>Visual Identity</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">manage_accounts</span>
+<span>Users &amp; Roles</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="px-2 mt-auto pt-4 space-y-1">
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center px-4 py-2 rounded-lg text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<div class="flex-1 flex flex-col md:ml-[240px] w-full bg-background h-full relative">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 md:left-[240px] h-16 bg-surface dark:bg-surface-container-low text-primary dark:text-inverse-primary font-label-md text-label-md border-b border-outline-variant flex justify-between items-center px-container-padding z-40">
+<!-- Search -->
+<div class="flex-1 max-w-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-border rounded-lg text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search clients, messages..." type="text"/>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center space-x-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center">
+                    Support
+                </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative p-2 rounded-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden border border-border cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A highly detailed close-up portrait of a professional corporate operator in a well-lit office setting. The lighting is soft and neutral, enhancing a clean, modern aesthetic. The subject is wearing a crisp navy collared shirt, exuding efficiency and approachability against a blurred light-mode office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU1bDZjKm2zDguaheKonLLYWLIhrUQo5bhDjNbey0Isb1w4V6D_CTrn9Ka8qikbmcgwjxoBpBACyzFZG02mydaUa39W0L7vHaTchUUNN42YkoaV0VXQWOP96Xf5NVcSqmsoGTRH6FOKlEqLMOPQpETBu_ms9LmU63p508LLETZJJs7t1sFs1MC2PL1UxH1CXuptG-xzK7OGVjz1FmPFE6xHp3uoKMrCzchymh07thzslw33_93iEmMlg"/>
+</div>
+</div>
+</header>
+<!-- Page Content (Chat Interface) -->
+<main class="flex-1 pt-16 flex h-full overflow-hidden p-gutter">
+<!-- Chat Container: Two Panes -->
+<div class="flex-1 flex bg-surface border border-border rounded-lg overflow-hidden shadow-sm">
+<!-- Left Pane: Conversation List -->
+<div class="w-80 flex-shrink-0 border-r border-border flex flex-col bg-surface">
+<div class="p-4 border-b border-border flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Messages</h2>
+<button class="text-primary hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+</div>
+<div class="p-2 border-b border-border">
+<div class="flex space-x-2">
+<button class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full font-label-sm text-label-sm">Active</button>
+<button class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low rounded-full font-label-sm text-label-sm transition-colors">Unread</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Active Conversation Item -->
+<div class="p-4 border-b border-border bg-surface-bright cursor-pointer border-l-4 border-l-primary hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm mr-3">
+                                            SA
+                                        </div>
+<div class="absolute bottom-0 right-3 w-3 h-3 bg-success border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Sarah Anderson</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">TechFlow Inc.</p>
+</div>
+</div>
+<span class="text-xs text-on-surface-variant">10:42 AM</span>
+</div>
+<p class="text-sm text-on-surface-variant truncate pr-2">Yes, the new contract terms look perfect. Thanks!</p>
+</div>
+<!-- Inactive Conversation Item -->
+<div class="p-4 border-b border-border cursor-pointer hover:bg-surface-container-low transition-colors border-l-4 border-l-transparent">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-sm mr-3">
+                                            MR
+                                        </div>
+<div class="absolute bottom-0 right-3 w-3 h-3 bg-surface-variant border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Michael Rodriguez</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Design Studio Co.</p>
+</div>
+</div>
+<span class="text-xs text-on-surface-variant">Yesterday</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium text-on-surface truncate pr-2">Can we schedule a call regarding the upcoming invoice?</p>
+<span class="mt-2 inline-flex items-center justify-center px-2 py-0.5 rounded text-xs font-medium bg-primary text-on-primary">New</span>
+</div>
+<!-- Inactive Conversation Item -->
+<div class="p-4 border-b border-border cursor-pointer hover:bg-surface-container-low transition-colors border-l-4 border-l-transparent">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed flex items-center justify-center font-bold text-sm mr-3">
+                                            EP
+                                        </div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Elena Patel</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Freelancer</p>
+</div>
+</div>
+<span class="text-xs text-on-surface-variant">Tuesday</span>
+</div>
+<p class="text-sm text-on-surface-variant truncate pr-2">I've uploaded the signed agreement.</p>
+</div>
+</div>
+</div>
+<!-- Right Pane: Active Thread View -->
+<div class="flex-1 flex flex-col bg-background">
+<!-- Thread Header -->
+<div class="p-4 border-b border-border bg-surface flex justify-between items-center">
+<div class="flex items-center">
+<div class="relative mr-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-headline-md text-headline-md font-bold">
+                                    SA
+                                </div>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Sarah Anderson</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">business</span> TechFlow Inc. • Active Now
+                                </p>
+</div>
+</div>
+<div class="flex space-x-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Message History -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-background">
+<!-- Date Divider -->
+<div class="flex justify-center my-4">
+<span class="text-xs text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full font-medium">Today, 9:30 AM</span>
+</div>
+<!-- Client Message (Grey) -->
+<div class="flex items-end space-x-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex flex-shrink-0 items-center justify-center font-bold text-xs">SA</div>
+<div class="max-w-[70%]">
+<div class="bg-surface border border-border text-on-surface p-3 rounded-2xl rounded-bl-sm shadow-sm text-sm">
+                                    Hi Support, I'm reviewing the draft contract for the dedicated desk space. I have a question regarding the guest policy outlined in section 4.
+                                </div>
+<span class="text-[11px] text-on-surface-variant mt-1 ml-1 block">9:32 AM</span>
+</div>
+</div>
+<!-- Support Message (Navy) -->
+<div class="flex items-end justify-end space-x-3">
+<div class="max-w-[70%] flex flex-col items-end">
+<div class="bg-primary text-on-primary p-3 rounded-2xl rounded-br-sm shadow-sm text-sm">
+                                    Hello Sarah! I'd be happy to clarify that for you. Section 4 states that members with dedicated desks can bring up to two guests for up to 3 hours at no additional charge. After that, day passes would be required.
+                                </div>
+<div class="flex items-center mt-1 mr-1">
+<span class="text-[11px] text-on-surface-variant mr-1">9:35 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+</div>
+</div>
+</div>
+<!-- Support Message (Navy) -->
+<div class="flex items-end justify-end space-x-3">
+<div class="max-w-[70%] flex flex-col items-end">
+<div class="bg-primary text-on-primary p-3 rounded-2xl rounded-br-sm rounded-tr-sm shadow-sm text-sm mt-1">
+                                    Does that clear things up, or would you like me to adjust the terms for your specific team needs?
+                                </div>
+<div class="flex items-center mt-1 mr-1">
+<span class="text-[11px] text-on-surface-variant mr-1">9:36 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+</div>
+</div>
+</div>
+<!-- Client Message (Grey) -->
+<div class="flex items-end space-x-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex flex-shrink-0 items-center justify-center font-bold text-xs">SA</div>
+<div class="max-w-[70%]">
+<div class="bg-surface border border-border text-on-surface p-3 rounded-2xl rounded-bl-sm shadow-sm text-sm">
+                                    That perfectly clears it up. No adjustments needed. Yes, the new contract terms look perfect. Thanks!
+                                </div>
+<span class="text-[11px] text-on-surface-variant mt-1 ml-1 block">10:42 AM</span>
+</div>
+</div>
+<!-- Typing Indicator placeholder -->
+<div class="flex items-end space-x-3 opacity-50">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex flex-shrink-0 items-center justify-center font-bold text-xs">SA</div>
+<div class="bg-surface border border-border p-3 rounded-2xl rounded-bl-sm w-16 flex items-center justify-center space-x-1">
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 bg-surface border-t border-border">
+<div class="flex items-end space-x-2">
+<button class="p-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors flex-shrink-0 mb-1">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<div class="flex-1 bg-surface-container-low border border-border rounded-xl relative">
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none py-3 px-4 text-sm max-h-32 custom-scrollbar text-on-surface" placeholder="Type a message..." rows="1"></textarea>
+<div class="absolute right-2 bottom-2 flex space-x-1">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+</button>
+</div>
+</div>
+<button class="p-3 bg-primary text-on-primary hover:bg-primary-container rounded-full transition-colors flex-shrink-0 shadow-sm mb-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px] ml-1">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 px-12">
+<span class="text-[10px] text-outline">Press Enter to send, Shift+Enter for new line</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

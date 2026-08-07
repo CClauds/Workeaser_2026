@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background antialiased" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Setup: Locations, Rooms &amp; Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "background": "#F8FAFC",
+                      "on-primary-fixed": "#2B3450",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#2B3450",
+                      "primary": "#00A2DD",
+                      "on-surface-variant": "#3e484f",
+                      "surface-bright": "#f5faff",
+                      "on-background": "#171c20",
+                      "on-secondary-container": "#555e7c",
+                      "tertiary": "#8d4f00",
+                      "primary-container": "#00A2DD",
+                      "outline": "#6e7880",
+                      "surface-container": "#eaeef3",
+                      "surface-container-high": "#e4e9ee",
+                      "on-secondary-fixed": "#2B3450",
+                      "on-primary-container": "#00344a",
+                      "on-primary-fixed-variant": "#004c6a",
+                      "success": "#10B981",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#FFFFFF",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#dee3e8",
+                      "on-surface": "#171c20",
+                      "inverse-on-surface": "#edf1f6",
+                      "on-tertiary-fixed-variant": "#6b3b00",
+                      "tertiary-fixed-dim": "#ffb875",
+                      "surface-container-highest": "#dee3e8",
+                      "error": "#EF4444",
+                      "surface-dim": "#d6dadf",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#bdc8d1",
+                      "primary-fixed-dim": "#80d0ff",
+                      "on-tertiary-fixed": "#2d1600",
+                      "on-secondary-fixed-variant": "#3d4663",
+                      "surface-container-low": "#f0f4f9",
+                      "tertiary-container": "#da8320",
+                      "warning": "#F59E0B",
+                      "inverse-primary": "#80d0ff",
+                      "primary-fixed": "#c5e7ff",
+                      "secondary-fixed": "#dbe1ff",
+                      "secondary-fixed-dim": "#bdc5e8",
+                      "border": "#E2E8F0",
+                      "on-tertiary-container": "#4b2700",
+                      "surface-tint": "#00A2DD",
+                      "tertiary-fixed": "#ffdcc0",
+                      "secondary-container": "#d0d9fd",
+                      "secondary": "#545d7c",
+                      "on-tertiary": "#ffffff",
+                      "info": "#3B82F6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-collapsed": "64px",
+                      "container-padding": "24px",
+                      "base-grid": "8px",
+                      "gutter": "24px",
+                      "sidebar-width": "240px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "label-sm": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-lg": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "label-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex h-full flex-col md:flex-row bg-background font-body-md text-on-surface">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-on-primary-fixed flex-col justify-between w-sidebar fixed left-0 top-0 h-screen z-40 border-r border-outline-variant">
+<div>
+<!-- Header -->
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-headline-md">
+                        PS
+                    </div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-white tracking-tight">Workeaser</h1>
+<p class="font-label-md text-label-md text-primary-fixed-dim">Management Panel</p>
+</div>
+</div>
+</div>
+<!-- Main Nav -->
+<div class="px-2 pb-4">
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>Dashboard</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="group">group</span>Clients</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="description">description</span>Contracts</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>Bookings</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="payments">payments</span>Billing &amp; Payments</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="chat">chat</span>Communication</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="folder">folder</span>Documents</a></li>
+<li><a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 hover:bg-primary/10 hover:text-white transition-colors rounded-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="analytics">analytics</span>Reports</a></li>
+</ul>
+</div>
+</div>
+<!-- Footer / Setup Nav -->
+<div class="p-2 border-t border-outline-variant/30 mt-auto">
+<div class="px-4 py-2 flex items-center gap-2 text-surface-variant/50 font-label-sm uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Administrator</span>
+</div>
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 text-white font-bold bg-primary-container/20 border-l-4 border-primary-container px-4 py-3 hover:bg-primary/10 transition-colors rounded-r-DEFAULT scale-95 active:scale-90" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span>Setup</a></li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-h-screen md:ml-sidebar">
+<!-- TopNavBar -->
+<header class="bg-surface h-16 flex justify-between items-center px-gutter z-30 fixed top-0 right-0 left-0 md:left-sidebar border-b border-border transition-colors">
+<div class="flex-1 flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface hidden md:block tracking-tight">Management Portal</h2>
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full"><span class="material-symbols-outlined">menu</span></button>
+</div>
+<div class="flex-1 flex justify-center max-w-md mx-auto hidden md:flex">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-border rounded-full font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex-1 flex justify-end items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors opacity-80 active:opacity-100"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors opacity-80 active:opacity-100"><span class="material-symbols-outlined" data-icon="help">help</span></button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white ml-2 overflow-hidden border border-border">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator in a bright, modern office setting. Sharp focus, clean lighting, corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcCbTmEUjJRgIEvZo7-jTbcZxRlLFKX4L8BqrNWSPelvMRfXF_QfZATDllirsfONFBVS7AGLoEv4sgBVn5VnGcxAY4kRB2aoydL_3psGiqOY47OX0TpHJ6D7IuUjHTHD4vJX5tEeM3CggbD7NfSfq8GNzB37qIk1TxOZyutGZFgA2hygNHQliVrHPsi1PKb3k-SE5CkZP_ZNpBZxZN5M8hJXtSl9DZMq1litmCyxCG_ZpzndgGPTd1HA"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-gutter pt-[calc(64px+24px)] overflow-x-hidden">
+<div class="mb-8">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">Locations, Rooms &amp; Services</h1>
+<p class="text-on-surface-variant font-body-md">Configure your physical spaces and the service types available within them.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column (Locations & Services) -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Section 1: Locations -->
+<section class="bg-surface rounded-lg border border-border overflow-hidden flex flex-col">
+<div class="p-4 border-b border-border flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary">location_city</span> Locations</h3>
+<button class="bg-primary-container text-white px-4 py-2 rounded-DEFAULT font-label-md text-label-md flex items-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Location
+                            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-on-secondary-fixed text-white font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Name</th>
+<th class="py-3 px-4 font-semibold">Address</th>
+<th class="py-3 px-4 font-semibold text-right">Capacity</th>
+<th class="py-3 px-4 font-semibold w-16"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border bg-surface font-body-md text-body-md">
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-3 px-4 font-medium text-on-surface">HQ Downtown</td>
+<td class="py-3 px-4 text-on-surface-variant">120 Financial District, NY</td>
+<td class="py-3 px-4 text-right">450</td>
+<td class="py-3 px-4 text-right"><button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[20px]">edit</span></button></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer bg-surface-bright">
+<td class="py-3 px-4 font-medium text-on-surface">Westside Hub</td>
+<td class="py-3 px-4 text-on-surface-variant">45 Innovation Way, CA</td>
+<td class="py-3 px-4 text-right">200</td>
+<td class="py-3 px-4 text-right"><button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[20px]">edit</span></button></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-3 px-4 font-medium text-on-surface">London City</td>
+<td class="py-3 px-4 text-on-surface-variant">88 Tech Square, LDN</td>
+<td class="py-3 px-4 text-right">320</td>
+<td class="py-3 px-4 text-right"><button class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[20px]">edit</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 2: Rooms/Units -->
+<section class="bg-surface rounded-lg border border-border overflow-hidden flex flex-col">
+<div class="p-4 border-b border-border flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary">meeting_room</span> Rooms &amp; Units</h3>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">filter_list</span>
+<select class="pl-8 pr-8 py-1.5 bg-surface border border-border rounded-DEFAULT font-label-md text-label-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary h-8">
+<option>All Locations</option>
+<option>HQ Downtown</option>
+<option>Westside Hub</option>
+</select>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-on-secondary-fixed text-white font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Room Number</th>
+<th class="py-3 px-4 font-semibold">Location</th>
+<th class="py-3 px-4 font-semibold">Size</th>
+<th class="py-3 px-4 font-semibold text-right">Capacity</th>
+<th class="py-3 px-4 font-semibold text-right">Price/Mo</th>
+<th class="py-3 px-4 font-semibold text-center w-32">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border bg-surface font-body-md text-body-md">
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-[16px]">image</span>
+</div>
+                                            A-101
+                                        </td>
+<td class="py-3 px-4 text-on-surface-variant">HQ Downtown</td>
+<td class="py-3 px-4 text-on-surface-variant">150 sqft</td>
+<td class="py-3 px-4 text-right">4</td>
+<td class="py-3 px-4 text-right font-medium">$1,200</td>
+<td class="py-3 px-4 text-center">
+<button class="bg-white border border-on-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors whitespace-nowrap">Upload Photo</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer bg-surface-bright">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<img alt="Room photo" class="w-8 h-8 rounded object-cover border border-border" data-alt="A modern, well-lit private office room with a wooden desk and ergonomic chair. Large window. Corporate light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfmX1woLxwcbz1z418DZQxP_gTjW_Hi9z9HxUfIsWvOPO4Aeucl__b5GUXUx2xA_BrfCgL7KnRWCSnO0cztqkSso7ht96ldAHZ5Uc60eCrOtfAek9PV47YwTp7h6xsg_HeC1yYOTcs9dDAIf-TaKwss2uIMMzYy_qgf8kYV-oZDSaAGt_fF2yXuGMSdoCprHLfuvGQbtYfJ11eJXfv8nr2tqmLomEyCo6XCY_wr48HTiD4b4xs2laqNg"/>
+                                            A-102
+                                        </td>
+<td class="py-3 px-4 text-on-surface-variant">HQ Downtown</td>
+<td class="py-3 px-4 text-on-surface-variant">200 sqft</td>
+<td class="py-3 px-4 text-right">6</td>
+<td class="py-3 px-4 text-right font-medium">$1,800</td>
+<td class="py-3 px-4 text-center">
+<button class="text-on-surface-variant hover:text-primary px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm transition-colors whitespace-nowrap"><span class="material-symbols-outlined text-[18px] align-middle">edit</span> Edit</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-[16px]">image</span>
+</div>
+                                            W-205
+                                        </td>
+<td class="py-3 px-4 text-on-surface-variant">Westside Hub</td>
+<td class="py-3 px-4 text-on-surface-variant">100 sqft</td>
+<td class="py-3 px-4 text-right">2</td>
+<td class="py-3 px-4 text-right font-medium">$850</td>
+<td class="py-3 px-4 text-center">
+<button class="bg-white border border-on-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors whitespace-nowrap">Upload Photo</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 border-t border-border flex justify-between items-center bg-surface-container-lowest font-body-md text-body-md">
+<span class="text-on-surface-variant text-sm">Showing 1-3 of 42 rooms</span>
+<div class="flex gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low disabled:opacity-50"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Service Types) -->
+<div class="lg:col-span-1">
+<section class="bg-surface rounded-lg border border-border flex flex-col h-full">
+<div class="p-4 border-b border-border bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary">category</span> Service Types Catalog</h3>
+<p class="text-on-surface-variant text-sm mt-1">Define the categories of space available across all locations.</p>
+</div>
+<div class="p-4 flex-1">
+<ul class="space-y-3">
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">vpn_key</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Private Office</p>
+<p class="text-xs text-on-surface-variant">Dedicated lockable rooms</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">markunread_mailbox</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Virtual Office</p>
+<p class="text-xs text-on-surface-variant">Mail &amp; business address</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">co_present</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Meeting Room</p>
+<p class="text-xs text-on-surface-variant">Hourly bookable spaces</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">theater_comedy</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Auditorium</p>
+<p class="text-xs text-on-surface-variant">Large presentation venues</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">desk</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Open Desk</p>
+<p class="text-xs text-on-surface-variant">Hot-desking areas</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+<li class="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-surface-bright transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">event</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Event On-Demand</p>
+<p class="text-xs text-on-surface-variant">Flexible event setups</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</li>
+</ul>
+<button class="w-full mt-4 bg-surface-container-low text-primary border border-dashed border-border py-3 rounded-lg font-label-md hover:bg-surface-bright hover:border-primary/30 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_circle</span> Add New Service Type
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

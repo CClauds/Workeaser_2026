@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Chat Support</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d0d9fd",
+                        "surface-container": "#e7eefe",
+                        "border-light": "#E3E8EE",
+                        "tertiary-fixed-dim": "#ffb875",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#dce2f3",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "tertiary-fixed": "#ffdcc0",
+                        "on-secondary-container": "#555e7c",
+                        "on-tertiary-container": "#4b2700",
+                        "on-primary": "#ffffff",
+                        "bg-main": "#FFFFFF",
+                        "surface-container-high": "#e2e8f8",
+                        "surface": "#F7F9FC",
+                        "primary-container": "#00a2dd",
+                        "surface-bright": "#F7F9FC",
+                        "inverse-primary": "#CBEBFA",
+                        "on-surface-variant": "#3e484f",
+                        "surface-variant": "#dce2f3",
+                        "secondary-fixed": "#dbe1ff",
+                        "success": "#22B07D",
+                        "on-tertiary-fixed": "#2d1600",
+                        "danger": "#D14343",
+                        "on-primary-container": "#00344a",
+                        "inverse-surface": "#2a313d",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "background": "#F7F9FC",
+                        "surface-dim": "#d3daea",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "surface-tint": "#00A2DD",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#545d7c",
+                        "on-surface": "#2B3450",
+                        "primary-fixed": "#c5e7ff",
+                        "surface-container-low": "#f0f3ff",
+                        "primary": "#00A2DD",
+                        "outline": "#6e7880",
+                        "on-secondary-fixed-variant": "#2B3450",
+                        "on-primary-fixed": "#001e2d",
+                        "outline-variant": "#bdc8d1",
+                        "inverse-on-surface": "#ebf1ff",
+                        "primary-fixed-dim": "#CBEBFA",
+                        "error": "#ba1a1a",
+                        "tertiary": "#8d4f00",
+                        "on-secondary-fixed": "#111a35",
+                        "on-background": "#2B3450",
+                        "warning": "#E8A13A",
+                        "tertiary-container": "#da8320",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "sidebar-width": "240px",
+                        "table-cell-padding": "12px 16px",
+                        "gutter": "1.5rem",
+                        "margin-page": "2rem",
+                        "stack-md": "1rem"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Archivo Narrow", "sans-serif"],
+                        "table-header": ["Hanken Grotesk", "sans-serif"],
+                        "body-md": ["Hanken Grotesk", "sans-serif"],
+                        "headline-md": ["Archivo Narrow", "sans-serif"],
+                        "label-caps": ["Hanken Grotesk", "sans-serif"],
+                        "body-lg": ["Hanken Grotesk", "sans-serif"],
+                        "headline-sm": ["Archivo Narrow", "sans-serif"],
+                        "body-sm": ["Hanken Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "table-header": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #E3E8EE;
+            border-radius: 20px;
+        }
+    </style>
+
+<style id="workeaser-brand-normalize">
+:root {
+  --wk-cyan: #00A2DD;
+  --wk-cyan-d: #0089BE;
+  --wk-cyan-l: #CBEBFA;
+  --wk-navy: #2B3450;
+  --wk-navy-d: #1C2436;
+  --wk-border: #E3E8EE;
+  --wk-bg: #FFFFFF;
+  --wk-surf: #F7F9FC;
+  --wk-muted: #6B7280;
+  --sidebar-width: 240px;
+  --gutter: 24px;
+  --margin-page: 32px;
+}
+/* layout utilities Stitch references but does not define */
+.ml-sidebar-width { margin-left: var(--sidebar-width); }
+.w-sidebar-width  { width: var(--sidebar-width); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+.gap-gutter { gap: var(--gutter); }
+.mt-gutter { margin-top: var(--gutter); }
+.p-margin-page { padding: var(--margin-page); }
+
+/* brand token remap — override Stitch's Material palette with Workeaser brand */
+.bg-primary { background-color: var(--wk-cyan) !important; }
+.bg-primary:hover, .hover\:bg-primary-container:hover { background-color: var(--wk-cyan-d) !important; }
+.bg-primary-container, .bg-primary-fixed { background-color: var(--wk-cyan-l) !important; }
+.text-primary { color: var(--wk-cyan) !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-primary-container { color: var(--wk-navy) !important; }
+.border-primary, .border-primary-container { border-color: var(--wk-cyan) !important; }
+.text-outline { color: var(--wk-muted) !important; }
+.border-border-light { border-color: var(--wk-border) !important; }
+.bg-bg-main { background-color: var(--wk-bg) !important; }
+.bg-surface { background-color: var(--wk-surf) !important; }
+.bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container,
+.bg-surface-bright, .bg-surface-dim { background-color: var(--wk-surf) !important; }
+.bg-surface-container-high, .bg-surface-container-highest { background-color: #EEF2F7 !important; }
+.bg-surface-variant { background-color: #EEF2F7 !important; }
+.text-on-surface { color: var(--wk-navy) !important; }
+.text-on-surface-variant { color: var(--wk-muted) !important; }
+.text-secondary { color: var(--wk-muted) !important; }
+/* navy table headers */
+.font-table-header, thead, .bg-navy { }
+/* headings in navy */
+.font-display-lg, .font-headline-md, .font-headline-sm, h1, h2, h3 { color: var(--wk-navy); }
+</style>
+
+</head>
+<body class="bg-surface font-body-md text-on-surface h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="bg-bg-main dark:bg-surface-container-lowest border-b border-border-light dark:border-outline-variant full-width top-0 z-50">
+<div class="flex justify-between items-center h-16 px-gutter w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<div class="font-display-lg text-display-lg font-bold text-on-surface dark:text-inverse-on-surface">
+                    Workeaser
+                </div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors duration-200" href="#">Invoices</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium hover:text-primary transition-colors duration-200" href="#">Documents</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-full transition-colors duration-200 Active: scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Chat" class="p-2 text-primary border-b-2 border-primary pb-1 rounded-none Active: scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover border border-border-light" data-alt="A professional headshot of a diverse user in a modern office setting, bright lighting, corporate minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgQc9Z2fnDlJWUrUW6pOeqOg3PnZhUbB8vT5moVOwKPKVaijZbMPiUSg4mphMg1m6DeGeW0gQzsbm7Br8LmO5wpiR5nfBFouIktmYKToODZRwaD9nfAq-sAsjxOchUlrvnb0NYW8MbdjHjcKVSAk_QJXbAT_b50AQLnZVS8KiRjUsDAEe5iz8cZOu05vu2fAc9NNR-ilh2TvHDE3fxdbPzEERRiWope8gEOo2CVvqG0W77cN6qYdIYSA"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-4xl mx-auto px-gutter py-margin-page flex flex-col overflow-hidden h-[calc(100vh-64px)]">
+<!-- Chat Header -->
+<div class="flex items-center justify-between pb-4 border-b border-border-light mb-4 flex-shrink-0">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Support</h1>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-success"></span>
+<span class="font-body-sm text-body-sm text-secondary">Easy Work Space — Online</span>
+</div>
+</div>
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Chat Window (Scrollable) -->
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-6 pb-4 pr-2">
+<!-- Date Divider -->
+<div class="flex justify-center">
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-highest px-3 py-1 rounded-full">TODAY</span>
+</div>
+<!-- Incoming Message -->
+<div class="flex flex-col items-start max-w-[80%]">
+<div class="bg-surface-container-highest text-[#2B3450] p-4 rounded-xl rounded-tl-sm border border-border-light font-body-md text-body-md shadow-sm">
+                    Hello! How can I assist you with your workspace booking today?
+                </div>
+<span class="font-body-sm text-body-sm text-outline mt-1 ml-1">10:02 AM</span>
+</div>
+<!-- Outgoing Message -->
+<div class="flex flex-col items-end self-end max-w-[80%]">
+<div class="bg-primary-container text-on-primary p-4 rounded-xl rounded-tr-sm font-body-md text-body-md shadow-sm">
+                    Hi, I need to extend my meeting room reservation by an hour. Room 4B.
+                </div>
+<span class="font-body-sm text-body-sm text-outline mt-1 mr-1">10:05 AM</span>
+</div>
+<!-- Incoming Message -->
+<div class="flex flex-col items-start max-w-[80%]">
+<div class="bg-surface-container-highest text-[#2B3450] p-4 rounded-xl rounded-tl-sm border border-border-light font-body-md text-body-md shadow-sm flex flex-col gap-2">
+<p>Let me check availability for Room 4B...</p>
+<p>Yes, that room is free until 1:00 PM. I've updated your booking. You'll see the extra charge on your next invoice.</p>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1 ml-1">10:07 AM</span>
+</div>
+<!-- Outgoing Message -->
+<div class="flex flex-col items-end self-end max-w-[80%]">
+<div class="bg-primary-container text-on-primary p-4 rounded-xl rounded-tr-sm font-body-md text-body-md shadow-sm">
+                    Perfect, thanks! Could you also send me the updated invoice draft?
+                </div>
+<span class="font-body-sm text-body-sm text-outline mt-1 mr-1">10:08 AM</span>
+</div>
+</div>
+<!-- Input Area -->
+<div class="pt-4 flex-shrink-0 bg-surface">
+<div class="flex items-center gap-3 bg-bg-main border border-border-light p-2 rounded-lg focus-within:ring-2 focus-within:ring-primary-container focus-within:border-transparent transition-all">
+<button class="p-2 text-outline hover:text-primary transition-colors flex-shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 p-2 font-body-md text-body-md text-on-surface placeholder:text-outline" placeholder="Type a message..." type="text"/>
+<button class="bg-primary-container hover:bg-[#008BBF] text-on-primary p-2 px-4 rounded-md transition-colors flex items-center gap-2 font-body-md font-semibold">
+<span>Send</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Documents</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&amp;family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "surface": "#F7F9FC",
+                        "surface-variant": "#dce2f3",
+                        "tertiary-fixed": "#ffdcc0",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "inverse-primary": "#CBEBFA",
+                        "surface-container-high": "#e2e8f8",
+                        "bg-main": "#FFFFFF",
+                        "surface-container": "#e7eefe",
+                        "on-secondary-container": "#555e7c",
+                        "on-tertiary-container": "#4b2700",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#00A2DD",
+                        "surface-bright": "#F7F9FC",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#00a2dd",
+                        "tertiary": "#8d4f00",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#2B3450",
+                        "tertiary-container": "#da8320",
+                        "secondary": "#545d7c",
+                        "on-secondary-fixed": "#111a35",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001e2d",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb875",
+                        "warning": "#E8A13A",
+                        "surface-container-highest": "#dce2f3",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#c5e7ff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface": "#2B3450",
+                        "on-primary-container": "#00344a",
+                        "outline-variant": "#bdc8d1",
+                        "background": "#F7F9FC",
+                        "secondary-container": "#d0d9fd",
+                        "danger": "#D14343",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary": "#00A2DD",
+                        "outline": "#6e7880",
+                        "inverse-surface": "#2a313d",
+                        "surface-dim": "#d3daea",
+                        "primary-fixed-dim": "#CBEBFA",
+                        "on-background": "#2B3450",
+                        "success": "#22B07D",
+                        "border-light": "#E3E8EE",
+                        "on-surface-variant": "#3e484f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "sidebar-width": "240px",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "margin-page": "2rem",
+                        "table-cell-padding": "12px 16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Hanken Grotesk", "sans-serif"],
+                        "headline-sm": ["Archivo Narrow", "sans-serif"],
+                        "label-caps": ["Hanken Grotesk", "sans-serif"],
+                        "table-header": ["Hanken Grotesk", "sans-serif"],
+                        "display-lg": ["Archivo Narrow", "sans-serif"],
+                        "body-lg": ["Hanken Grotesk", "sans-serif"],
+                        "body-md": ["Hanken Grotesk", "sans-serif"],
+                        "headline-md": ["Archivo Narrow", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "table-header": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+
+<style id="workeaser-brand-normalize">
+:root {
+  --wk-cyan: #00A2DD;
+  --wk-cyan-d: #0089BE;
+  --wk-cyan-l: #CBEBFA;
+  --wk-navy: #2B3450;
+  --wk-navy-d: #1C2436;
+  --wk-border: #E3E8EE;
+  --wk-bg: #FFFFFF;
+  --wk-surf: #F7F9FC;
+  --wk-muted: #6B7280;
+  --sidebar-width: 240px;
+  --gutter: 24px;
+  --margin-page: 32px;
+}
+/* layout utilities Stitch references but does not define */
+.ml-sidebar-width { margin-left: var(--sidebar-width); }
+.w-sidebar-width  { width: var(--sidebar-width); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+.gap-gutter { gap: var(--gutter); }
+.mt-gutter { margin-top: var(--gutter); }
+.p-margin-page { padding: var(--margin-page); }
+
+/* brand token remap — override Stitch's Material palette with Workeaser brand */
+.bg-primary { background-color: var(--wk-cyan) !important; }
+.bg-primary:hover, .hover\:bg-primary-container:hover { background-color: var(--wk-cyan-d) !important; }
+.bg-primary-container, .bg-primary-fixed { background-color: var(--wk-cyan-l) !important; }
+.text-primary { color: var(--wk-cyan) !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-primary-container { color: var(--wk-navy) !important; }
+.border-primary, .border-primary-container { border-color: var(--wk-cyan) !important; }
+.text-outline { color: var(--wk-muted) !important; }
+.border-border-light { border-color: var(--wk-border) !important; }
+.bg-bg-main { background-color: var(--wk-bg) !important; }
+.bg-surface { background-color: var(--wk-surf) !important; }
+.bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container,
+.bg-surface-bright, .bg-surface-dim { background-color: var(--wk-surf) !important; }
+.bg-surface-container-high, .bg-surface-container-highest { background-color: #EEF2F7 !important; }
+.bg-surface-variant { background-color: #EEF2F7 !important; }
+.text-on-surface { color: var(--wk-navy) !important; }
+.text-on-surface-variant { color: var(--wk-muted) !important; }
+.text-secondary { color: var(--wk-muted) !important; }
+/* navy table headers */
+.font-table-header, thead, .bg-navy { }
+/* headings in navy */
+.font-display-lg, .font-headline-md, .font-headline-sm, h1, h2, h3 { color: var(--wk-navy); }
+</style>
+
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopNavBar Shell -->
+<header class="bg-surface w-full h-16 border-b border-border-light flex-shrink-0">
+<div class="flex justify-between items-center px-margin-page max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-6">
+<h1 class="font-headline-md text-headline-md text-primary">Workeaser</h1>
+<nav class="hidden md:flex items-center h-full">
+<a class="h-full flex items-center px-4 text-on-secondary-container hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="h-full flex items-center px-4 text-on-secondary-container hover:text-primary transition-colors" href="#">Invoices</a>
+<a class="h-full flex items-center px-4 text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Documents</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 0;">chat</span>
+</button>
+<button class="w-8 h-8 rounded-full overflow-hidden border border-border-light">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling person with short dark hair in a well-lit office setting. The lighting is soft and natural, emphasizing a corporate and modern light-mode aesthetic. Minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsYMIiRO0ggVUNNfkaopek-uoGy7k4JVTlhnOvl_a7gUtvtDnKzlq_NbLP58giFCHqus1t_NTPRXgfo1c5uuZkvKN5k2eTA9qI5PvW5d4KzC3Ui8MjaN78eSuRJRBrCmoMNAKPQK3cdAdGbFhTPfPYnqsUhWu9FQZtmB1SUH06niWkr4b1QFJnKbEwAmbIDHFF0wzJlQI7f57xcq7k03gJSeAv40VrZl1GdgseDNDjcJTsVaszqyNTLw"/>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-margin-page py-8 max-w-7xl mx-auto w-full flex flex-col gap-8">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h2 class="font-display-lg text-display-lg text-on-surface">Documents</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Manage your contracts, agreements, and shared workspace documents.</p>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-start">
+<!-- Contracts Section -->
+<section class="flex flex-col gap-stack-md">
+<div class="flex items-center justify-between pb-2 border-b border-border-light">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Contracts</h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-2 py-1 rounded">3 Items</span>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<!-- Needs Signature Card -->
+<div class="bg-bg-main border-2 border-primary rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded bg-surface-container flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">contract</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Membership Agreement 2024</span>
+<span class="font-body-sm text-body-sm text-warning flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">pending_actions</span>
+                                    Needs signature by Oct 15
+                                </span>
+</div>
+</div>
+<button class="w-full sm:w-auto bg-primary text-on-primary font-table-header text-table-header px-6 py-2.5 rounded-lg hover:bg-primary-container transition-colors shadow-none focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">draw</span>
+                            Sign Now
+                        </button>
+</div>
+<!-- Signed Contract 1 -->
+<div class="bg-bg-main border border-border-light rounded-lg p-4 flex items-center justify-between gap-4 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">description</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">NDA - Workspace Expansion</span>
+<span class="font-body-sm text-body-sm text-success flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    Signed Aug 12, 2024
+                                </span>
+</div>
+</div>
+<button class="text-secondary hover:text-primary p-2 rounded transition-colors" title="Download">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Signed Contract 2 -->
+<div class="bg-bg-main border border-border-light rounded-lg p-4 flex items-center justify-between gap-4 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">description</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Private Office Lease Agreement</span>
+<span class="font-body-sm text-body-sm text-success flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    Signed Jan 05, 2024
+                                </span>
+</div>
+</div>
+<button class="text-secondary hover:text-primary p-2 rounded transition-colors" title="Download">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Shared Documents Section -->
+<section class="flex flex-col gap-stack-md">
+<div class="flex items-center justify-between pb-2 border-b border-border-light">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Shared Documents</h3>
+<div class="relative">
+<input class="pl-8 pr-3 py-1.5 border border-border-light rounded-lg font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none w-48" placeholder="Search files..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-1.5 text-[18px] text-outline">search</span>
+</div>
+</div>
+<div class="bg-bg-main border border-border-light rounded-lg overflow-hidden flex flex-col">
+<!-- List Header -->
+<div class="grid grid-cols-[1fr_auto_auto] gap-4 p-4 bg-inverse-surface text-on-primary font-table-header text-table-header">
+<div>Name</div>
+<div class="hidden sm:block w-32 text-right">Modified</div>
+<div class="w-10 text-center">Act</div>
+</div>
+<!-- File Items -->
+<div class="flex flex-col divide-y divide-border-light">
+<!-- File 1 -->
+<div class="grid grid-cols-[1fr_auto_auto] gap-4 p-4 items-center hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-danger text-[24px]">picture_as_pdf</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Community Guidelines V2.pdf</span>
+</div>
+<div class="hidden sm:block w-32 text-right font-body-sm text-body-sm text-on-surface-variant">
+                                Oct 01, 2024
+                            </div>
+<div class="w-10 text-center">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<!-- File 2 -->
+<div class="grid grid-cols-[1fr_auto_auto] gap-4 p-4 items-center hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-surface-tint text-[24px]">article</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Building Emergency Procedures.docx</span>
+</div>
+<div class="hidden sm:block w-32 text-right font-body-sm text-body-sm text-on-surface-variant">
+                                Sep 15, 2024
+                            </div>
+<div class="w-10 text-center">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<!-- File 3 -->
+<div class="grid grid-cols-[1fr_auto_auto] gap-4 p-4 items-center hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-warning text-[24px]">folder_zip</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Marketing Assets Q4.zip</span>
+</div>
+<div class="hidden sm:block w-32 text-right font-body-sm text-body-sm text-on-surface-variant">
+                                Aug 28, 2024
+                            </div>
+<div class="w-10 text-center">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<!-- File 4 -->
+<div class="grid grid-cols-[1fr_auto_auto] gap-4 p-4 items-center hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-danger text-[24px]">picture_as_pdf</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Internet Fair Use Policy.pdf</span>
+</div>
+<div class="hidden sm:block w-32 text-right font-body-sm text-body-sm text-on-surface-variant">
+                                Jul 10, 2024
+                            </div>
+<div class="w-10 text-center">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-surface-container-low w-full py-8 border-t border-border-light mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-page max-w-7xl mx-auto gap-4">
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                © 2024 Workeaser. All rights reserved.
+            </div>
+<nav class="flex gap-6">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+</footer>
+</body></html>

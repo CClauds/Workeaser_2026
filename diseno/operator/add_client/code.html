@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Add Client</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#93000a",
+                        "background": "#F8FAFC",
+                        "on-primary-fixed": "#2B3450",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2B3450",
+                        "primary": "#00A2DD",
+                        "on-surface-variant": "#3e484f",
+                        "surface-bright": "#f5faff",
+                        "on-background": "#171c20",
+                        "on-secondary-container": "#555e7c",
+                        "tertiary": "#8d4f00",
+                        "primary-container": "#00A2DD",
+                        "outline": "#6e7880",
+                        "surface-container": "#eaeef3",
+                        "surface-container-high": "#e4e9ee",
+                        "on-secondary-fixed": "#2B3450",
+                        "on-primary-container": "#00344a",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "success": "#10B981",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#FFFFFF",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#dee3e8",
+                        "on-surface": "#171c20",
+                        "inverse-on-surface": "#edf1f6",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "tertiary-fixed-dim": "#ffb875",
+                        "surface-container-highest": "#dee3e8",
+                        "error": "#EF4444",
+                        "surface-dim": "#d6dadf",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bdc8d1",
+                        "primary-fixed-dim": "#80d0ff",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed-variant": "#3d4663",
+                        "surface-container-low": "#f0f4f9",
+                        "tertiary-container": "#da8320",
+                        "warning": "#F59E0B",
+                        "inverse-primary": "#80d0ff",
+                        "primary-fixed": "#c5e7ff",
+                        "secondary-fixed": "#dbe1ff",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "border": "#E2E8F0",
+                        "on-tertiary-container": "#4b2700",
+                        "surface-tint": "#00A2DD",
+                        "tertiary-fixed": "#ffdcc0",
+                        "secondary-container": "#d0d9fd",
+                        "secondary": "#545d7c",
+                        "on-tertiary": "#ffffff",
+                        "info": "#3B82F6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "sidebar-collapsed": "64px",
+                        "container-padding": "24px",
+                        "base-grid": "8px",
+                        "gutter": "24px",
+                        "sidebar-width": "240px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Laca", "Be Vietnam Pro"],
+                        "headline-md": ["Laca", "Be Vietnam Pro"],
+                        "label-sm": ["Laca", "Be Vietnam Pro"],
+                        "headline-lg": ["Laca", "Be Vietnam Pro"],
+                        "label-md": ["Laca", "Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex overflow-hidden selection:bg-primary-container/30">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-on-primary-fixed dark:bg-on-primary-fixed docked full-height left-0 w-sidebar border-r border-outline-variant flat no shadows fixed left-0 top-0 h-screen flex flex-col justify-between w-sidebar z-40">
+<div>
+<!-- Header Brand -->
+<div class="px-6 py-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-white tracking-tight">Workeaser</h1>
+<p class="font-label-sm text-label-sm text-primary-container dark:text-primary-fixed-dim">Management Panel</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<ul class="flex flex-col mt-4 space-y-1 px-2">
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-white font-bold bg-primary-container/20 border-l-4 border-primary-container px-4 py-3 rounded-lg scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Clients</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Contracts</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Billing &amp; Payments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-label-md text-label-md">Communication</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- Footer Navigation -->
+<div class="mb-6 px-2">
+<div class="h-px w-full bg-outline-variant/30 mb-4 mx-2"></div>
+<a class="flex items-center gap-3 text-surface-variant/80 font-body-md px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-white transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Setup</span>
+</a>
+<!-- User Profile Snippet -->
+<div class="mt-4 px-4 py-3 flex items-center gap-3">
+<img alt="Administrator" class="w-8 h-8 rounded-full object-cover border border-outline-variant/50" data-alt="A small, professional avatar headshot of a person looking forward, neutral lighting, corporate style, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr-mUyR3j75jtZo2xVySwtJBsqqUcexH_0JwM2LpgK_7FCvQ3m16Wt8zQ4KnAPEoKZizRq9XlvcrEgUuK8qcsey6LtEwJ_SQ3ZLAP5UPAkRVWSWS5P79CPIMa6ZGW0zNnmFKsn4CO6HKnhfjiqGJo0EZNrkdQj9lMmaC2_UXtmWEOUXBdoiDBwh8FiqBppDqmhFJ5hQ0JQJbs02qgjM2LEw0Tjq52lQdQk8XhaqsuyZwmbZlq2YqDGVA"/>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-surface-variant">Logged in as</span>
+<span class="font-label-md text-label-md text-white truncate w-32">Administrator</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="hidden md:flex bg-surface dark:bg-surface docked full-width top-0 border-b border-border flat no shadows fixed top-0 right-0 left-sidebar h-16 flex justify-between items-center px-gutter z-30">
+<!-- Global Search (on_left) -->
+<div class="flex-1 max-w-xl">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-low border border-transparent rounded-full font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:bg-surface focus:ring-1 focus:ring-primary-container transition-all" placeholder="Search Workeaser..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-2">
+<button aria-label="notifications" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors opacity-80 active:opacity-100 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button aria-label="help" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors opacity-80 active:opacity-100">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-6 w-px bg-border mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-surface-container-low transition-colors px-2 py-1 rounded-full">
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full object-cover border border-border" data-alt="Administrator Avatar headshot, professional corporate style, isolated on clean background, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcb76c28Nf_h8ekVRj78GWtOBOJlkgTnDgCM_rCs7xGuCT1gqmZsLgDvk5YUSeWG-xdJOqh6BG3iBno2Q5eLf5VqRDsycrja8tNvml_lQqVwhxccRvHlRl5peq4ivzGLE2R_r4JdSav4vsm0smOeE0gEtgHZpmbg1lH7GNJSUjQ-EVi4imAmO3J0Q28Z_wCqOdo0Elz-Wwl-vc_64ZZwLu8jEApFcXoCiE3rGCLetwi5Q3SKHE5iwkOw"/>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">expand_more</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-sidebar mt-16 p-gutter overflow-y-auto overflow-x-hidden relative">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6">
+<div>
+<a class="flex items-center text-primary font-label-sm text-label-sm hover:underline mb-2 w-fit" href="#">
+<span class="material-symbols-outlined text-[14px] mr-1">arrow_back</span>
+                    Back to Clients
+                </a>
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[28px]" style="font-variation-settings: 'FILL' 1;">person_add</span>
+                    Add New Client
+                </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Create a new client profile and assign initial services.</p>
+</div>
+</div>
+<!-- Form Layout (Bento-style Grid) -->
+<form class="max-w-6xl mx-auto space-y-base-grid pb-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-base-grid">
+<!-- Left Column: Client Data (Takes up 4 cols on lg) -->
+<div class="lg:col-span-4 space-y-base-grid">
+<!-- Client Data Card -->
+<div class="bg-surface border border-border rounded-lg p-6 shadow-sm h-full">
+<div class="flex items-center gap-2 mb-6 border-b border-border pb-4">
+<span class="material-symbols-outlined text-on-surface-variant">badge</span>
+<h3 class="font-headline-md text-headline-md text-on-secondary-fixed">Client Details</h3>
+</div>
+<div class="space-y-5">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="clientName">Full Name</label>
+<input class="w-full h-10 px-3 border border-border rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" id="clientName" placeholder="e.g. Jane Doe" required="" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="companyName">Company</label>
+<input class="w-full h-10 px-3 border border-border rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" id="companyName" placeholder="e.g. Acme Corp" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="emailAddress">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-sm">mail</span>
+<input class="w-full h-10 pl-9 pr-3 border border-border rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" id="emailAddress" placeholder="jane@example.com" required="" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="phoneNumber">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-sm">call</span>
+<input class="w-full h-10 pl-9 pr-3 border border-border rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" id="phoneNumber" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Services (Takes up 8 cols on lg) -->
+<div class="lg:col-span-8 space-y-base-grid">
+<!-- Services Card -->
+<div class="bg-surface border border-border rounded-lg p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6 border-b border-border pb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">home_work</span>
+<h3 class="font-headline-md text-headline-md text-on-secondary-fixed">Assigned Services</h3>
+</div>
+<button class="flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-DEFAULT transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                                Add Another Service
+                            </button>
+</div>
+<!-- Service Instance 1 -->
+<div class="border border-outline-variant/40 rounded-lg p-5 bg-surface-bright relative group mb-4">
+<button class="absolute top-4 right-4 text-outline-variant hover:text-error transition-colors" title="Remove Service" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Service Type -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Service Type</label>
+<div class="relative">
+<select class="w-full h-10 pl-3 pr-10 border border-border rounded-DEFAULT font-body-md text-body-md appearance-none bg-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container cursor-pointer">
+<option disabled="" selected="" value="">Select service type...</option>
+<option value="private_office">Private Office</option>
+<option value="virtual_office">Virtual Office</option>
+<option value="coworking_desk">Dedicated Desk</option>
+<option value="hot_desk">Hot Desk</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Room / Location -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Room / Allocation</label>
+<input class="w-full h-10 px-3 border border-border rounded-DEFAULT font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-white" placeholder="e.g. Suite 402 or Open Area" type="text"/>
+</div>
+<!-- Dates -->
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Start Date</label>
+<div class="relative">
+<input class="w-full h-10 pl-3 pr-3 border border-border rounded-DEFAULT font-body-md text-body-md bg-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface-variant" type="date"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">End Date</label>
+<div class="relative">
+<input class="w-full h-10 pl-3 pr-3 border border-border rounded-DEFAULT font-body-md text-body-md bg-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface-variant" type="date"/>
+</div>
+</div>
+</div>
+<!-- Billing & Recurring -->
+<div class="flex flex-col justify-end gap-3">
+<div class="flex items-center justify-between bg-white border border-border rounded-DEFAULT p-2 h-10">
+<span class="font-label-md text-label-md text-on-surface">Auto-Renew (Recurring)</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-success"></div>
+</label>
+</div>
+</div>
+<!-- Billing Channel -->
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface mb-1">Billing Channel</label>
+<div class="relative">
+<select class="w-full h-10 pl-3 pr-10 border border-border rounded-DEFAULT font-body-md text-body-md appearance-none bg-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container cursor-pointer">
+<optgroup label="Direct">
+<option selected="" value="ews_direct">EWS Direct</option>
+</optgroup>
+<optgroup label="Partners">
+<option value="partner_broker">Broker Network A</option>
+<option value="partner_aggregator">Global Desk Aggregator</option>
+</optgroup>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Action Bar -->
+<div class="fixed bottom-0 right-0 left-sidebar bg-surface border-t border-border p-4 flex justify-end gap-4 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="px-6 h-10 bg-white border border-on-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors" type="button">
+                    Cancel
+                </button>
+<button class="px-6 h-10 bg-primary-container text-white font-label-md text-label-md rounded-DEFAULT hover:bg-primary transition-colors flex items-center gap-2 shadow-sm" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Client
+                </button>
+</div>
+</form>
+</main>
+</body></html>

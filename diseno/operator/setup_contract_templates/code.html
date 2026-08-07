@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Contract Templates</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb875",
+                      "outline": "#6e7880",
+                      "on-secondary": "#ffffff",
+                      "info": "#3B82F6",
+                      "on-secondary-fixed": "#2B3450",
+                      "inverse-primary": "#80d0ff",
+                      "on-surface": "#171c20",
+                      "surface-container": "#eaeef3",
+                      "secondary-fixed": "#dbe1ff",
+                      "surface-dim": "#d6dadf",
+                      "primary-fixed-dim": "#80d0ff",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2B3450",
+                      "on-tertiary-container": "#4b2700",
+                      "on-tertiary-fixed": "#2d1600",
+                      "surface-container-high": "#e4e9ee",
+                      "primary-container": "#00A2DD",
+                      "surface": "#FFFFFF",
+                      "inverse-on-surface": "#edf1f6",
+                      "secondary": "#545d7c",
+                      "surface-container-low": "#f0f4f9",
+                      "surface-tint": "#00A2DD",
+                      "background": "#F8FAFC",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#bdc5e8",
+                      "warning": "#F59E0B",
+                      "on-primary-fixed": "#2B3450",
+                      "surface-variant": "#dee3e8",
+                      "on-secondary-fixed-variant": "#3d4663",
+                      "on-background": "#171c20",
+                      "on-primary-container": "#00344a",
+                      "on-secondary-container": "#555e7c",
+                      "surface-container-highest": "#dee3e8",
+                      "surface-bright": "#f5faff",
+                      "primary": "#00A2DD",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bdc8d1",
+                      "tertiary-fixed": "#ffdcc0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "secondary-container": "#d0d9fd",
+                      "border": "#E2E8F0",
+                      "on-surface-variant": "#3e484f",
+                      "error": "#EF4444",
+                      "tertiary-container": "#da8320",
+                      "primary-fixed": "#c5e7ff",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#8d4f00",
+                      "on-tertiary-fixed-variant": "#6b3b00",
+                      "on-primary-fixed-variant": "#004c6a",
+                      "success": "#10B981"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-grid": "8px",
+                      "container-padding": "24px",
+                      "gutter": "24px",
+                      "sidebar-width": "240px",
+                      "sidebar-collapsed": "64px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "body-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "label-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-lg": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background h-full overflow-hidden flex font-body-md text-body-md">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex bg-on-secondary-fixed dark:bg-on-secondary-fixed text-primary dark:text-inverse-primary font-body-md text-body-md fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant flex-col py-base-grid z-20">
+<!-- Header -->
+<div class="px-container-padding pb-gutter flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary flex items-center justify-center font-bold">W</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Workeaser</h1>
+<p class="font-label-sm text-label-sm text-surface-variant">Operator Panel</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 overflow-y-auto overflow-x-hidden px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Contracts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span>Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span>Billing &amp; Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span>Communication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span>Partners</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span>Locations</span>
+</a>
+<div class="pt-4 pb-2 px-3">
+<p class="font-label-sm text-label-sm text-surface-variant uppercase tracking-wider">Setup</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-primary text-on-primary font-semibold opacity-90 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_document">edit_document</span>
+<span>Contract Templates</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_applications">settings_applications</span>
+<span>Invoice Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Payment Methods</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span>Visual Identity</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span>Users &amp; Roles</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="mt-auto px-3 pt-4 border-t border-on-secondary-fixed-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:pl-sidebar-width h-full w-full relative">
+<!-- TopNavBar (from JSON) -->
+<header class="bg-surface dark:bg-surface-container-low text-primary dark:text-inverse-primary font-label-md text-label-md fixed top-0 right-0 md:left-[240px] left-0 h-16 border-b border-outline-variant flex justify-between items-center px-container-padding w-auto md:w-[calc(100%-240px)] z-10">
+<!-- Left Side (Search) -->
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-DEFAULT border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md" placeholder="Search..." type="text"/>
+</div>
+</div>
+<!-- Right Side (Actions & Profile) -->
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all duration-200 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 hidden sm:block">
+                    Support
+                </button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2 cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a person looking forward, neutral lighting, corporate style, high resolution, used as a user profile picture avatar in a web interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5ELbtR9sxDEiWV-BfjUIvvHHW1SVlTK-_rAnYxFOSI0OuwGU1gM_DiHTRD8o3fz-m0G8ITQaJDu9Tr1teoQpQVS-As-1dTKNuqlCq_RxREyxHQhW6sbYDqs4KvvFF5Vdt3_OoHBOB8k9_Bef8dkqhy0-N4wkrEIEP8YvqNW94DJP4oUIc6MaNMHRXdcgB05AB5XRjIuOSF4y-upk4TFBNGsyWS3sVk-92XFMNbTJyE762TZVFb8QBUQ"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto mt-16 p-gutter bg-background">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-1">Contract Templates</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and standardize your operational agreements.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 rounded-DEFAULT font-label-md text-label-md font-semibold hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Create Template
+                </button>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface rounded-lg border border-border overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-secondary text-on-secondary font-label-md text-label-md">
+<th class="p-4 font-semibold w-1/2">Template Name</th>
+<th class="p-4 font-semibold w-1/4">Created Date</th>
+<th class="p-4 font-semibold w-1/4">Last Modified</th>
+<th class="p-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-border">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</div>
+<span class="font-semibold text-primary">Standard Coworking Membership</span>
+</div>
+</td>
+<td class="p-4 text-on-surface-variant">Oct 12, 2023</td>
+<td class="p-4 text-on-surface-variant">Nov 04, 2023</td>
+<td class="p-4 text-right">
+<button aria-label="Edit Template" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-DEFAULT hover:bg-surface-container-high focus:outline-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer bg-background/50">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</div>
+<span class="font-semibold text-primary">Dedicated Desk Agreement</span>
+</div>
+</td>
+<td class="p-4 text-on-surface-variant">Sep 05, 2023</td>
+<td class="p-4 text-on-surface-variant">Sep 05, 2023</td>
+<td class="p-4 text-right">
+<button aria-label="Edit Template" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-DEFAULT hover:bg-surface-container-high focus:outline-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</div>
+<span class="font-semibold text-primary">Private Office Lease - Annual</span>
+</div>
+</td>
+<td class="p-4 text-on-surface-variant">Aug 22, 2023</td>
+<td class="p-4 text-on-surface-variant">Oct 15, 2023</td>
+<td class="p-4 text-right">
+<button aria-label="Edit Template" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-DEFAULT hover:bg-surface-container-high focus:outline-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer bg-background/50">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</div>
+<span class="font-semibold text-primary">Event Space Rental Terms</span>
+</div>
+</td>
+<td class="p-4 text-on-surface-variant">Jan 10, 2023</td>
+<td class="p-4 text-on-surface-variant">Jun 30, 2023</td>
+<td class="p-4 text-right">
+<button aria-label="Edit Template" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-DEFAULT hover:bg-surface-container-high focus:outline-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</div>
+<span class="font-semibold text-primary">Meeting Room Policies</span>
+</div>
+</td>
+<td class="p-4 text-on-surface-variant">Nov 01, 2022</td>
+<td class="p-4 text-on-surface-variant">Mar 12, 2023</td>
+<td class="p-4 text-right">
+<button aria-label="Edit Template" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-DEFAULT hover:bg-surface-container-high focus:outline-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -45,7 +45,7 @@ export default function OperatorHeader() {
       {/* User */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13 }}>
         <span style={{ color: '#2B3450', fontWeight: 500 }}>
-          {user?.firstName} {user?.lastName}
+          {user?.first_name} {user?.last_name}
         </span>
         <span style={{
           fontSize: 10,

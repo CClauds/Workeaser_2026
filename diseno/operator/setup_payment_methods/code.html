@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - Payment Methods</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb875",
+                        "outline": "#6e7880",
+                        "on-secondary": "#ffffff",
+                        "info": "#3B82F6",
+                        "on-secondary-fixed": "#2B3450",
+                        "inverse-primary": "#80d0ff",
+                        "on-surface": "#171c20",
+                        "surface-container": "#eaeef3",
+                        "secondary-fixed": "#dbe1ff",
+                        "surface-dim": "#d6dadf",
+                        "primary-fixed-dim": "#80d0ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2B3450",
+                        "on-tertiary-container": "#4b2700",
+                        "on-tertiary-fixed": "#2d1600",
+                        "surface-container-high": "#e4e9ee",
+                        "primary-container": "#00A2DD",
+                        "surface": "#FFFFFF",
+                        "inverse-on-surface": "#edf1f6",
+                        "secondary": "#545d7c",
+                        "surface-container-low": "#f0f4f9",
+                        "surface-tint": "#00A2DD",
+                        "background": "#F8FAFC",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "warning": "#F59E0B",
+                        "on-primary-fixed": "#2B3450",
+                        "surface-variant": "#dee3e8",
+                        "on-secondary-fixed-variant": "#3d4663",
+                        "on-background": "#171c20",
+                        "on-primary-container": "#00344a",
+                        "on-secondary-container": "#555e7c",
+                        "surface-container-highest": "#dee3e8",
+                        "surface-bright": "#f5faff",
+                        "primary": "#00A2DD",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bdc8d1",
+                        "tertiary-fixed": "#ffdcc0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d0d9fd",
+                        "border": "#E2E8F0",
+                        "on-surface-variant": "#3e484f",
+                        "error": "#EF4444",
+                        "tertiary-container": "#da8320",
+                        "primary-fixed": "#c5e7ff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#8d4f00",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "success": "#10B981"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base-grid": "8px",
+                        "container-padding": "24px",
+                        "gutter": "24px",
+                        "sidebar-width": "240px",
+                        "sidebar-collapsed": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Laca", "Be Vietnam Pro"],
+                        "body-md": ["Laca", "Be Vietnam Pro"],
+                        "label-md": ["Laca", "Be Vietnam Pro"],
+                        "headline-lg": ["Laca", "Be Vietnam Pro"],
+                        "headline-md": ["Laca", "Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+        body { font-family: 'Laca', 'Be Vietnam Pro', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #10B981;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #10B981;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-base-grid bg-on-secondary-fixed dark:bg-on-secondary-fixed text-primary dark:text-inverse-primary font-body-md text-body-md fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant z-20">
+<div class="px-gutter mb-8 mt-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container rounded flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined filled">domain</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-on-primary">Workeaser</div>
+<div class="font-label-sm text-label-sm text-surface-variant opacity-80">Operator Panel</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-4 space-y-1">
+<div class="font-label-sm text-label-sm text-surface-variant uppercase tracking-wider mb-2 mt-4 px-2">Daily Use</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Contracts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">event</span>
+<span>Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Billing &amp; Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span>Communication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Reports</span>
+</a>
+<div class="font-label-sm text-label-sm text-surface-variant uppercase tracking-wider mb-2 mt-6 px-2">Setup</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span>Partners</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span>Locations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">edit_document</span>
+<span>Contract Templates</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings_applications</span>
+<span>Invoice Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-primary text-on-primary font-semibold opacity-90 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Payment Methods</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">palette</span>
+<span>Visual Identity</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span>Users &amp; Roles</span>
+</a>
+</div>
+<div class="mt-auto px-4 pt-4 border-t border-on-secondary-fixed-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[240px] w-full min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-low text-primary dark:text-inverse-primary font-label-md text-label-md h-16 border-b border-outline-variant flex justify-between items-center px-container-padding w-full z-10 sticky top-0 shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-md text-headline-md font-bold text-on-surface md:hidden">Workeaser</div>
+<!-- Search Bar -->
+<div class="hidden md:flex relative items-center w-64">
+<span class="material-symbols-outlined absolute left-3 text-outline-variant text-sm">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-outline-variant rounded-lg text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex space-x-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center h-16 border-b-2 border-transparent hover:border-primary" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden hover:opacity-80 transition-opacity">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a brightly lit modern office setting. The lighting is soft and neutral, enhancing a clean, contemporary corporate aesthetic with subtle navy blue accents in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxTLprHkI62PTzbIshoAYZp2HlCS7xQ7RF6BKfrr8EZdr50P2rgNpaGrvSWGLvlgGY5iEpPivRZz9jD_pKPZSlPMOtT-0Nc0UR_2KjqIezy6ILjOlGnAECTd19b2PxKItWyAwlNpHcU1a0qcSkCxJXksvF4Mni_3ObhViZcMmZwyFbBNzXr3YfdNivZh16ZTtIda1IoWhHivISnqW_uRsHzZzvHzuGZv2AG3Gn-TybklrWBN-EEMoekw"/>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-gutter bg-background">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Payment Methods</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configure available payment options and associated surcharges for your locations.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface border border-outline-variant rounded-lg text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200">View Logs</button>
+<button class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-90 transition-opacity duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span>
+                        Save Changes
+                    </button>
+</div>
+</div>
+<!-- Bento Grid / Card List -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- ACH Card -->
+<div class="bg-surface border border-border rounded-xl p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-success"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">ACH Transfer</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success mt-1">ACTIVE</span>
+</div>
+</div>
+<!-- Toggle -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="block bg-surface-variant w-10 h-6 rounded-full toggle-label transition-colors duration-200"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform translate-x-4"></div>
+</div>
+</label>
+</div>
+<div class="mt-auto pt-4 border-t border-border">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Surcharge Configuration (%)</label>
+<div class="relative">
+<input class="w-full pl-3 pr-8 py-2 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-10 transition-colors" step="0.01" type="number" value="0.00"/>
+<span class="absolute right-3 top-2.5 text-on-surface-variant font-body-md text-body-md">%</span>
+</div>
+<p class="text-[11px] text-outline mt-2">Standard ACH fees typically absorbed.</p>
+</div>
+</div>
+<!-- Credit Card Card -->
+<div class="bg-surface border border-border rounded-xl p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-success"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Credit Card</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success mt-1">ACTIVE</span>
+</div>
+</div>
+<!-- Toggle -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="block bg-surface-variant w-10 h-6 rounded-full toggle-label transition-colors duration-200"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform translate-x-4"></div>
+</div>
+</label>
+</div>
+<div class="mt-auto pt-4 border-t border-border">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Surcharge Configuration (%)</label>
+<div class="relative">
+<input class="w-full pl-3 pr-8 py-2 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-10 transition-colors" step="0.01" type="number" value="2.90"/>
+<span class="absolute right-3 top-2.5 text-on-surface-variant font-body-md text-body-md">%</span>
+</div>
+<p class="text-[11px] text-outline mt-2">Passes processing fee to client.</p>
+</div>
+</div>
+<!-- Zelle Card -->
+<div class="bg-surface border border-border rounded-xl p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200 relative overflow-hidden opacity-75 hover:opacity-100 group">
+<div class="absolute top-0 left-0 w-1 h-full bg-surface-variant"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary border border-outline-variant">
+<span class="material-symbols-outlined">send_money</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Zelle</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant mt-1">INACTIVE</span>
+</div>
+</div>
+<!-- Toggle -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="block bg-surface-variant w-10 h-6 rounded-full toggle-label transition-colors duration-200"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform"></div>
+</div>
+</label>
+</div>
+<div class="mt-auto pt-4 border-t border-border">
+<label class="block font-label-md text-label-md text-outline mb-2">Surcharge Configuration (%)</label>
+<div class="relative">
+<input class="w-full pl-3 pr-8 py-2 bg-surface-container-low border border-surface-variant rounded-lg font-body-md text-body-md text-outline focus:outline-none h-10 cursor-not-allowed" disabled="" step="0.01" type="number" value="0.00"/>
+<span class="absolute right-3 top-2.5 text-outline font-body-md text-body-md">%</span>
+</div>
+<p class="text-[11px] text-outline mt-2">Enable method to configure.</p>
+</div>
+</div>
+<!-- Check Card -->
+<div class="bg-surface border border-border rounded-xl p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-success"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary border border-outline-variant">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Physical Check</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success mt-1">ACTIVE</span>
+</div>
+</div>
+<!-- Toggle -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="block bg-surface-variant w-10 h-6 rounded-full toggle-label transition-colors duration-200"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform translate-x-4"></div>
+</div>
+</label>
+</div>
+<div class="mt-auto pt-4 border-t border-border">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Surcharge Configuration (%)</label>
+<div class="relative">
+<input class="w-full pl-3 pr-8 py-2 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-10 transition-colors" step="0.01" type="number" value="0.00"/>
+<span class="absolute right-3 top-2.5 text-on-surface-variant font-body-md text-body-md">%</span>
+</div>
+<p class="text-[11px] text-outline mt-2">Manual processing required.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        // Simple script to toggle styles based on checkbox state for demonstration
+        document.querySelectorAll('.toggle-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const dot = this.parentElement.querySelector('.dot');
+                const card = this.closest('.bg-surface');
+                const statusBadge = card.querySelector('span.inline-flex');
+                const inputField = card.querySelector('input[type="number"]');
+                const sideBar = card.querySelector('.absolute.top-0.left-0');
+                
+                if (this.checked) {
+                    dot.classList.add('translate-x-4');
+                    card.classList.remove('opacity-75');
+                    
+                    statusBadge.textContent = 'ACTIVE';
+                    statusBadge.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success mt-1';
+                    
+                    inputField.disabled = false;
+                    inputField.classList.remove('bg-surface-container-low', 'border-surface-variant', 'text-outline', 'cursor-not-allowed');
+                    inputField.classList.add('bg-surface', 'border-outline-variant', 'text-on-surface');
+                    
+                    sideBar.className = 'absolute top-0 left-0 w-1 h-full bg-success';
+                } else {
+                    dot.classList.remove('translate-x-4');
+                    card.classList.add('opacity-75');
+                    
+                    statusBadge.textContent = 'INACTIVE';
+                    statusBadge.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-surface-variant text-on-surface-variant mt-1';
+                    
+                    inputField.disabled = true;
+                    inputField.classList.add('bg-surface-container-low', 'border-surface-variant', 'text-outline', 'cursor-not-allowed');
+                    inputField.classList.remove('bg-surface', 'border-outline-variant', 'text-on-surface');
+                    
+                    sideBar.className = 'absolute top-0 left-0 w-1 h-full bg-surface-variant';
+                }
+            });
+        });
+    </script>
+</body></html>

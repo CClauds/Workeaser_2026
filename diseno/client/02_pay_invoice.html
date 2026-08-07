@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pay Invoice - Workeaser</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "surface": "#F7F9FC",
+                        "surface-variant": "#dce2f3",
+                        "tertiary-fixed": "#ffdcc0",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "inverse-primary": "#CBEBFA",
+                        "surface-container-high": "#e2e8f8",
+                        "bg-main": "#FFFFFF",
+                        "surface-container": "#e7eefe",
+                        "on-secondary-container": "#555e7c",
+                        "on-tertiary-container": "#4b2700",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#00A2DD",
+                        "surface-bright": "#F7F9FC",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#00a2dd",
+                        "tertiary": "#8d4f00",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#2B3450",
+                        "tertiary-container": "#da8320",
+                        "secondary": "#545d7c",
+                        "on-secondary-fixed": "#111a35",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001e2d",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb875",
+                        "warning": "#E8A13A",
+                        "surface-container-highest": "#dce2f3",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#c5e7ff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface": "#2B3450",
+                        "on-primary-container": "#00344a",
+                        "outline-variant": "#bdc8d1",
+                        "background": "#F7F9FC",
+                        "secondary-container": "#d0d9fd",
+                        "danger": "#D14343",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary": "#00A2DD",
+                        "outline": "#6e7880",
+                        "inverse-surface": "#2a313d",
+                        "surface-dim": "#d3daea",
+                        "primary-fixed-dim": "#CBEBFA",
+                        "on-background": "#2B3450",
+                        "success": "#22B07D",
+                        "border-light": "#E3E8EE",
+                        "on-surface-variant": "#3e484f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "sidebar-width": "240px",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "margin-page": "2rem",
+                        "table-cell-padding": "12px 16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["hankenGrotesk"],
+                        "headline-sm": ["archivoNarrow"],
+                        "label-caps": ["hankenGrotesk"],
+                        "table-header": ["hankenGrotesk"],
+                        "display-lg": ["archivoNarrow"],
+                        "body-lg": ["hankenGrotesk"],
+                        "body-md": ["hankenGrotesk"],
+                        "headline-md": ["archivoNarrow"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "table-header": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+
+<style id="workeaser-brand-normalize">
+:root {
+  --wk-cyan: #00A2DD;
+  --wk-cyan-d: #0089BE;
+  --wk-cyan-l: #CBEBFA;
+  --wk-navy: #2B3450;
+  --wk-navy-d: #1C2436;
+  --wk-border: #E3E8EE;
+  --wk-bg: #FFFFFF;
+  --wk-surf: #F7F9FC;
+  --wk-muted: #6B7280;
+  --sidebar-width: 240px;
+  --gutter: 24px;
+  --margin-page: 32px;
+}
+/* layout utilities Stitch references but does not define */
+.ml-sidebar-width { margin-left: var(--sidebar-width); }
+.w-sidebar-width  { width: var(--sidebar-width); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+.gap-gutter { gap: var(--gutter); }
+.mt-gutter { margin-top: var(--gutter); }
+.p-margin-page { padding: var(--margin-page); }
+
+/* brand token remap — override Stitch's Material palette with Workeaser brand */
+.bg-primary { background-color: var(--wk-cyan) !important; }
+.bg-primary:hover, .hover\:bg-primary-container:hover { background-color: var(--wk-cyan-d) !important; }
+.bg-primary-container, .bg-primary-fixed { background-color: var(--wk-cyan-l) !important; }
+.text-primary { color: var(--wk-cyan) !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-primary-container { color: var(--wk-navy) !important; }
+.border-primary, .border-primary-container { border-color: var(--wk-cyan) !important; }
+.text-outline { color: var(--wk-muted) !important; }
+.border-border-light { border-color: var(--wk-border) !important; }
+.bg-bg-main { background-color: var(--wk-bg) !important; }
+.bg-surface { background-color: var(--wk-surf) !important; }
+.bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container,
+.bg-surface-bright, .bg-surface-dim { background-color: var(--wk-surf) !important; }
+.bg-surface-container-high, .bg-surface-container-highest { background-color: #EEF2F7 !important; }
+.bg-surface-variant { background-color: #EEF2F7 !important; }
+.text-on-surface { color: var(--wk-navy) !important; }
+.text-on-surface-variant { color: var(--wk-muted) !important; }
+.text-secondary { color: var(--wk-muted) !important; }
+/* navy table headers */
+.font-table-header, thead, .bg-navy { }
+/* headings in navy */
+.font-display-lg, .font-headline-md, .font-headline-sm, h1, h2, h3 { color: var(--wk-navy); }
+</style>
+
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen flex flex-col">
+<!-- TopNavBar Placeholder (assuming replaced by backend) -->
+    
+
+    <main class="flex-1 overflow-y-auto px-margin-page py-8">
+<div class="max-w-4xl mx-auto space-y-gutter">
+<!-- Header Section -->
+<header class="mb-8">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mb-2">
+<a class="hover:text-primary transition-colors" href="#">Invoices</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span>Invoice EWS-1042</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Invoice EWS-1042 — Virtual Office Monthly Rent</h1>
+<p class="font-headline-md text-headline-md text-primary">Base amount: $500.00</p>
+</header>
+<!-- Payment Methods Section -->
+<section class="space-y-stack-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Select Payment Method</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- ACH Card -->
+<label class="block relative border border-primary bg-primary-fixed/20 rounded-lg p-6 cursor-pointer transition-colors">
+<input checked="" class="absolute top-6 right-6 text-primary focus:ring-primary h-5 w-5 border-outline" name="payment_method" type="radio" value="ach"/>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="account_balance">account_balance</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">ACH Bank Transfer</h3>
+<span class="bg-success text-on-primary font-label-caps text-label-caps px-2 py-0.5 rounded-full">Recommended</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Low fee option</p>
+</div>
+</div>
+<div class="bg-surface p-3 rounded border border-border-light mb-4">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface mb-1">
+<span>Base Amount</span>
+<span>$500.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant mb-2">
+<span>Surcharge</span>
+<span>$4.00</span>
+</div>
+<div class="flex justify-between font-headline-sm text-headline-sm text-on-surface pt-2 border-t border-border-light">
+<span>Total</span>
+<span>$504.00</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-4">
+<input class="rounded border-outline text-primary focus:ring-primary h-4 w-4" id="save_ach" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="save_ach">Save for automatic monthly payment</label>
+</div>
+</label>
+<!-- Credit Card Card -->
+<label class="block relative border border-border-light bg-surface-container-lowest rounded-lg p-6 cursor-pointer hover:border-primary transition-colors opacity-75">
+<input class="absolute top-6 right-6 text-primary focus:ring-primary h-5 w-5 border-outline" name="payment_method" type="radio" value="credit_card"/>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="credit_card">credit_card</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Credit Card</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Instant processing</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded border border-border-light mb-4">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface mb-1">
+<span>Base Amount</span>
+<span>$500.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant mb-2">
+<span>Surcharge</span>
+<span>$15.00</span>
+</div>
+<div class="flex justify-between font-headline-sm text-headline-sm text-on-surface pt-2 border-t border-border-light">
+<span>Total</span>
+<span>$515.00</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4 opacity-0 h-[24px]"> <!-- Spacer to align with ACH checkbox --> </p>
+</label>
+<!-- Zelle/Check Card -->
+<label class="block relative border border-border-light bg-surface-container-lowest rounded-lg p-6 cursor-pointer hover:border-primary transition-colors opacity-75 md:col-span-2">
+<input class="absolute top-6 right-6 text-primary focus:ring-primary h-5 w-5 border-outline" name="payment_method" type="radio" value="manual"/>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="payments">payments</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Zelle / Manual Check</h3>
+<p class="font-body-sm text-body-sm text-success">No fee</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+<div class="bg-surface-container-low p-3 rounded border border-border-light">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface mb-1">
+<span>Base Amount</span>
+<span>$500.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant mb-2">
+<span>Surcharge</span>
+<span>$0.00</span>
+</div>
+<div class="flex justify-between font-headline-sm text-headline-sm text-on-surface pt-2 border-t border-border-light">
+<span>Total</span>
+<span>$500.00</span>
+</div>
+</div>
+<!-- Upload Dropzone (Visually hidden unless selected, simulated here for layout) -->
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 text-center bg-surface-bright flex flex-col items-center justify-center min-h-[120px]">
+<span class="material-symbols-outlined text-on-surface-variant mb-2" data-icon="upload_file">upload_file</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Upload proof of payment (receipt, check copy)</p>
+<button class="font-label-caps text-label-caps text-primary border border-primary px-3 py-1 rounded hover:bg-primary-fixed/10 transition-colors" type="button">Select File</button>
+</div>
+</div>
+</label>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center mt-4 max-w-2xl mx-auto">
+                    * Card surcharge does not exceed our cost of acceptance and is not applied to debit cards.
+                </p>
+<div class="flex justify-end mt-6">
+<button class="bg-primary text-on-primary font-headline-sm text-headline-sm px-6 py-3 rounded-lg shadow-sm hover:bg-primary/90 transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2" type="button">
+                        Proceed to Payment
+                    </button>
+</div>
+</section>
+<!-- Payment History Section -->
+<section class="mt-12">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-4">Payments History</h2>
+<div class="border border-border-light rounded-lg overflow-hidden bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#2B3450] text-on-primary font-table-header text-table-header">
+<tr>
+<th class="p-table-cell-padding border-b border-[#2B3450]">Date</th>
+<th class="p-table-cell-padding border-b border-[#2B3450]">Method</th>
+<th class="p-table-cell-padding border-b border-[#2B3450]">Amount</th>
+<th class="p-table-cell-padding border-b border-[#2B3450]">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="border-b border-border-light hover:bg-surface-container-low transition-colors">
+<td class="p-table-cell-padding">Oct 01, 2024</td>
+<td class="p-table-cell-padding">Credit Card (ending 4242)</td>
+<td class="p-table-cell-padding">$515.00</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success/10 text-success">
+                                        Paid
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-border-light hover:bg-surface-container-low transition-colors">
+<td class="p-table-cell-padding">Sep 01, 2024</td>
+<td class="p-table-cell-padding">ACH Transfer</td>
+<td class="p-table-cell-padding">$504.00</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success/10 text-success">
+                                        Paid
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-table-cell-padding">Aug 01, 2024</td>
+<td class="p-table-cell-padding">Manual Check</td>
+<td class="p-table-cell-padding">$500.00</td>
+<td class="p-table-cell-padding">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success/10 text-success">
+                                        Paid
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Simple script to toggle active styling on radio buttons
+        const radioButtons = document.querySelectorAll('input[name="payment_method"]');
+        
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Reset all cards
+                document.querySelectorAll('label.block').forEach(label => {
+                    label.classList.remove('border-primary', 'bg-primary-fixed/20');
+                    label.classList.add('border-border-light', 'bg-surface-container-lowest', 'opacity-75');
+                    label.querySelector('.material-symbols-outlined').classList.remove('text-primary');
+                    label.querySelector('.material-symbols-outlined').classList.add('text-secondary');
+                });
+
+                // Style active card
+                if (e.target.checked) {
+                    const activeLabel = e.target.closest('label');
+                    activeLabel.classList.add('border-primary', 'bg-primary-fixed/20');
+                    activeLabel.classList.remove('border-border-light', 'bg-surface-container-lowest', 'opacity-75');
+                    activeLabel.querySelector('.material-symbols-outlined').classList.add('text-primary');
+                    activeLabel.querySelector('.material-symbols-outlined').classList.remove('text-secondary');
+                }
+            });
+        });
+    </script>
+</body></html>

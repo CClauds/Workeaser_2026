@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Account - Workeaser</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed-variant": "#6b3b00",
+                    "surface": "#F7F9FC",
+                    "surface-variant": "#dce2f3",
+                    "tertiary-fixed": "#ffdcc0",
+                    "secondary-fixed-dim": "#bdc5e8",
+                    "inverse-primary": "#CBEBFA",
+                    "surface-container-high": "#e2e8f8",
+                    "bg-main": "#FFFFFF",
+                    "surface-container": "#e7eefe",
+                    "on-secondary-container": "#555e7c",
+                    "on-tertiary-container": "#4b2700",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#00A2DD",
+                    "surface-bright": "#F7F9FC",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#ebf1ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#00a2dd",
+                    "tertiary": "#8d4f00",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#2B3450",
+                    "tertiary-container": "#da8320",
+                    "secondary": "#545d7c",
+                    "on-secondary-fixed": "#111a35",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#001e2d",
+                    "on-primary-fixed-variant": "#004c6a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb875",
+                    "warning": "#E8A13A",
+                    "surface-container-highest": "#dce2f3",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c5e7ff",
+                    "surface-container-low": "#f0f3ff",
+                    "on-surface": "#2B3450",
+                    "on-primary-container": "#00344a",
+                    "outline-variant": "#bdc8d1",
+                    "background": "#F7F9FC",
+                    "secondary-container": "#d0d9fd",
+                    "danger": "#D14343",
+                    "on-tertiary-fixed": "#2d1600",
+                    "primary": "#00A2DD",
+                    "outline": "#6e7880",
+                    "inverse-surface": "#2a313d",
+                    "surface-dim": "#d3daea",
+                    "primary-fixed-dim": "#CBEBFA",
+                    "on-background": "#2B3450",
+                    "success": "#22B07D",
+                    "border-light": "#E3E8EE",
+                    "on-surface-variant": "#3e484f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "0.5rem",
+                    "sidebar-width": "240px",
+                    "stack-md": "1rem",
+                    "gutter": "1.5rem",
+                    "margin-page": "2rem",
+                    "table-cell-padding": "12px 16px"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Hanken Grotesk", "sans-serif"
+                    ],
+                    "headline-sm": [
+                            "Archivo Narrow", "sans-serif"
+                    ],
+                    "label-caps": [
+                            "Hanken Grotesk", "sans-serif"
+                    ],
+                    "table-header": [
+                            "Hanken Grotesk", "sans-serif"
+                    ],
+                    "display-lg": [
+                            "Archivo Narrow", "sans-serif"
+                    ],
+                    "body-lg": [
+                            "Hanken Grotesk", "sans-serif"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk", "sans-serif"
+                    ],
+                    "headline-md": [
+                            "Archivo Narrow", "sans-serif"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "table-header": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+
+<style id="workeaser-brand-normalize">
+:root {
+  --wk-cyan: #00A2DD;
+  --wk-cyan-d: #0089BE;
+  --wk-cyan-l: #CBEBFA;
+  --wk-navy: #2B3450;
+  --wk-navy-d: #1C2436;
+  --wk-border: #E3E8EE;
+  --wk-bg: #FFFFFF;
+  --wk-surf: #F7F9FC;
+  --wk-muted: #6B7280;
+  --sidebar-width: 240px;
+  --gutter: 24px;
+  --margin-page: 32px;
+}
+/* layout utilities Stitch references but does not define */
+.ml-sidebar-width { margin-left: var(--sidebar-width); }
+.w-sidebar-width  { width: var(--sidebar-width); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+.gap-gutter { gap: var(--gutter); }
+.mt-gutter { margin-top: var(--gutter); }
+.p-margin-page { padding: var(--margin-page); }
+
+/* brand token remap — override Stitch's Material palette with Workeaser brand */
+.bg-primary { background-color: var(--wk-cyan) !important; }
+.bg-primary:hover, .hover\:bg-primary-container:hover { background-color: var(--wk-cyan-d) !important; }
+.bg-primary-container, .bg-primary-fixed { background-color: var(--wk-cyan-l) !important; }
+.text-primary { color: var(--wk-cyan) !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-primary-container { color: var(--wk-navy) !important; }
+.border-primary, .border-primary-container { border-color: var(--wk-cyan) !important; }
+.text-outline { color: var(--wk-muted) !important; }
+.border-border-light { border-color: var(--wk-border) !important; }
+.bg-bg-main { background-color: var(--wk-bg) !important; }
+.bg-surface { background-color: var(--wk-surf) !important; }
+.bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container,
+.bg-surface-bright, .bg-surface-dim { background-color: var(--wk-surf) !important; }
+.bg-surface-container-high, .bg-surface-container-highest { background-color: #EEF2F7 !important; }
+.bg-surface-variant { background-color: #EEF2F7 !important; }
+.text-on-surface { color: var(--wk-navy) !important; }
+.text-on-surface-variant { color: var(--wk-muted) !important; }
+.text-secondary { color: var(--wk-muted) !important; }
+/* navy table headers */
+.font-table-header, thead, .bg-navy { }
+/* headings in navy */
+.font-display-lg, .font-headline-md, .font-headline-sm, h1, h2, h3 { color: var(--wk-navy); }
+</style>
+
+</head>
+<body class="bg-bg-main text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="w-full h-16 bg-surface flex justify-between items-center px-margin-page mx-auto font-body-md text-body-md flat no shadows border-b border-border-light relative z-10" role="banner">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-primary">Workeaser</span>
+</div>
+<nav aria-label="Global" class="hidden md:flex gap-6 items-center">
+<!-- Simplified Nav for this specific view intent -->
+</nav>
+<div class="flex items-center gap-4 text-primary">
+<button aria-label="Notifications" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Chat" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-light">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close up, high key portrait of a young professional woman in a bright, modern office setting. Soft, even lighting, subtle depth of field. High contrast corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0p6Pmg9u2rL8qq5LsG7Ycj46RW2AXslKhtlWKoFU7IFrptXTtmxG7_4O8OynTinR6hDiWRVO1SLXE0k9lUrSwQJeFEPq7mo6vu7TPDzHX_wWkTWydVf3nmcpJdM7i_5d-UiEOZKi0DcEN0Bo_N-jME6b9NYgioJ0f477ih2y2m_OWBwvHYlllpOXy2Us6Si5mr36lpRaEk_wJ149kZxLKVskle-ZidEKe0fXUpjmAW-Ln42WfG2fjg"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow px-margin-page py-8 max-w-7xl mx-auto w-full flex flex-col gap-8">
+<!-- Page Header -->
+<div class="flex flex-col gap-2">
+<h1 class="font-display-lg text-display-lg text-on-surface">My Account</h1>
+<p class="font-body-lg text-body-lg text-secondary">Manage your membership, billing, and team details.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- 1. My Membership Card -->
+<div class="bg-surface-lowest border border-border-light rounded-lg p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="card_membership">card_membership</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">My membership</h2>
+</div>
+<span class="bg-success/10 text-success font-label-caps text-label-caps px-2 py-1 rounded-full uppercase">Active</span>
+</div>
+<div class="flex flex-col gap-1 mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">Dedicated Desk Pro</span>
+<span class="font-body-md text-body-md text-secondary">Billed $450.00 / month</span>
+</div>
+<div class="mt-auto pt-4 border-t border-border-light flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-secondary">Next invoice: Oct 1, 2024</span>
+<button class="font-body-sm text-body-sm text-primary hover:text-primary-container transition-colors font-medium">View details</button>
+</div>
+</div>
+<!-- 2. Account Information Card -->
+<div class="bg-surface-lowest border border-border-light rounded-lg p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Account information</h2>
+</div>
+<button class="font-body-sm text-body-sm text-primary hover:text-primary-container transition-colors font-medium border border-transparent hover:border-primary-container px-2 py-1 rounded">Edit</button>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-2">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Name</span>
+<span class="font-body-md text-body-md text-on-surface">Sarah Jenkins</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Email</span>
+<span class="font-body-md text-body-md text-on-surface">s.jenkins@acme.co</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Phone</span>
+<span class="font-body-md text-body-md text-on-surface">+1 (555) 123-4567</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Company</span>
+<span class="font-body-md text-body-md text-on-surface">Acme Corp Ltd.</span>
+</div>
+</div>
+</div>
+<!-- 3. Payment Methods Card -->
+<div class="bg-surface-lowest border border-border-light rounded-lg p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Payment methods</h2>
+</div>
+<button class="bg-surface border border-border-light text-primary font-body-sm text-body-sm px-3 py-1.5 rounded hover:border-primary transition-colors flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span> Add
+                    </button>
+</div>
+<div class="flex flex-col gap-3 mt-2">
+<!-- ACH Method -->
+<div class="flex items-center justify-between p-3 border border-border-light rounded bg-surface-bright group hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Chase Bank •••• 9921</span>
+<span class="font-body-sm text-body-sm text-secondary">Checking Account</span>
+</div>
+</div>
+<span class="font-label-caps text-label-caps text-outline uppercase bg-surface-variant px-2 py-0.5 rounded">Default</span>
+</div>
+<!-- Card Method -->
+<div class="flex items-center justify-between p-3 border border-border-light rounded bg-surface-bright group hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Visa •••• 4242</span>
+<span class="font-body-sm text-body-sm text-secondary">Expires 12/25</span>
+</div>
+</div>
+<button aria-label="Delete payment method" class="material-symbols-outlined text-outline hover:text-danger opacity-0 group-hover:opacity-100 transition-opacity" data-icon="delete">delete</button>
+</div>
+</div>
+</div>
+<!-- 4. Team Members Card -->
+<div class="bg-surface-lowest border border-border-light rounded-lg p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Team members</h2>
+</div>
+<button class="bg-primary text-on-primary font-body-sm text-body-sm px-4 py-1.5 rounded hover:bg-primary-container transition-colors flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="person_add">person_add</span> Invite
+                    </button>
+</div>
+<div class="flex flex-col gap-0 mt-2">
+<!-- Member Row -->
+<div class="flex items-center justify-between py-3 border-b border-border-light last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-secondary font-label-caps text-label-caps">
+                                SJ
+                            </div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Sarah Jenkins</span>
+<span class="font-body-sm text-body-sm text-secondary">Admin</span>
+</div>
+</div>
+</div>
+<!-- Member Row -->
+<div class="flex items-center justify-between py-3 border-b border-border-light last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-secondary font-label-caps text-label-caps">
+                                MD
+                            </div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Mike Dawson</span>
+<span class="font-body-sm text-body-sm text-secondary">Member</span>
+</div>
+</div>
+<button class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors">Manage</button>
+</div>
+<!-- Member Row -->
+<div class="flex items-center justify-between py-3 border-b border-border-light last:border-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-secondary font-label-caps text-label-caps">
+                                AL
+                            </div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Anna Lee</span>
+<span class="font-body-sm text-body-sm text-secondary">Member</span>
+</div>
+</div>
+<button class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors">Manage</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 bg-surface-container-lowest font-body-sm text-body-sm text-secondary border-t border-border-light mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-page max-w-7xl mx-auto gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">© 2024 Workeaser. All rights reserved.</span>
+<nav aria-label="Footer Navigation" class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+</footer>
+</body></html>

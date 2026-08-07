@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visual Identity - Workeaser</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb875",
+                      "outline": "#6e7880",
+                      "on-secondary": "#ffffff",
+                      "info": "#3B82F6",
+                      "on-secondary-fixed": "#2B3450",
+                      "inverse-primary": "#80d0ff",
+                      "on-surface": "#171c20",
+                      "surface-container": "#eaeef3",
+                      "secondary-fixed": "#dbe1ff",
+                      "surface-dim": "#d6dadf",
+                      "primary-fixed-dim": "#80d0ff",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2B3450",
+                      "on-tertiary-container": "#4b2700",
+                      "on-tertiary-fixed": "#2d1600",
+                      "surface-container-high": "#e4e9ee",
+                      "primary-container": "#00A2DD",
+                      "surface": "#FFFFFF",
+                      "inverse-on-surface": "#edf1f6",
+                      "secondary": "#545d7c",
+                      "surface-container-low": "#f0f4f9",
+                      "surface-tint": "#00A2DD",
+                      "background": "#F8FAFC",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#bdc5e8",
+                      "warning": "#F59E0B",
+                      "on-primary-fixed": "#2B3450",
+                      "surface-variant": "#dee3e8",
+                      "on-secondary-fixed-variant": "#3d4663",
+                      "on-background": "#171c20",
+                      "on-primary-container": "#00344a",
+                      "on-secondary-container": "#555e7c",
+                      "surface-container-highest": "#dee3e8",
+                      "surface-bright": "#f5faff",
+                      "primary": "#00A2DD",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bdc8d1",
+                      "tertiary-fixed": "#ffdcc0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "secondary-container": "#d0d9fd",
+                      "border": "#E2E8F0",
+                      "on-surface-variant": "#3e484f",
+                      "error": "#EF4444",
+                      "tertiary-container": "#da8320",
+                      "primary-fixed": "#c5e7ff",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#8d4f00",
+                      "on-tertiary-fixed-variant": "#6b3b00",
+                      "on-primary-fixed-variant": "#004c6a",
+                      "success": "#10B981"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-grid": "8px",
+                      "container-padding": "24px",
+                      "gutter": "24px",
+                      "sidebar-width": "240px",
+                      "sidebar-collapsed": "64px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "body-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "label-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-lg": [
+                              "Laca", "Be Vietnam Pro"
+                      ],
+                      "headline-md": [
+                              "Laca", "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="h-full bg-background font-body-md text-on-background flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-on-secondary-fixed text-on-secondary-fixed flex flex-col py-base-grid border-r border-outline-variant z-20 hidden md:flex">
+<div class="px-container-padding py-base-grid mb-4">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Workeaser</h1>
+<p class="font-label-sm text-label-sm text-surface-variant opacity-80 mt-1 uppercase tracking-wider">Operator Panel</p>
+</div>
+<div class="flex-1 overflow-y-auto px-2 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Contracts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-md text-label-md">Billing &amp; Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-label-md text-label-md">Communication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md">Locations</span>
+</a>
+<div class="pt-4 pb-2 px-3">
+<p class="font-label-sm text-label-sm text-surface-variant opacity-70 uppercase tracking-wider">Setup</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_document">edit_document</span>
+<span class="font-label-md text-label-md">Contract Templates</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_applications">settings_applications</span>
+<span class="font-label-md text-label-md">Invoice Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Payment Methods</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-primary text-on-primary font-semibold hover:bg-on-secondary-fixed-variant transition-colors duration-200 opacity-90" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span class="font-label-md text-label-md">Visual Identity</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span class="font-label-md text-label-md">Users &amp; Roles</span>
+</a>
+</div>
+<div class="px-2 mt-auto pt-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 md:left-[240px] h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-container-padding w-full md:w-[calc(100%-240px)] z-10">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Visual Identity</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 rounded-full border border-border bg-surface-container-low text-sm focus:outline-none focus:ring-1 focus:ring-primary w-48 lg:w-64" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<a class="hidden sm:block font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Support</a>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-border cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-secondary-container text-lg">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full md:ml-[240px] mt-16 p-gutter overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2 border-b border-border">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Branding Settings</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configure your organization's visual identity for the member portal and external communications.</p>
+</div>
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-sm">save</span>
+                    Save Branding
+                </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Forms -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Logo Upload Card -->
+<div class="bg-surface border border-border rounded-lg p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Company Logo</h3>
+<div class="flex flex-col sm:flex-row gap-6 items-start">
+<div class="w-32 h-32 rounded-lg border-2 border-dashed border-outline-variant flex items-center justify-center bg-surface-container-low overflow-hidden relative group cursor-pointer hover:bg-surface-container transition-colors">
+<img class="object-contain w-full h-full p-2 opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A clean, modern corporate logo featuring an abstract geometric shape in cyan and navy blue, suitable for a professional coworking space brand. The logo is displayed on a crisp white background, perfectly centered, exhibiting a sleek and authoritative tech-forward aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq6WGivmxikPREnhPXP4XBYnyx9UV0LCF6gqpth9uInVdCSyhIwSiLobS2f5oF_Z7oA_KAS3Lb3HM8WhRaYhEbDPhGVkIWNrx9lRcyxbct_JW9F8IkghpeE-B24bSW2LwMttRbaCDW-LECgNvAT8yU-PbV22X1OOV-nAZc4JCjfJp2uPX6xXOaridIqC5hCHHmelNi-JHm2AnQHcQZTDUdQZtmcomJkgedumQaapJwFcwERUSlewkaeA"/>
+<div class="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center">
+<span class="material-symbols-outlined text-white">upload</span>
+</div>
+</div>
+<div class="flex-1 space-y-3">
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Upload a high-resolution logo for use across the platform. Recommended size: 400x400px. Formats: PNG, SVG.</p>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Brand Name (Alt Text)</label>
+<input class="w-full h-10 px-3 border border-border rounded text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-surface" type="text" value="Workeaser Co."/>
+</div>
+<div class="flex gap-2 pt-2">
+<button class="px-3 py-1.5 border border-border rounded text-on-surface text-sm font-medium hover:bg-surface-container-low transition-colors">Upload New</button>
+<button class="px-3 py-1.5 text-error text-sm font-medium hover:bg-error-container/50 rounded transition-colors">Remove</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Colors Card -->
+<div class="bg-surface border border-border rounded-lg p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Brand Colors</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Primary Color -->
+<div class="space-y-3">
+<label class="block font-label-md text-label-md text-on-surface">Primary Color</label>
+<p class="text-xs text-on-surface-variant">Used for main actions, active states, and key highlights.</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded border border-border bg-[#00A2DD] shadow-inner cursor-pointer relative group">
+<input class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" type="color" value="#00A2DD"/>
+</div>
+<input class="flex-1 h-10 px-3 border border-border rounded font-mono text-sm uppercase focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-surface" type="text" value="#00A2DD"/>
+</div>
+</div>
+<!-- Secondary Color -->
+<div class="space-y-3">
+<label class="block font-label-md text-label-md text-on-surface">Secondary Color</label>
+<p class="text-xs text-on-surface-variant">Used for backgrounds, secondary buttons, and subtle accents.</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded border border-border bg-[#2B3450] shadow-inner cursor-pointer relative">
+<input class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" type="color" value="#2B3450"/>
+</div>
+<input class="flex-1 h-10 px-3 border border-border rounded font-mono text-sm uppercase focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-surface" type="text" value="#2B3450"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Typography Card -->
+<div class="bg-surface border border-border rounded-lg p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Typography</h3>
+<div class="space-y-5">
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface">Primary Font Family</label>
+<div class="relative">
+<select class="w-full h-10 pl-3 pr-10 border border-border rounded text-body-md appearance-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-surface cursor-pointer">
+<option selected="" value="be-vietnam-pro">Be Vietnam Pro</option>
+<option value="inter">Inter</option>
+<option value="roboto">Roboto</option>
+<option value="open-sans">Open Sans</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded border border-border">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2">Typography Preview</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">The quick brown fox jumps over the lazy dog. 1234567890</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Live Preview -->
+<div class="lg:col-span-1">
+<div class="sticky top-[88px] bg-surface border border-border rounded-lg p-0 shadow-sm overflow-hidden flex flex-col h-[500px]">
+<div class="bg-on-secondary-fixed text-white p-3 border-b border-on-secondary-fixed-variant flex items-center justify-between">
+<h3 class="font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                                Member Portal Preview
+                            </h3>
+<span class="text-xs bg-white/20 px-2 py-0.5 rounded">Live</span>
+</div>
+<!-- Mini Portal Mockup -->
+<div class="flex-1 bg-background p-4 flex flex-col gap-4 overflow-hidden relative pointer-events-none select-none">
+<!-- Mock Header -->
+<div class="bg-surface p-3 rounded border border-border flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container-low flex items-center justify-center overflow-hidden border border-border">
+<img class="object-cover w-full h-full opacity-70" data-alt="A small, stylized icon version of a corporate logo, featuring abstract geometric elements in cyan and navy. It is a compact, high-contrast mark perfect for a small UI element, clean and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQsGV7MFOQx2vVpYS6sQ9aA1X2xLEjzTMrxcrge5LUV4HzuWDrB6seMtWYeuOI2mZF-TDGLowePNaO4-rM1IvXuAnEAmOYBP0PMtKO6x9Y7_Z3kQ-oUvgV1LIgHSyehjeqk_xXvabbNw8mGZNyUkcACLdVTfcos2xBVtEdVQ3XNRHl197_4xaBWCkuXc5b96iJ-IcoBGwJSLqINkxJEs9nK-Yzwcz8gmETNQ3zOaH7EHsJZ9Oif9QJhQ"/>
+</div>
+<span class="font-bold text-sm text-[#2B3450]">Workeaser</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-high border border-border"></div>
+</div>
+<!-- Mock Content -->
+<div class="bg-surface p-4 rounded border border-border shadow-sm space-y-3 flex-1">
+<h4 class="font-bold text-lg text-[#2B3450]">Welcome back, Alex</h4>
+<p class="text-xs text-on-surface-variant">Your upcoming bookings for today.</p>
+<div class="p-3 rounded border border-[#00A2DD]/30 bg-[#00A2DD]/5 border-l-4 border-l-[#00A2DD]">
+<p class="font-bold text-sm text-[#2B3450]">Meeting Room A</p>
+<p class="text-xs text-on-surface-variant mt-1">10:00 AM - 11:30 AM</p>
+</div>
+<button class="w-full py-2 bg-[#00A2DD] text-white rounded text-sm font-medium mt-auto">Book Workspace</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

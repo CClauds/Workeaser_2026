@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workeaser - New Contract</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb875",
+                        "outline": "#6e7880",
+                        "on-secondary": "#ffffff",
+                        "info": "#3B82F6",
+                        "on-secondary-fixed": "#2B3450",
+                        "inverse-primary": "#80d0ff",
+                        "on-surface": "#171c20",
+                        "surface-container": "#eaeef3",
+                        "secondary-fixed": "#dbe1ff",
+                        "surface-dim": "#d6dadf",
+                        "primary-fixed-dim": "#80d0ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2B3450",
+                        "on-tertiary-container": "#4b2700",
+                        "on-tertiary-fixed": "#2d1600",
+                        "surface-container-high": "#e4e9ee",
+                        "primary-container": "#00A2DD",
+                        "surface": "#FFFFFF",
+                        "inverse-on-surface": "#edf1f6",
+                        "secondary": "#545d7c",
+                        "surface-container-low": "#f0f4f9",
+                        "surface-tint": "#00A2DD",
+                        "background": "#F8FAFC",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#bdc5e8",
+                        "warning": "#F59E0B",
+                        "on-primary-fixed": "#2B3450",
+                        "surface-variant": "#dee3e8",
+                        "on-secondary-fixed-variant": "#3d4663",
+                        "on-background": "#171c20",
+                        "on-primary-container": "#00344a",
+                        "on-secondary-container": "#555e7c",
+                        "surface-container-highest": "#dee3e8",
+                        "surface-bright": "#f5faff",
+                        "primary": "#00A2DD",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bdc8d1",
+                        "tertiary-fixed": "#ffdcc0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d0d9fd",
+                        "border": "#E2E8F0",
+                        "on-surface-variant": "#3e484f",
+                        "error": "#EF4444",
+                        "tertiary-container": "#da8320",
+                        "primary-fixed": "#c5e7ff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#8d4f00",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "on-primary-fixed-variant": "#004c6a",
+                        "success": "#10B981"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base-grid": "8px",
+                        "container-padding": "24px",
+                        "gutter": "24px",
+                        "sidebar-width": "240px",
+                        "sidebar-collapsed": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Laca", "Be Vietnam Pro"],
+                        "body-md": ["Laca", "Be Vietnam Pro"],
+                        "label-md": ["Laca", "Be Vietnam Pro"],
+                        "headline-lg": ["Laca", "Be Vietnam Pro"],
+                        "headline-md": ["Laca", "Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="bg-on-secondary-fixed dark:bg-on-secondary-fixed fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant flex flex-col py-base-grid z-20">
+<div class="px-container-padding pb-gutter flex items-center gap-3">
+<img alt="Workeaser Logo" class="w-8 h-8 rounded-lg" data-alt="A clean, minimalist logo for a workspace management software, featuring interlocking geometric shapes in cyan and navy blue against a transparent background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5awCMuP7q80xSot09U7RX35QCyPYQVqZyaw21ZdJmqC-ws3ar5fRiLjb-_feO4rX8I1r6W6JWPBYDkt9HSOk8UVZXfWObtv6ME8_9wlHKYYwL-pxGn-axeX9W0WU6mDA7IeB42AKI52GZzvI8b9lSHUJ3wHUbFshVy8sv1ppD-_0l4Z0w4muEsbAbke_6zM0nkwK83RIRRwEEwSUI6w8TSeHv5yI9hVBJVVRrS3WxRR3xtd9gqvTjNw"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Workeaser</h1>
+<p class="font-label-sm text-label-sm text-surface-variant">Operator Panel</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-2">
+<!-- Navigation Items (Contracts is active) -->
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">dashboard</span> Dashboard</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">group</span> Clients</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md bg-primary text-on-primary font-semibold opacity-90" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span> Contracts</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">event</span> Bookings</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">receipt_long</span> Billing &amp; Payments</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">chat</span> Communication</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">folder</span> Documents</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">analytics</span> Reports</a></li>
+</ul>
+<div class="mt-6 mb-2 px-3">
+<p class="font-label-sm text-label-sm text-outline font-semibold uppercase tracking-wider">Setup</p>
+</div>
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">handshake</span> Partners</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">location_on</span> Locations</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">edit_document</span> Contract Templates</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">settings_applications</span> Invoice Settings</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">payments</span> Payment Methods</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">palette</span> Visual Identity</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">manage_accounts</span> Users &amp; Roles</a></li>
+</ul>
+</div>
+<div class="mt-auto px-2 pt-4 border-t border-on-secondary-fixed-variant">
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">help</span> Help Center</a></li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-md text-body-md text-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined">settings</span> Settings</a></li>
+</ul>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-low fixed top-0 right-0 left-[240px] h-16 border-b border-outline-variant flex justify-between items-center px-container-padding w-[calc(100%-240px)] z-10">
+<div class="flex items-center flex-1 max-w-md relative">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-lg font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Search workspace..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200">Support</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-container rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female administrative user in a brightly lit modern office setting, wearing a dark blazer over a light shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv_qOaPSKkIhkXKKKEMy2pi7-wO51khxF06pLUWNrNb7oBlGIN7sXQEtZkDIGr_NnzIBunVeu8JZDOY_MSfKjMBEUnas7LA2sOXByEl9LvTWOH50yQb7zMtvb-rikoiirc_XkLOBZnOhATqx9SUiE2UBmB4uUcqIR1UQyFhKWkqgTOFW8D9LXs7QgBxe2HWVf7Z4LINU9hKH1Ynu0f3fvn57CZcNYgajl7rzoQG55Ufx3VnhIAtCGOAg"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-[240px] mt-16 p-gutter w-full h-[calc(100vh-64px)] overflow-hidden flex flex-col">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-6 shrink-0">
+<div>
+<div class="flex items-center gap-2 text-outline mb-1">
+<span class="font-body-md text-body-md">Contracts</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="font-label-md text-label-md text-on-surface">New Contract</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Generate Contract</h2>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-secondary text-secondary rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> Export PDF
+                </button>
+<button class="px-4 py-2 border border-secondary text-secondary rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">description</span> Export Word
+                </button>
+<button class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">send</span> Send for Signature
+                </button>
+</div>
+</div>
+<!-- Split Pane Layout -->
+<div class="flex gap-gutter h-full overflow-hidden">
+<!-- Left Pane: Form -->
+<div class="w-1/2 bg-surface border border-border rounded-lg flex flex-col shadow-sm overflow-hidden">
+<div class="p-4 border-b border-border bg-background">
+<h3 class="font-headline-md text-headline-md text-on-surface">Contract Details</h3>
+</div>
+<div class="p-6 overflow-y-auto flex-1 space-y-6">
+<!-- Contract Type & Client -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Contract Type</label>
+<select class="w-full h-10 px-3 border border-border rounded-lg bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary">
+<option>Dedicated Desk Agreement</option>
+<option>Private Office Lease</option>
+<option>Virtual Office Membership</option>
+<option>Hot Desk Monthly</option>
+<option>Meeting Room Retainer</option>
+<option>Event Space Rental</option>
+<option>Corporate Team Pass</option>
+<option>Custom Agreement</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Client</label>
+<div class="relative">
+<select class="w-full h-10 px-3 border border-border rounded-lg bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary appearance-none">
+<option>Acme Corp (John Doe)</option>
+<option>TechStart Inc</option>
+<option>Freelance - Sarah Smith</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Room/Unit & Price -->
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-2">
+<label class="block font-label-md text-label-md text-on-surface mb-2">Room / Unit</label>
+<select class="w-full h-10 px-3 border border-border rounded-lg bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary">
+<option>Office 402 - 4 Pax (Floor 4)</option>
+<option>Office 403 - 6 Pax (Floor 4)</option>
+<option>Dedicated Desk Block A</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Monthly Rate</label>
+<div class="relative">
+<span class="absolute left-3 top-2.5 font-body-md text-outline">$</span>
+<input class="w-full h-10 pl-7 pr-3 border border-border rounded-lg bg-surface-container-low text-body-md font-body-md focus:outline-none" readonly="" type="text" value="2,400.00"/>
+</div>
+</div>
+</div>
+<!-- Dates -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Start Date</label>
+<input class="w-full h-10 px-3 border border-border rounded-lg bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary" type="date" value="2023-11-01"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">End Date (Optional)</label>
+<input class="w-full h-10 px-3 border border-border rounded-lg bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary text-outline" type="date"/>
+</div>
+</div>
+<div class="h-px bg-border w-full my-4"></div>
+<!-- Custom Terms -->
+<div>
+<div class="flex justify-between items-center mb-3">
+<h4 class="font-headline-md text-headline-md text-on-surface">Editable Terms</h4>
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> Add Term
+                            </button>
+</div>
+<div class="space-y-4">
+<div class="p-3 border border-border rounded-lg bg-background">
+<label class="block font-label-md text-label-md text-on-surface mb-1">Security Deposit</label>
+<input class="w-full p-2 border border-border rounded bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="One month rent ($2,400) due upon signing."/>
+</div>
+<div class="p-3 border border-border rounded-lg bg-background">
+<label class="block font-label-md text-label-md text-on-surface mb-1">Notice Period</label>
+<input class="w-full p-2 border border-border rounded bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="60 days written notice required prior to termination."/>
+</div>
+<div class="p-3 border border-border rounded-lg bg-background">
+<label class="block font-label-md text-label-md text-on-surface mb-1">Included Credits</label>
+<input class="w-full p-2 border border-border rounded bg-surface text-body-md font-body-md focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="10 hours meeting room access per month. 100 pages printing."/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Live Preview -->
+<div class="w-1/2 bg-surface-container-low border border-border rounded-lg flex flex-col shadow-inner overflow-hidden relative">
+<!-- Preview Toolbar -->
+<div class="p-3 border-b border-border bg-surface flex justify-between items-center shrink-0">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">visibility</span> Live Preview
+                    </span>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded hover:bg-surface-container flex items-center justify-center text-outline"><span class="material-symbols-outlined text-[18px]">zoom_out</span></button>
+<span class="font-label-md text-label-md text-on-surface flex items-center">100%</span>
+<button class="w-8 h-8 rounded hover:bg-surface-container flex items-center justify-center text-outline"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+</div>
+</div>
+<!-- Document Container -->
+<div class="flex-1 overflow-y-auto p-8 flex justify-center bg-surface-container-high">
+<!-- A4 Page Simulation -->
+<div class="bg-surface shadow-md border border-border w-[210mm] min-h-[297mm] p-[20mm] font-serif text-[12pt] leading-relaxed text-black">
+<div class="text-center mb-8">
+<h1 class="text-2xl font-bold uppercase mb-2 font-sans tracking-wide">Workspace License Agreement</h1>
+<p class="text-gray-500 font-sans text-sm">Document ID: WL-2023-1049</p>
+</div>
+<p class="mb-4">This Agreement is made on <span class="bg-primary-fixed-dim/30 px-1">October 24, 2023</span> between:</p>
+<div class="ml-4 mb-6">
+<p><strong>Workeaser Spaces LLC</strong> ("Licensor")</p>
+<p>and</p>
+<p><strong><span class="bg-primary-fixed-dim/30 px-1">Acme Corp (John Doe)</span></strong> ("Licensee")</p>
+</div>
+<h2 class="text-lg font-bold mt-6 mb-3 font-sans">1. License Scope</h2>
+<p class="mb-4">Licensor grants Licensee the non-exclusive right to use the workspace identified as <strong><span class="bg-primary-fixed-dim/30 px-1">Office 402 - 4 Pax (Floor 4)</span></strong> (the "Designated Space") beginning on <strong><span class="bg-primary-fixed-dim/30 px-1">November 1, 2023</span></strong>.</p>
+<h2 class="text-lg font-bold mt-6 mb-3 font-sans">2. Fees and Payments</h2>
+<p class="mb-4">Licensee agrees to pay a monthly license fee of <strong><span class="bg-primary-fixed-dim/30 px-1">$2,400.00</span></strong>, payable in advance on the first day of each month.</p>
+<h2 class="text-lg font-bold mt-6 mb-3 font-sans">3. Special Conditions</h2>
+<ul class="list-disc pl-8 mb-4 space-y-2">
+<li class="bg-primary-fixed-dim/10 p-1">Security Deposit: One month rent ($2,400) due upon signing.</li>
+<li class="bg-primary-fixed-dim/10 p-1">Notice Period: 60 days written notice required prior to termination.</li>
+<li class="bg-primary-fixed-dim/10 p-1">Included Credits: 10 hours meeting room access per month. 100 pages printing.</li>
+</ul>
+<div class="mt-16 grid grid-cols-2 gap-8">
+<div>
+<div class="border-b border-black mb-2 pb-8"></div>
+<p class="text-sm font-sans">Authorized Signature (Licensor)</p>
+</div>
+<div>
+<div class="border-b border-black mb-2 pb-8"></div>
+<p class="text-sm font-sans">Authorized Signature (Licensee)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reservations - Workeaser</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#dbe1ff",
+                      "on-tertiary-fixed-variant": "#6b3b00",
+                      "surface": "#F7F9FC",
+                      "surface-variant": "#dce2f3",
+                      "tertiary-fixed": "#ffdcc0",
+                      "secondary-fixed-dim": "#bdc5e8",
+                      "inverse-primary": "#CBEBFA",
+                      "surface-container-high": "#e2e8f8",
+                      "bg-main": "#FFFFFF",
+                      "surface-container": "#e7eefe",
+                      "on-secondary-container": "#555e7c",
+                      "on-tertiary-container": "#4b2700",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#00A2DD",
+                      "surface-bright": "#F7F9FC",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#ebf1ff",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#00a2dd",
+                      "tertiary": "#8d4f00",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#2B3450",
+                      "tertiary-container": "#da8320",
+                      "secondary": "#545d7c",
+                      "on-secondary-fixed": "#111a35",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#001e2d",
+                      "on-primary-fixed-variant": "#004c6a",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#ffb875",
+                      "warning": "#E8A13A",
+                      "surface-container-highest": "#dce2f3",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#c5e7ff",
+                      "surface-container-low": "#f0f3ff",
+                      "on-surface": "#2B3450",
+                      "on-primary-container": "#00344a",
+                      "outline-variant": "#bdc8d1",
+                      "background": "#F7F9FC",
+                      "secondary-container": "#d0d9fd",
+                      "danger": "#D14343",
+                      "on-tertiary-fixed": "#2d1600",
+                      "primary": "#00A2DD",
+                      "outline": "#6e7880",
+                      "inverse-surface": "#2a313d",
+                      "surface-dim": "#d3daea",
+                      "primary-fixed-dim": "#CBEBFA",
+                      "on-background": "#2B3450",
+                      "success": "#22B07D",
+                      "border-light": "#E3E8EE",
+                      "on-surface-variant": "#3e484f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "0.5rem",
+                      "sidebar-width": "240px",
+                      "stack-md": "1rem",
+                      "gutter": "1.5rem",
+                      "margin-page": "2rem",
+                      "table-cell-padding": "12px 16px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "hankenGrotesk"
+                      ],
+                      "headline-sm": [
+                              "archivoNarrow"
+                      ],
+                      "label-caps": [
+                              "hankenGrotesk"
+                      ],
+                      "table-header": [
+                              "hankenGrotesk"
+                      ],
+                      "display-lg": [
+                              "archivoNarrow"
+                      ],
+                      "body-lg": [
+                              "hankenGrotesk"
+                      ],
+                      "body-md": [
+                              "hankenGrotesk"
+                      ],
+                      "headline-md": [
+                              "archivoNarrow"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "table-header": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+
+<style id="workeaser-brand-normalize">
+:root {
+  --wk-cyan: #00A2DD;
+  --wk-cyan-d: #0089BE;
+  --wk-cyan-l: #CBEBFA;
+  --wk-navy: #2B3450;
+  --wk-navy-d: #1C2436;
+  --wk-border: #E3E8EE;
+  --wk-bg: #FFFFFF;
+  --wk-surf: #F7F9FC;
+  --wk-muted: #6B7280;
+  --sidebar-width: 240px;
+  --gutter: 24px;
+  --margin-page: 32px;
+}
+/* layout utilities Stitch references but does not define */
+.ml-sidebar-width { margin-left: var(--sidebar-width); }
+.w-sidebar-width  { width: var(--sidebar-width); }
+.px-gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+.gap-gutter { gap: var(--gutter); }
+.mt-gutter { margin-top: var(--gutter); }
+.p-margin-page { padding: var(--margin-page); }
+
+/* brand token remap — override Stitch's Material palette with Workeaser brand */
+.bg-primary { background-color: var(--wk-cyan) !important; }
+.bg-primary:hover, .hover\:bg-primary-container:hover { background-color: var(--wk-cyan-d) !important; }
+.bg-primary-container, .bg-primary-fixed { background-color: var(--wk-cyan-l) !important; }
+.text-primary { color: var(--wk-cyan) !important; }
+.text-on-primary { color: #ffffff !important; }
+.text-on-primary-container { color: var(--wk-navy) !important; }
+.border-primary, .border-primary-container { border-color: var(--wk-cyan) !important; }
+.text-outline { color: var(--wk-muted) !important; }
+.border-border-light { border-color: var(--wk-border) !important; }
+.bg-bg-main { background-color: var(--wk-bg) !important; }
+.bg-surface { background-color: var(--wk-surf) !important; }
+.bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container,
+.bg-surface-bright, .bg-surface-dim { background-color: var(--wk-surf) !important; }
+.bg-surface-container-high, .bg-surface-container-highest { background-color: #EEF2F7 !important; }
+.bg-surface-variant { background-color: #EEF2F7 !important; }
+.text-on-surface { color: var(--wk-navy) !important; }
+.text-on-surface-variant { color: var(--wk-muted) !important; }
+.text-secondary { color: var(--wk-muted) !important; }
+/* navy table headers */
+.font-table-header, thead, .bg-navy { }
+/* headings in navy */
+.font-display-lg, .font-headline-md, .font-headline-sm, h1, h2, h3 { color: var(--wk-navy); }
+</style>
+
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col">
+
+    
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-margin-page py-8">
+<header class="flex justify-between items-center mb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Reservations</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage your upcoming bookings and find new spaces.</p>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-body-md text-body-md py-2 px-4 rounded-DEFAULT transition-colors flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-lg">add</span>
+                New reservation
+            </button>
+</header>
+<section class="mb-12">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-border-light pb-2">Upcoming reservations</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Reservation Card 1 -->
+<article class="bg-bg-main border border-border-light rounded-lg p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="inline-block bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps px-2 py-1 rounded-sm uppercase tracking-wider">Meeting Room</span>
+<span aria-hidden="true" class="material-symbols-outlined text-primary">meeting_room</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Boardroom A</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">location_on</span>
+                            Downtown Hub, Floor 3
+                        </p>
+<div class="bg-surface p-3 rounded-DEFAULT border border-border-light mb-6">
+<div class="flex items-center gap-2 mb-1">
+<span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-sm">calendar_today</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Oct 24, 2024</span>
+</div>
+<div class="flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-sm">schedule</span>
+<span class="font-body-sm text-body-sm text-on-surface">10:00 AM - 12:00 PM</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-bg-main border border-border-light text-on-surface-variant hover:text-danger hover:border-danger font-body-sm text-body-sm py-2 rounded-DEFAULT transition-colors">
+                        Cancel Reservation
+                    </button>
+</article>
+<!-- Reservation Card 2 -->
+<article class="bg-bg-main border border-border-light rounded-lg p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="inline-block bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps px-2 py-1 rounded-sm uppercase tracking-wider">Hot Desk</span>
+<span aria-hidden="true" class="material-symbols-outlined text-primary">desk</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Open Area Desk</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">location_on</span>
+                            Midtown Campus, Floor 1
+                        </p>
+<div class="bg-surface p-3 rounded-DEFAULT border border-border-light mb-6">
+<div class="flex items-center gap-2 mb-1">
+<span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-sm">calendar_today</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Oct 25, 2024</span>
+</div>
+<div class="flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-sm">schedule</span>
+<span class="font-body-sm text-body-sm text-on-surface">All Day (9:00 AM - 6:00 PM)</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-bg-main border border-border-light text-on-surface-variant hover:text-danger hover:border-danger font-body-sm text-body-sm py-2 rounded-DEFAULT transition-colors">
+                        Cancel Reservation
+                    </button>
+</article>
+<!-- Empty State Example (Hidden by default, shown for completeness based on prompt) -->
+<!--
+                <div class="col-span-full flex flex-col items-center justify-center py-16 bg-bg-main border border-dashed border-border-light rounded-lg">
+                    <span class="material-symbols-outlined text-4xl text-outline-variant mb-4" aria-hidden="true">event_busy</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">No upcoming reservations</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-6 text-center max-w-md">You don't have any spaces booked right now. Ready to get to work? Find a space below.</p>
+                </div>
+                -->
+</div>
+</section>
+<section>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-border-light pb-2">Book a space</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Quick Action 1 -->
+<a class="group bg-bg-main border border-border-light rounded-lg p-6 flex items-start gap-4 hover:border-primary transition-colors" href="#">
+<div class="bg-surface-container-high p-3 rounded-lg group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span aria-hidden="true" class="material-symbols-outlined text-2xl">meeting_room</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">Meeting Room</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Private spaces for teams and calls.</p>
+</div>
+</a>
+<!-- Quick Action 2 -->
+<a class="group bg-bg-main border border-border-light rounded-lg p-6 flex items-start gap-4 hover:border-primary transition-colors" href="#">
+<div class="bg-surface-container-high p-3 rounded-lg group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span aria-hidden="true" class="material-symbols-outlined text-2xl">badge</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">Day Pass</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Access to open seating areas for the day.</p>
+</div>
+</a>
+<!-- Quick Action 3 -->
+<a class="group bg-bg-main border border-border-light rounded-lg p-6 flex items-start gap-4 hover:border-primary transition-colors" href="#">
+<div class="bg-surface-container-high p-3 rounded-lg group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span aria-hidden="true" class="material-symbols-outlined text-2xl">storefront</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">Private Office</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dedicated lockable offices for focus.</p>
+</div>
+</a>
+</div>
+</section>
+</main>
+</body></html>
