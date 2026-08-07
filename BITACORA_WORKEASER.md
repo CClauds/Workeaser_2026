@@ -303,3 +303,11 @@
 - **FIX**: useFetch('/me') sin condición de token. Navegador envía httpOnly automático. Si /me 200 → user data → autenticado. Si /me 401 → redirect.
 - **Hash commit**: `0a719a3`
 - **Re-deploy**: espera aprobación de Claudio
+
+### B3: Reemplazar panel viejo → OperatorLayout único — 2026-08-08
+- **LoginBox**: redirect /dashboard → /operator/dashboard
+- **AuthContext**: COWORKING/ADMIN default → /operator/dashboard. Limpia token variable no usada.
+- **SWR middleware**: removido seteo de Authorization Bearer desde JS (parseCookies() sin ctx con httpOnly daba Bearer undefined, pisando CookieAuth).
+- **Rutas viejas NO borradas** — solo desconectadas como landing. Eliminación física en B11.
+- **Hash commit**: `b99875a`
+- **NO desplegado** — espera aprobación de Claudio
