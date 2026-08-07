@@ -285,3 +285,15 @@
 - **Login**: 200, cookie HttpOnly + SameSite=Lax. API health 200.
 - **Hash commit**: `09dc359` (B3-C+D) + previos
 - **Pendiente**: verificación MANUAL de Claudio en navegador (operador shell + client CRUD + setup + daily use)
+
+### Fix login 401 (cookie firmada SSR) — 2026-08-08
+- **CAUSA RAÍZ**: parseCookies(ctx) retorna cookie firmada AdonisJS (s:eyJtZXNz...).
+  apiClient la enviaba como Bearer token → API oat guard la rechazaba.
+- **FIX**: SSR forwardea la cookie raw del request como header Cookie al API.
+  CookieAuth la desfirma (valida firma HMAC con APP_KEY) e inyecta Bearer.
+- **Seguridad**: firma inválida → 401. Firma válida → 200. Sin debilitamiento.
+- **Cobertura**: apiClient es global → todas las páginas B3 (dashboard, clients v2, setup) usan el mismo flujo.
+- **httpOnly**: preservado (B1 dcc7b42). Cookie sigue httpOnly, SameSite=Lax.
+- **Verificación**: valid 200, forged 401, dashboard 200, clients v2 200, setup rooms 200.
+- **Hash commit**: `75c5fa0`
+- **Re-deploy**: espera aprobación de Claudio
