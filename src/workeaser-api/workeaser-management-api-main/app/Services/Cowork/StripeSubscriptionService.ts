@@ -63,7 +63,7 @@ class StripeSubscriptionServiceClass {
   private getStripe(): Stripe {
     const key = Env.get('STRIPE_SECRET_KEY') as string | undefined;
     if (!key) {
-      throw new AppError(AppError.SERVER_ERROR, 'Stripe não configurado (STRIPE_SECRET_KEY ausente)');
+      throw new AppError(AppError.LOGIC_ERROR, 'Stripe não configurado (STRIPE_SECRET_KEY ausente)');
     }
     // Versão fixada para previsibilidade. Suporta PIX no Brasil (a partir de 2022-11-15).
     return new Stripe(key, { apiVersion: '2023-10-16' as Stripe.LatestApiVersion });
@@ -117,7 +117,7 @@ class StripeSubscriptionServiceClass {
     } catch (err: any) {
       Logger.error({ err, codeId: dc.id }, 'Falha ao criar Stripe coupon');
       throw new AppError(
-        AppError.SERVER_ERROR,
+        AppError.LOGIC_ERROR,
         `Não foi possível registrar cupom no Stripe: ${err.message}`
       );
     }
@@ -132,7 +132,7 @@ class StripeSubscriptionServiceClass {
     if (!plan || !plan.active) throw new AppError(AppError.NOT_FOUND, 'Plano inválido ou inativo');
     if (!plan.stripePriceId) {
       throw new AppError(
-        AppError.SERVER_ERROR,
+        AppError.LOGIC_ERROR,
         'Plano não tem stripe_price_id configurado. Configure no painel Stripe primeiro.'
       );
     }
@@ -247,7 +247,7 @@ class StripeSubscriptionServiceClass {
         };
       } catch (err) {
         Logger.error({ err }, 'Stripe checkout session (PIX) falhou');
-        throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+        throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
       }
     }
 
@@ -324,7 +324,7 @@ class StripeSubscriptionServiceClass {
       };
     } catch (err) {
       Logger.error({ err }, 'Stripe subscription create falhou');
-      throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
     }
   }
 
@@ -359,7 +359,7 @@ class StripeSubscriptionServiceClass {
       await sub.save();
     } catch (err) {
       Logger.error({ err }, 'Stripe cancel falhou');
-      throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
     }
   }
 
@@ -501,11 +501,11 @@ class StripeSubscriptionServiceClass {
       Logger.error({ err, userId }, 'Stripe billingPortal.sessions.create falhou');
       if (err?.message?.includes('configuration')) {
         throw new AppError(
-          AppError.SERVER_ERROR,
+          AppError.LOGIC_ERROR,
           'Customer Portal não configurado no Stripe Dashboard. Settings → Billing → Customer portal → Activate.'
         );
       }
-      throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
     }
   }
 
@@ -549,7 +549,7 @@ class StripeSubscriptionServiceClass {
     } catch (err: any) {
       if (err instanceof AppError) throw err;
       Logger.error({ err, subId: localSubscriptionId }, 'extendTrial falhou');
-      throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
     }
   }
 
@@ -580,7 +580,7 @@ class StripeSubscriptionServiceClass {
     }
     if (!newPlan.stripePriceId) {
       throw new AppError(
-        AppError.SERVER_ERROR,
+        AppError.LOGIC_ERROR,
         'Novo plano não tem stripe_price_id configurado.'
       );
     }
@@ -593,7 +593,7 @@ class StripeSubscriptionServiceClass {
       const existing = await stripe.subscriptions.retrieve(sub.stripeSubscriptionId);
       const currentItemId = existing.items?.data?.[0]?.id;
       if (!currentItemId) {
-        throw new AppError(AppError.SERVER_ERROR, 'Subscription Stripe sem item — estado inconsistente');
+        throw new AppError(AppError.LOGIC_ERROR, 'Subscription Stripe sem item — estado inconsistente');
       }
       const updated = await stripe.subscriptions.update(sub.stripeSubscriptionId, {
         items: [{ id: currentItemId, price: newPlan.stripePriceId }],
@@ -611,7 +611,7 @@ class StripeSubscriptionServiceClass {
     } catch (err: any) {
       if (err instanceof AppError) throw err;
       Logger.error({ err, subId: localSubscriptionId, newPlanId }, 'Stripe changePlan falhou');
-      throw new AppError(AppError.SERVER_ERROR, `Stripe error: ${err.message}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Stripe error: ${err.message}`);
     }
   }
 }

@@ -1,0 +1,91 @@
+services:
+  mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  workeaser-api:
+    build:
+      context: ../src/workeaser-api/workeaser-management-api-main
+      dockerfile: Dockerfile.workeaser-api
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3333
+      APP_KEY: ${WORKEASER_API_APP_KEY}
+      APP_NAME: workeaser-api
+      APP_URL: http://62.238.102.24
+      API_URL: http://62.238.102.24
+      DRIVE_DISK: local
+      NODE_ENV: production
+      DB_CONNECTION: mysql
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DATABASE}
+      AWS_ACCESS_KEY: local-dev
+      AWS_ACCESS_SECRET: local-dev
+      AWS_REGION: us-east-1
+      SES_MAIL_FROM: noreply@workeaser-staging.local
+      SES_MAIL_FROM_NAME: Workeaser
+      S3_BUCKET: workeaser-local
+      ITEMS_PER_PAGE: 20
+      GOOGLE_CLIENT_ID: PLACEHOLDER
+      GOOGLE_CLIENT_SECRET: PLACEHOLDER
+      GOOGLE_URI_REDIRECT: http://62.238.102.24/auth/google/callback
+      EXCHANGE_CLIENT_ID: PLACEHOLDER
+      EXCHANGE_CLIENT_SECRET: PLACEHOLDER
+      EXCHANGE_REDIRECT_URI: http://62.238.102.24/auth/exchange/callback
+      EXCHANGE_AUTHORITY: https://login.microsoftonline.com/common
+      DOCUSIGN_SANDBOX: true
+      DOCUSIGN_BASE_URI: https://demo.docusign.net/restapi
+      DOCUSIGN_INTEGRATION_KEY: PLACEHOLDER
+      DOCUSIGN_USER_ID: PLACEHOLDER
+      DOCUSIGN_API_ACCOUNT_ID: PLACEHOLDER
+      STRIPE_SECRET_KEY: sk_test_PLACEHOLDER
+      STRIPE_WEBHOOK_SECRET_KEY: whsec_PLACEHOLDER
+      PLAID_CLIENT_ID: PLACEHOLDER
+      PLAID_SECRET_KEY: PLACEHOLDER
+      PLAID_CLIENT_NAME: Workeaser
+      AUTHORIZATION_ADOBE_SIGN: PLACEHOLDER
+      ADOBE_SIGN_API: https://api.echosign.com/api/rest/v6
+      CLIENTID_ADOBE_SIGN: PLACEHOLDER
+      BOLD_SIGN_API: PLACEHOLDER
+      BOLD_SIGN_API_KEY: PLACEHOLDER
+      BOLD_SIGN_WEBHOOK_SECRET_KEY: PLACEHOLDER
+      CORS_ALLOWED_ORIGINS: http://62.238.102.24,http://localhost:3000
+    ports:
+      - '3333:3333'
+
+  admin-api:
+    build:
+      context: ../src/admin-api/admin-management-api-main
+      dockerfile: Dockerfile.admin-api
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3334
+      APP_KEY: ${ADMIN_API_APP_KEY}
+      APP_NAME: workeaser-admin-api
+      APP_URL: http://62.238.102.24
+      NODE_ENV: production
+      DB_CONNECTION: mysql
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DATABASE}
+      DRIVE_DISK: local
+    ports:
+      - '3334:3334'
+
+  frontend:
+    build:
+      context: ../src/workeaser-frontend/workeaser-management-frontend-main
+      dockerfile: Dockerfile.frontend
+      args:
+        NEXT_PUBLIC_API_URL: /api
+        NEXT_PUBLIC_ADMIN_API_URL: /admin-api
+    ports:
+      - '3000:3000'

@@ -145,7 +145,7 @@ export default class WebhookDLQController {
         item.nextAttemptAt = DateTime.now().plus({ minutes: 5 });
         await item.save();
         throw new AppError(
-          AppError.SERVER_ERROR,
+          AppError.LOGIC_ERROR,
           `Retry falhou (attempts=${item.attempts}): ${item.lastError}`
         );
       }

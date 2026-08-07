@@ -38,14 +38,14 @@ export default class MetaCloudImplementation {
     const phoneNumberId = Env.get('WHATSAPP_META_PHONE_NUMBER_ID') as string | undefined;
     const version = (Env.get('WHATSAPP_META_VERSION', 'v18.0') as string) || 'v18.0';
     if (!phoneNumberId) {
-      throw new AppError(AppError.SERVER_ERROR, 'WHATSAPP_META_PHONE_NUMBER_ID não configurado');
+      throw new AppError(AppError.LOGIC_ERROR, 'WHATSAPP_META_PHONE_NUMBER_ID não configurado');
     }
     return `https://graph.facebook.com/${version}/${phoneNumberId}`;
   }
 
   private getToken(): string {
     const token = Env.get('WHATSAPP_META_ACCESS_TOKEN') as string | undefined;
-    if (!token) throw new AppError(AppError.SERVER_ERROR, 'WHATSAPP_META_ACCESS_TOKEN não configurado');
+    if (!token) throw new AppError(AppError.LOGIC_ERROR, 'WHATSAPP_META_ACCESS_TOKEN não configurado');
     return token;
   }
 
@@ -90,7 +90,7 @@ export default class MetaCloudImplementation {
       return { providerMessageId: msgId };
     } catch (err: any) {
       const detail = err.response?.data?.error || err.message;
-      throw new AppError(AppError.SERVER_ERROR, `Meta API: ${JSON.stringify(detail).slice(0, 300)}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Meta API: ${JSON.stringify(detail).slice(0, 300)}`);
     }
   }
 
@@ -116,7 +116,7 @@ export default class MetaCloudImplementation {
       return { providerMessageId: msgId };
     } catch (err: any) {
       const detail = err.response?.data?.error || err.message;
-      throw new AppError(AppError.SERVER_ERROR, `Meta API: ${JSON.stringify(detail).slice(0, 300)}`);
+      throw new AppError(AppError.LOGIC_ERROR, `Meta API: ${JSON.stringify(detail).slice(0, 300)}`);
     }
   }
 }
