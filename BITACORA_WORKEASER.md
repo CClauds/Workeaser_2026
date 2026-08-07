@@ -255,3 +255,10 @@
 - **Sub-auditor**: FAIL (firstName→first_name) → corregido → PASS.
 - **Hash commit**: `154064a`
 - **NO desplegado** — espera aprobación de Claudio
+
+### B3-B: Clients CRUD — 2026-08-08
+- **Backend**: ClientsV2Controller (CRUD sobre client_accounts + service_contracts)
+- **Routes**: /api/cowork/v2/clients (auth + coworkRole, tenant_id=1)
+- **Frontend**: All Clients (lista con search, pagination, JOINs) + Add Client (form con N service_contracts, billing_channel por contrato)
+- **Hash commit**: `0988294`
+- **NO desplegado** — espera aprobación de Claudio
