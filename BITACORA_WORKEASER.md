@@ -68,7 +68,7 @@
 - **Credenciales**: en `workeaser_credentials.txt` (gitignored). MySQL: workeaser / JJ8AMVvmtL1htNU5YOBaoH0m / workeaser_local
 - **Sub-verificador**: PASS en 10/10 checks (SSH, ufw, fail2ban, Docker, APIs, frontend, DB, disk, sin secretos en repo)
 - **Observación**: Puertos Docker en 0.0.0.0 (mitigado por ufw default deny). Recomendado: bind a 127.0.0.1 o reverse proxy.
-- **Hash commit**: *(pendiente)*
+- **Hash commit**: `02df3e7`
 
 ### PENDIENTE (fases posteriores)
 - **Dominio + SSL**: sin configurar (esperado: fase posterior tras end-to-end funcional)
