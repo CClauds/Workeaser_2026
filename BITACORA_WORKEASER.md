@@ -269,3 +269,11 @@
 - **17 páginas operator**: todas bajo OperatorLayout shell. Placeholders marcados para bloques futuros.
 - **Hash commit**: `61167bf`
 - **NO desplegado** — espera aprobación de Claudio
+
+### B3-C+D: Setup CRUD cableado + Daily Use solo-lectura — 2026-08-08
+- **Setup cableado (CRUD real)**: Locations/Rooms/Services, Partners, Users & Roles
+- **Daily Use solo-lectura**: Contracts, Invoices, Messages, Chat, Documents
+- **Backend**: SetupController + routes /api/cowork/v2/setup/*
+- **4 Setup placeholders preservados**: Contract Templates, Invoice Settings, Payment Methods, Visual Identity
+- **Hash commit**: `09dc359`
+- **NO desplegado** — espera aprobación de Claudio para deploy único B3 completo
