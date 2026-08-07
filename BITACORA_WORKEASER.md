@@ -141,7 +141,7 @@
 - **Problema**: `IntegrationError: Missing value for Stripe(): apiKey should be a string` — CoworkingLayout y ClientLayout llamaban `loadStripe(undefined)` sin null-guard.
 - **Fix**: null-guard (`stripeKey ? loadStripe(stripeKey) : null`) en ambos layouts + `NEXT_PUBLIC_STRIPE: pk_test_PLACEHOLDER` en compose staging.
 - **Rate-limit 429**: esperado tras múltiples intentos fallidos de login. Se resuelve solo al expirar la ventana.
-- **Hash commit**: `b6d3f91`
+- **Hash commit**: `9ccbc3d`
 
 
 ### Corrección 1A — 3 fallos de estabilización — 2026-08-07
