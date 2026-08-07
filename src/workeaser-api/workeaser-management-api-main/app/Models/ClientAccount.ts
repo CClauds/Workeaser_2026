@@ -65,6 +65,16 @@ export default class ClientAccount extends SoftDeleteBaseModel {
   @column()
   public pmbNumber: string | null;
 
+  // B3: additional client fields (authorized by Claudio)
+  @column()
+  public address: string | null;
+
+  @column()
+  public ein: string | null;
+
+  @column()
+  public notes: string | null;
+
   @column()
   public companyAddressId: number | null;
 
