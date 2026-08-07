@@ -81,11 +81,15 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
   const [data, setData] = useState<MeetRoom[]>();
   const [allData, setAllData] = useState<{ [key: string]: MeetRoom[] }>();
 
-  const { data: { result: meetingRooms, pagination } = {}, mutate } =
-    useFetch<MeetRoomsResponse>(
-      `/cowork/meetrooms?page=${paginationState.count}`,
-      { fallback }
-    );
+  const {
+    data: { result: meetingRooms, pagination } = {},
+    mutate,
+    isValidating,
+    error,
+  } = useFetch<MeetRoomsResponse>(
+    `/cowork/meetrooms?page=${paginationState.count}`,
+    { fallback }
+  );
 
   const {
     data: {
@@ -104,11 +108,11 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
 
   useEffect(() => {
     if (hasMounted.current) {
-      setData(meetingRooms.slice(0, 5));
+      if (meetingRooms) {
+        setData(meetingRooms.slice(0, 5));
+      }
       hasMounted.current = false;
     }
-
-    console.log({ meetingRooms, meetingRoomsNextPage });
 
     if (meetingRooms) {
       setAllData({
@@ -196,7 +200,7 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
       mutate();
     };
     const handleBookMeeting = (id: number) => {
-      const meetroom = meetingRooms.find((service) => service.id === id);
+      const meetroom = meetingRooms?.find((service) => service.id === id);
       setSelectedId(meetroom);
       setIsModalOpen(true);
     };
@@ -304,6 +308,57 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
       })),
     [data]
   );
+
+  // ── states: loading / error / empty / normal ──
+  const isLoading = isValidating && meetingRooms === undefined && data === undefined;
+  const hasError = error && meetingRooms === undefined && data === undefined;
+  const isEmpty =
+    !isValidating && !error && Array.isArray(meetingRooms) && meetingRooms.length === 0;
+
+  if (isLoading) {
+    return (
+      <>
+        <Head><title>Meeting Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Meeting Room</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          Loading meeting rooms…
+        </div>
+      </>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <>
+        <Head><title>Meeting Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Meeting Room</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#b91c1c" }}>
+          You don&apos;t have access to this module or the server is unavailable.
+        </div>
+      </>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <>
+        <Head><title>Meeting Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Meeting Room</h2></div>
+          <Link href={`/services/add/meeting-room?pageCount=${paginationState.count}`}>
+            <Button text="Add New Room" />
+          </Link>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          No meeting rooms configured yet.
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

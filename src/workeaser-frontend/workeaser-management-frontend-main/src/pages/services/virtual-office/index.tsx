@@ -82,11 +82,15 @@ const VirtualOfficePage = ({
   const [data, setData] = useState<VirtualOffice[]>();
   const [allData, setAllData] = useState<{ [key: string]: VirtualOffice[] }>();
 
-  const { data: { result: virtualOffices, pagination } = {}, mutate } =
-    useFetch<VirtualOfficesResponse>(
-      `/cowork/virtualoffices?page=${paginationState.count}`,
-      { fallback }
-    );
+  const {
+    data: { result: virtualOffices, pagination } = {},
+    mutate,
+    isValidating,
+    error,
+  } = useFetch<VirtualOfficesResponse>(
+    `/cowork/virtualoffices?page=${paginationState.count}`,
+    { fallback }
+  );
 
   const {
     data: {
@@ -105,11 +109,11 @@ const VirtualOfficePage = ({
 
   useEffect(() => {
     if (hasMounted.current) {
-      setData(virtualOffices.slice(0, 5));
+      if (virtualOffices) {
+        setData(virtualOffices.slice(0, 5));
+      }
       hasMounted.current = false;
     }
-
-    console.log({ virtualOffices, virtualOfficesNextPage });
 
     if (virtualOffices) {
       setAllData({
@@ -173,7 +177,7 @@ const VirtualOfficePage = ({
 
   const columns = useMemo(() => {
     const handleAttach = (id: number) => () => {
-      const service = virtualOffices.find((service) => service.id === id);
+      const service = virtualOffices?.find((service) => service.id === id);
       setselectedService({ ...service, type: "VIRTUAL_OFFICE" });
       setIsAttachModalOpen(true);
     };
@@ -250,14 +254,6 @@ const VirtualOfficePage = ({
           <StatusContainer bgColor="green">{value ?? 0}</StatusContainer>
         ),
       },
-      // {
-      //   Header: "Inactive Members",
-      //   accessor: "inactiveMembers",
-      //   className: "align__center",
-      //   Cell: ({ value }) => (
-      //     <StatusContainer bgColor="red">{value ?? 0}</StatusContainer>
-      //   ),
-      // },
       {
         Header: "Open Balances",
         accessor: "openBalances",
@@ -318,6 +314,62 @@ const VirtualOfficePage = ({
       })),
     [data]
   );
+
+  // ── states: loading / error / empty / normal ──
+  const isLoading =
+    isValidating && virtualOffices === undefined && data === undefined;
+  const hasError = error && virtualOffices === undefined && data === undefined;
+  const isEmpty =
+    !isValidating &&
+    !error &&
+    Array.isArray(virtualOffices) &&
+    virtualOffices.length === 0;
+
+  if (isLoading) {
+    return (
+      <>
+        <Head><title>Virtual Office | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Virtual Office</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          Loading virtual office plans…
+        </div>
+      </>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <>
+        <Head><title>Virtual Office | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Virtual Office</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#b91c1c" }}>
+          You don&apos;t have access to this module or the server is unavailable.
+        </div>
+      </>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <>
+        <Head><title>Virtual Office | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Virtual Office</h2></div>
+          <Link href={`/services/add/virtual-office?pageCount=${paginationState.count}`}>
+            <Button text="Add New Plan" color="primary" />
+          </Link>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          No virtual office plans configured yet.
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Head>

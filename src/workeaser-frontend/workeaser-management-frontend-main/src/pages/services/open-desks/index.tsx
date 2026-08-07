@@ -80,8 +80,10 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
   const [allData, setAllData] = useState<{ [key: string]: OpenDesk[] }>();
 
   const {
-    data: { result: desks, pagination },
+    data: { result: desks, pagination } = {},
     mutate,
+    isValidating,
+    error,
   } = useFetch<OpenDesksResponse>(
     `/cowork/desks?page=${paginationState.count}`,
     {
@@ -103,11 +105,11 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
 
   useEffect(() => {
     if (hasMounted.current) {
-      setData(desks.slice(0, 5));
+      if (desks) {
+        setData(desks.slice(0, 5));
+      }
       hasMounted.current = false;
     }
-
-    console.log({ desks, desksNextPage });
 
     if (desks) {
       setAllData({
@@ -171,7 +173,7 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
 
   const columns = useMemo(() => {
     const handleAttach = (id: number) => () => {
-      const service = desks.find((service) => service.id === id);
+      const service = desks?.find((service) => service.id === id);
       setselectedService({ ...service, type: "OPEN_DESK" });
       setIsAttachModalOpen(true);
     };
@@ -317,6 +319,56 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
       })),
     [data]
   );
+
+  // ── states: loading / error / empty / normal ──
+  const isLoading = isValidating && desks === undefined && data === undefined;
+  const hasError = error && desks === undefined && data === undefined;
+  const isEmpty = !isValidating && !error && Array.isArray(desks) && desks.length === 0;
+
+  if (isLoading) {
+    return (
+      <>
+        <Head><title>Open Desk | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Open Desk</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          Loading desks…
+        </div>
+      </>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <>
+        <Head><title>Open Desk | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Open Desk</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#b91c1c" }}>
+          You don&apos;t have access to this module or the server is unavailable.
+        </div>
+      </>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <>
+        <Head><title>Open Desk | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Open Desk</h2></div>
+          <Link href={`/services/add/open-desk?pageCount=${paginationState.count}`}>
+            <Button text="Add New Desk" color="primary" />
+          </Link>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          No open desks configured yet.
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

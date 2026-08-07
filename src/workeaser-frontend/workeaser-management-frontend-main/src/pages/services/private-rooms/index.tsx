@@ -81,13 +81,17 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
   const [data, setData] = useState<PrivateRoom[]>();
   const [allData, setAllData] = useState<{ [key: string]: PrivateRoom[] }>();
 
-  const { data: { result: rooms, pagination } = {}, mutate } =
-    useFetch<PrivateRoomsResponse>(
-      `/cowork/rooms?page=${paginationState.count}`,
-      {
-        fallback,
-      }
-    );
+  const {
+    data: { result: rooms, pagination } = {},
+    mutate,
+    isValidating,
+    error,
+  } = useFetch<PrivateRoomsResponse>(
+    `/cowork/rooms?page=${paginationState.count}`,
+    {
+      fallback,
+    }
+  );
 
   const {
     data: { result: roomsNextPage, pagination: { page: nextPage } = {} } = {},
@@ -103,11 +107,11 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
 
   useEffect(() => {
     if (hasMounted.current) {
-      setData(rooms.slice(0, 5));
+      if (rooms) {
+        setData(rooms.slice(0, 5));
+      }
       hasMounted.current = false;
     }
-
-    console.log({ rooms, roomsNextPage });
 
     if (rooms) {
       setAllData({
@@ -171,7 +175,7 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
 
   const columns = useMemo(() => {
     const handleAttach = (id: number) => () => {
-      const service = rooms.find((service) => service.id === id);
+      const service = rooms?.find((service) => service.id === id);
       setselectedService({ ...service, type: "PRIVATE_ROOM" });
       setIsAttachModalOpen(true);
     };
@@ -231,16 +235,6 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
           );
         },
       },
-      // {
-      //   Header: "Shareability",
-      //   accessor: "shareability",
-      //   className: "align__center",
-      //   Cell: ({ value }) => (
-      //     <StatusContainer bgColor={value ? "green" : "red"}>
-      //       {value ? "Shareable" : "Private"}
-      //     </StatusContainer>
-      //   ),
-      // },
       {
         Header: "Availability",
         accessor: "availability",
@@ -308,7 +302,6 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
         id: room.room_local_account_id,
         thumbnail: room.photo[0],
         name: `${room.name}&${room.location}`,
-        // shareability: room.shareable,
         availability: `${room.available - room.busy}&${room.available}`,
         openBalances: room.open_balance,
         visibility: {
@@ -319,6 +312,56 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
       })),
     [data]
   );
+
+  // ── states: loading / error / empty / normal ──
+  const isLoading = isValidating && rooms === undefined && data === undefined;
+  const hasError = error && rooms === undefined && data === undefined;
+  const isEmpty = !isValidating && !error && Array.isArray(rooms) && rooms.length === 0;
+
+  if (isLoading) {
+    return (
+      <>
+        <Head><title>Private Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Private Room</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          Loading private rooms…
+        </div>
+      </>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <>
+        <Head><title>Private Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Private Room</h2></div>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#b91c1c" }}>
+          You don&apos;t have access to this module or the server is unavailable.
+        </div>
+      </>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <>
+        <Head><title>Private Room | Workeaser</title></Head>
+        <PageHeader>
+          <div><h1><Link href="/services/dashboard">Services</Link></h1><h2>Private Room</h2></div>
+          <Link href={`/services/add/private-room?pageCount=${paginationState.count}`}>
+            <Button text="Add New Room" />
+          </Link>
+        </PageHeader>
+        <div style={{ padding: "2rem", textAlign: "center", color: "#666" }}>
+          No private rooms configured yet.
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

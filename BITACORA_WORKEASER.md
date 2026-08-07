@@ -84,5 +84,22 @@
 - **Migraciones**: funcionales con DB del dump (adonis_schema trackea estado). Al copiar archivos al container, `migration:run` reporta "Already up to date".
 - **Sub-verificador**: FAIL inicial (credenciales dev en VPS) → corregido → PASS implícito (verificación externa 7/7 OK)
 - **Acceso**: http://62.238.102.24 (puerto 80, sin puerto explícito)
-- **Hash commit**: `c4724aa` (infra) + *(pendiente cierre)*
+- **Hash commit**: `c4724aa` (infra) + `0394256` (cierre infra)
+
+### 1A — Estabilización pantallas de servicios — 2026-08-06
+- **Objetivo**: 4 pantallas dejan de crashear para cualquier rol (no solo MANAGER).
+- **Archivos modificados**:
+  - `pages/services/virtual-office/index.tsx` — null-guards + loading/error/empty states
+  - `pages/services/meeting-room/index.tsx` — null-guards + loading/error/empty states
+  - `pages/services/open-desks/index.tsx` — null-guards (incl. `= {}` faltante) + loading/error/empty states
+  - `pages/services/private-rooms/index.tsx` — null-guards + loading/error/empty states
+- **Archivo creado**:
+  - `database/migrations/1747400000003_seed_missing_cowork_modules.ts` — seed reversible de VIRTUAL_OFFICE y MEETROOM en cowork_modules
+- **Seed (ADVERTENCIA — cambio de datos)**:
+  - Tabla: `cowork_modules`
+  - Filas: `{name: 'Virtual Office', slug: 'VIRTUAL_OFFICE'}` y `{name: 'Meeting Room', slug: 'MEETROOM'}`
+  - Reversible: `down()` elimina ambas filas por slug
+- **Sub-auditor**: PASS — 6/6 checks (null-guards, estados, seed, scope, matriz 12, conservación)
+- **NO desplegado** — espera aprobación para deploy.
+- **Hash commit**: *(pendiente)*
 
