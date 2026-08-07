@@ -15,6 +15,7 @@ import ClientModule from 'App/Models/ClientModule';
 import Invoice from 'App/Models/Invoice';
 import Photo from 'App/Models/Photo';
 import SoftDeleteBaseModel from 'App/Models/SoftDeleteBaseModel';
+import ServiceContract from 'App/Models/ServiceContract';
 import Team from 'App/Models/Team';
 import TeamMember from 'App/Models/TeamMember';
 import User from 'App/Models/User';
@@ -24,6 +25,10 @@ import { v4 as uuidv4 } from 'uuid';
 export default class ClientAccount extends SoftDeleteBaseModel {
   @column({ isPrimary: true })
   public id: number;
+
+  // B2: multi-tenant foundation
+  @column()
+  public tenantId: number;
 
   @column()
   public uuid: string;
@@ -42,6 +47,23 @@ export default class ClientAccount extends SoftDeleteBaseModel {
 
   @column()
   public companyPhone: string | null;
+
+  // B2: contact fields (separate from linked user)
+  @column()
+  public contactFirstName: string | null;
+
+  @column()
+  public contactLastName: string | null;
+
+  @column()
+  public contactEmail: string | null;
+
+  @column()
+  public contactPhone: string | null;
+
+  // B2: Private Mailbox number
+  @column()
+  public pmbNumber: string | null;
 
   @column()
   public companyAddressId: number | null;
@@ -68,6 +90,10 @@ export default class ClientAccount extends SoftDeleteBaseModel {
 
   @hasMany(() => TeamMember)
   public teamsMember: HasMany<typeof TeamMember>;
+
+  // B2: service contracts (one client can have multiple active services)
+  @hasMany(() => ServiceContract)
+  public serviceContracts: HasMany<typeof ServiceContract>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

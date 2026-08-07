@@ -18,6 +18,8 @@ import Service from 'App/Models/Service';
 import Amenity from 'App/Models/Amenity';
 import Meeting from 'App/Models/Meeting';
 import DayPass from 'App/Models/DayPass';
+import RoomsUnit from 'App/Models/RoomsUnit';
+import ServiceContract from 'App/Models/ServiceContract';
 import Meetroom from 'App/Models/Meetroom';
 import CoworkUser from 'App/Models/CoworkUser';
 import VirtualOffice from 'App/Models/VirtualOffice';
@@ -28,6 +30,10 @@ import { CoworkUserRoleEnum } from 'Contracts/enums';
 export default class Location extends SoftDeleteBaseModel {
   @column({ isPrimary: true })
   public id: number;
+
+  // B2: multi-tenant foundation
+  @column()
+  public tenantId: number;
 
   @column({ serializeAs: null })
   public coworkAccountId: number;
@@ -88,6 +94,13 @@ export default class Location extends SoftDeleteBaseModel {
 
   @hasMany(() => Tour)
   public tours: HasMany<typeof Tour>;
+
+  // B2 relations
+  @hasMany(() => RoomsUnit)
+  public roomsUnits: HasMany<typeof RoomsUnit>;
+
+  @hasMany(() => ServiceContract)
+  public serviceContracts: HasMany<typeof ServiceContract>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
