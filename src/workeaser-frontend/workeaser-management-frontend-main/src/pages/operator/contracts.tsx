@@ -1,35 +1,12 @@
-import OperatorLayout from '@components/OperatorShell/OperatorLayout';
-import { useFetch } from 'hooks/useFetch';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { parseCookies } from 'nookies';
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'user-token': token } = parseCookies(ctx);
-  if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } };
-  return { props: {} };
-};
-
+import { GetServerSideProps } from 'next'; import Head from 'next/head'; import { parseCookies } from 'nookies';
+import { Shell } from '@components/OperatorShell/Shell'; import { useFetch } from 'hooks/useFetch'; import Link from 'next/link';
+export const getServerSideProps: GetServerSideProps = async (ctx) => { const { 'user-token': token } = parseCookies(ctx); if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } }; return { props: {} }; };
 export default function ContractsPage() {
-  const { data: clients } = useFetch<any>('/cowork/v2/clients?perPage=100');
-  const list = (clients?.data ?? clients?.result ?? []) as any[];
-  const allContracts = list.flatMap((c: any) => (c.serviceContracts || []).map((sc: any) => ({ ...sc, client: c })));
-
-  return (<OperatorLayout><Head><title>All Contracts | Workeaser</title></Head>
-    <div style={{ fontFamily: "'Laca', 'Be Vietnam Pro', sans-serif" }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: '#2B3450', margin: 0 }}>All Contracts</h1>
-        <Link href="/operator/contracts/new" style={{ background: '#00A2DD', color: '#fff', padding: '10px 20px', borderRadius: 6, textDecoration: 'none', fontWeight: 600, fontSize: 14 }}>+ New Contract</Link>
-      </div>
-      <div style={{ background: '#fff', padding: 16, borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.06)', marginBottom: 12, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
-        New Contract generator (Kimmi-style) — pending B4.
-      </div>
-      <div style={{background:'#fff',padding:20,borderRadius:8,boxShadow:'0 1px 3px rgba(0,0,0,0.06)'}}>
-        <table style={{width:'100%',borderCollapse:'collapse',fontSize:13}}>
-          <thead><tr style={{textAlign:'left',borderBottom:'2px solid #e2e8f0',fontSize:11,color:'#64748b',textTransform:'uppercase'}}><th style={{padding:'8px 10px'}}>Client</th><th style={{padding:'8px 10px'}}>Service</th><th style={{padding:'8px 10px'}}>Room</th><th style={{padding:'8px 10px'}}>Channel</th><th style={{padding:'8px 10px'}}>Status</th></tr></thead>
-          <tbody>{allContracts.map((sc:any)=><tr key={sc.id} style={{borderBottom:'1px solid #f1f5f9'}}><td style={{padding:'8px 10px',fontWeight:500}}>{sc.client?.company_name||sc.client?.contact_first_name||'—'}</td><td style={{padding:'8px 10px'}}>{sc.serviceType?.name||'—'}</td><td style={{padding:'8px 10px'}}>{sc.roomsUnit?.display_name||'—'}</td><td style={{padding:'8px 10px'}}><span style={{padding:'2px 8px',borderRadius:10,fontSize:11,background:sc.billing_channel==='DIRECT'?'#dbeafe':'#fef3c7',color:sc.billing_channel==='DIRECT'?'#1e40af':'#92400e'}}>{sc.billing_channel}</span></td><td style={{padding:'8px 10px'}}>{sc.status}</td></tr>)}</tbody>
-        </table>
-      </div>
-    </div></OperatorLayout>);
+  const { data } = useFetch<any>('/cowork/v2/clients?perPage=100'); const clients=(data?.data??data?.result??[]) as any[];
+  const contracts=clients.flatMap((c:any)=>(c.serviceContracts||[]).map((sc:any)=>({...sc,client:c})));
+  return (<Shell><Head><title>All Contracts | Workeaser</title></Head>
+    <div className="flex justify-between items-center mb-6"><h1 className="text-[24px] font-bold text-[#2B3450]">All Contracts</h1><Link href="/operator/contracts/new" className="bg-primary text-on-primary px-5 py-2.5 rounded-lg text-[14px] font-semibold no-underline">+ New Contract</Link></div>
+    <div className="bg-surface border border-border rounded-lg overflow-hidden"><table className="w-full text-[13px] border-collapse"><thead><tr className="bg-[#2B3450] text-white text-left text-[11px] uppercase"><th className="p-3">Client</th><th className="p-3">Service</th><th className="p-3">Room</th><th className="p-3">Channel</th><th className="p-3">Status</th></tr></thead>
+    <tbody>{contracts.map((sc:any)=><tr key={sc.id} className="border-b border-border"><td className="p-3 font-medium">{sc.client?.company_name||sc.client?.contact_first_name||'—'}</td><td className="p-3">{sc.serviceType?.name||'—'}</td><td className="p-3">{sc.roomsUnit?.display_name||'—'}</td><td className="p-3"><span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${sc.billing_channel==='DIRECT'?'bg-blue-100 text-blue-800':'bg-amber-100 text-amber-800'}`}>{sc.billing_channel}</span></td><td className="p-3"><span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${sc.status==='ACTIVE'?'bg-green-100 text-green-800':'bg-amber-100 text-amber-800'}`}>{sc.status}</span></td></tr>)}</tbody></table></div>
+  </Shell>);
 }

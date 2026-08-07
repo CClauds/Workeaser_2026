@@ -1,28 +1,12 @@
-import OperatorLayout from '@components/OperatorShell/OperatorLayout';
-import { useFetch } from 'hooks/useFetch';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { parseCookies } from 'nookies';
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'user-token': token } = parseCookies(ctx);
-  if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } };
-  return { props: {} };
-};
-
+import { GetServerSideProps } from 'next'; import Head from 'next/head'; import { parseCookies } from 'nookies';
+import { Shell } from '@components/OperatorShell/Shell'; import { useFetch } from 'hooks/useFetch';
+export const getServerSideProps: GetServerSideProps = async (ctx) => { const { 'user-token': token } = parseCookies(ctx); if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } }; return { props: {} }; };
 export default function BillingPage() {
-  const { data } = useFetch<any>('/cowork/finance/invoices?perPage=25');
-  const invoices = data?.data ?? data?.result ?? [];
-
-  return (<OperatorLayout><Head><title>Billing & Payments | Workeaser</title></Head>
-    <div style={{ fontFamily: "'Laca', 'Be Vietnam Pro', sans-serif" }}>
-      <h1 style={{ fontSize: 24, fontWeight: 700, color: '#2B3450', marginBottom: 8 }}>Billing &amp; Payments</h1>
-      <p style={{color:'#94a3b8',fontSize:13,marginBottom:20}}>Invoices — read-only. Payments (Mark Paid) and Partner Billing pending B5/B6.</p>
-      <div style={{background:'#fff',padding:20,borderRadius:8,boxShadow:'0 1px 3px rgba(0,0,0,0.06)'}}>
-        <table style={{width:'100%',borderCollapse:'collapse',fontSize:13}}>
-          <thead><tr style={{textAlign:'left',borderBottom:'2px solid #e2e8f0',fontSize:11,color:'#64748b',textTransform:'uppercase'}}><th style={{padding:'8px 10px'}}>ID</th><th style={{padding:'8px 10px'}}>Date</th><th style={{padding:'8px 10px'}}>Total</th><th style={{padding:'8px 10px'}}>Status</th></tr></thead>
-          <tbody>{Array.isArray(invoices) && invoices.length>0 ? invoices.map((inv:any)=><tr key={inv.id} style={{borderBottom:'1px solid #f1f5f9'}}><td style={{padding:'8px 10px'}}>#{inv.id}</td><td style={{padding:'8px 10px'}}>{inv.date||'—'}</td><td style={{padding:'8px 10px'}}>${((inv.total||0)/100).toFixed(2)}</td><td style={{padding:'8px 10px'}}>{inv.status||'—'}</td></tr>):<tr><td colSpan={4} style={{padding:20,textAlign:'center',color:'#94a3b8'}}>No invoices found.</td></tr>}</tbody>
-        </table>
-      </div>
-    </div></OperatorLayout>);
+  const { data } = useFetch<any>('/cowork/finance/invoices?perPage=25'); const invoices=data?.data??data?.result??[];
+  return (<Shell><Head><title>Billing & Payments | Workeaser</title></Head>
+    <h1 className="text-[24px] font-bold text-[#2B3450] mb-6">Billing &amp; Payments</h1>
+    <div className="flex gap-2 mb-4">{['Invoices','Payments (Mark Paid)','Partner Billing'].map(t=><button key={t} className="px-4 py-2 text-[13px] font-medium border-b-2 border-primary text-primary bg-transparent cursor-pointer">{t}</button>)}</div>
+    <div className="bg-surface border border-border rounded-lg overflow-hidden"><table className="w-full text-[13px] border-collapse"><thead><tr className="bg-[#2B3450] text-white text-left text-[11px] uppercase"><th className="p-3">ID</th><th className="p-3">Date</th><th className="p-3">Total</th><th className="p-3">Status</th></tr></thead>
+    <tbody>{Array.isArray(invoices)&&invoices.length>0?invoices.map((i:any)=><tr key={i.id} className="border-b border-border"><td className="p-3">#{i.id}</td><td className="p-3">{i.date||'—'}</td><td className="p-3">${((i.total||0)/100).toFixed(2)}</td><td className="p-3"><span className="px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-100 text-amber-800">{i.status||'—'}</span></td></tr>):<tr><td colSpan={4} className="p-6 text-center text-outline">No invoices found.</td></tr>}</tbody></table></div>
+  </Shell>);
 }
