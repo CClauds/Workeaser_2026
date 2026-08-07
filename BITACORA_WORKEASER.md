@@ -101,5 +101,5 @@
   - Reversible: `down()` elimina ambas filas por slug
 - **Sub-auditor**: PASS — 6/6 checks (null-guards, estados, seed, scope, matriz 12, conservación)
 - **NO desplegado** — espera aprobación para deploy.
-- **Hash commit**: *(pendiente)*
+- **Hash commit**: `a42e3ac`
 
