@@ -277,3 +277,11 @@
 - **4 Setup placeholders preservados**: Contract Templates, Invoice Settings, Payment Methods, Visual Identity
 - **Hash commit**: `09dc359`
 - **NO desplegado** — espera aprobación de Claudio para deploy único B3 completo
+
+### Deploy B3 completo — 2026-08-08
+- **VPS**: 62.238.102.24. API + frontend rebuilt (no-cache). 4/4 UP healthy.
+- **Migración address/ein/notes**: aplicada en client_accounts (ALTER TABLE OK).
+- **Laca font**: sirviendo por HTTP (200 en /fonts/Laca/Laca Regular.otf, Bold, Semibold).
+- **Login**: 200, cookie HttpOnly + SameSite=Lax. API health 200.
+- **Hash commit**: `09dc359` (B3-C+D) + previos
+- **Pendiente**: verificación MANUAL de Claudio en navegador (operador shell + client CRUD + setup + daily use)
