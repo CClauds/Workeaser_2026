@@ -5,7 +5,6 @@ import { FormHandles, SubmitHandler } from "@unform/core";
 import { Form } from "@unform/web";
 import Image from "next/legacy/image";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
@@ -79,17 +78,10 @@ export const LoginBox: React.FC<LoginBoxProps> = ({}) => {
         result: { token, user, expires_at },
       } = data;
 
-      const maxAge =
-        (new Date(expires_at).getTime() - new Date().getTime()) / 1000;
-
-      setCookie(null, "user-token", token, {
-        maxAge: Math.round(maxAge),
-        sameSite: "Lax",
-        path: "/",
-        // httpOnly: true,
-        secure: typeof window !== "undefined" && window.location.protocol === "https:",
-      });
-
+      // 1B.2-httpOnly: la cookie la setea el backend con httpOnly=true (Set-Cookie).
+      // El navegador la almacena y la envía automáticamente en requests subsecuentes.
+      // CookieAuth middleware en backend lee la cookie → Bearer header.
+      // Aquí solo seteamos el header para la sesión en memoria (inmediata post-login).
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
       // const { returnTo } = router.query;

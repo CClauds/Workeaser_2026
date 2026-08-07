@@ -60,8 +60,12 @@ export const getAPIClient = (
     ? (process.env.NEXT_PUBLIC_API_URL_INTERNAL || 'http://workeaser-api:3333/api')
     : (process.env.NEXT_PUBLIC_API_URL || '/api');
 
+  // 1B.2-httpOnly: cliente usa withCredentials para que el navegador envíe
+  // la cookie httpOnly automáticamente. CookieAuth middleware en backend
+  // la inyecta como Bearer header. SSR lee la cookie del request (funciona con httpOnly).
   const api = axios.create({
     baseURL,
+    withCredentials: !isServer,
   });
 
   if (token) {

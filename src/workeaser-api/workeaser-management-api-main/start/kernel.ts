@@ -22,6 +22,9 @@ import Server from '@ioc:Adonis/Core/Server';
 */
 Server.middleware.register([
   () => import('@ioc:Adonis/Core/BodyParser'),
+  // 1B.2-httpOnly: extrae token de cookie httpOnly y lo inyecta como Bearer header.
+  // Debe ejecutarse ANTES de cualquier middleware 'auth' para que el oat guard lo vea.
+  () => import('App/Middleware/CookieAuth'),
   () => import('App/Middleware/SecurityHeaders'),
   () => import('App/Middleware/LoggerMiddleware')
 ]);

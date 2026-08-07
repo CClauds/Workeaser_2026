@@ -55,6 +55,25 @@ export default class AuthController {
       // 1B: si el usuario debe cambiar contraseña, incluir flag en la respuesta
       const mustChange = candidate?.mustChangePassword === true;
 
+      // 1B.2-httpOnly: setear cookie httpOnly desde el backend.
+      // CookieAuth middleware (global) lee esta cookie y la inyecta como
+      // Authorization: Bearer header para el oat guard.
+      const appUrl = process.env.APP_URL || '';
+      const isHttps = appUrl.startsWith('https://');
+      const tokenData = userToken as any;
+      const maxAge =
+        tokenData?.expires_at
+          ? Math.round((new Date(tokenData.expires_at).getTime() - Date.now()) / 1000)
+          : 86400; // 24h default
+
+      response.cookie('user-token', tokenData?.token || tokenData, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: isHttps,
+        path: '/',
+        maxAge: maxAge > 0 ? maxAge : 86400,
+      });
+
       // HF-SPRINT-E-04: audit success
       void AuditTrailService.loginSuccess(ctx);
       void AppError; // silencia warning import potencialmente não-usado
