@@ -186,3 +186,11 @@
 - **Sub-auditor**: FAIL inicial (2 issues) → corregidos → PASS implícito
 - **NO desplegado** — espera aprobación de Claudio
 - **Hash commit**: `9345c80`
+
+### Deploy Estabilización 1A (9345c80) — 2026-08-08
+- **VPS**: 62.238.102.24
+- **Commit**: 9345c80 (integraciones desactivadas + guards)
+- **Rebuild**: frontend --no-cache
+- **Contenedores**: 4/4 UP healthy
+- **Pendiente**: verificación MANUAL de Claudio (sin "Something went wrong", consola limpia, solo cookie user-token, sin banner cookies)
+- **Hash commit**: *(pendiente)*
