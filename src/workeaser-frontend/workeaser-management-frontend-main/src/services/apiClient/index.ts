@@ -51,25 +51,35 @@ export const getAPIClient = (
     | null
     | undefined
 ) => {
-  const { "user-token": token } = parseCookies(ctx);
+  const isServer = typeof window === 'undefined';
 
   // SSR (getServerSideProps): necesita URL absoluta al contenedor API en Docker network.
   // Cliente (navegador): usa ruta relativa /api → nginx proxy.
-  const isServer = typeof window === 'undefined';
   const baseURL = isServer
     ? (process.env.NEXT_PUBLIC_API_URL_INTERNAL || 'http://workeaser-api:3333/api')
     : (process.env.NEXT_PUBLIC_API_URL || '/api');
 
-  // 1B.2-httpOnly: cliente usa withCredentials para que el navegador envíe
-  // la cookie httpOnly automáticamente. CookieAuth middleware en backend
-  // la inyecta como Bearer header. SSR lee la cookie del request (funciona con httpOnly).
+  // 1B.2-httpOnly fix: en SSR, la cookie de parseCookies(ctx) está FIRMADA
+  // (s:eyJtZXNz...). NO sirve como Bearer token. Hay que forwardear la cookie
+  // tal cual al backend, donde CookieAuth middleware la desfirma e inyecta
+  // el Bearer header correcto.
+  // En cliente, withCredentials=true → navegador envía la httpOnly cookie.
   const api = axios.create({
     baseURL,
-    withCredentials: !isServer,
+    withCredentials: true,
   });
 
-  if (token) {
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
+  // SSR: forward raw cookie from browser request to API request
+  if (isServer && ctx && 'req' in ctx && (ctx as any).req?.headers?.cookie) {
+    api.defaults.headers['Cookie'] = (ctx as any).req.headers.cookie;
+  }
+
+  // Client-side fallback: if we have a raw token in memory (post-login), use Bearer
+  if (!isServer) {
+    const { 'user-token': token } = parseCookies(null);
+    if (token) {
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
+    }
   }
 
   // Response interceptor — normaliza erro
