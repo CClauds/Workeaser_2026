@@ -84,7 +84,7 @@ export const LoginBox: React.FC<LoginBoxProps> = ({}) => {
 
       setCookie(null, "user-token", token, {
         maxAge: Math.round(maxAge),
-        sameSite: "strict",
+        sameSite: "Lax",
         path: "/",
         // httpOnly: true,
         secure: typeof window !== "undefined" && window.location.protocol === "https:",

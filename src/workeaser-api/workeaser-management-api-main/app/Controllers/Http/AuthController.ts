@@ -51,6 +51,26 @@ export default class AuthController {
 
     try {
       const userToken = await UserService.login(auth, payload);
+
+      // 1A: setear cookie user-token desde el backend con httpOnly + SameSite=Lax + Secure condicional.
+      // El frontend también la setea (nookies) para SSR; esta es la copia httpOnly que
+      // el navegador envía automáticamente en requests same-site.
+      const appUrl = process.env.APP_URL || '';
+      const isHttps = appUrl.startsWith('https://');
+      const tokenData = userToken as any;
+      const maxAge =
+        tokenData?.expires_at
+          ? Math.round((new Date(tokenData.expires_at).getTime() - Date.now()) / 1000)
+          : 7200; // 2h default
+
+      response.cookie('user-token', tokenData?.token || tokenData, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: isHttps,
+        path: '/',
+        maxAge: maxAge > 0 ? maxAge : 7200,
+      });
+
       // HF-SPRINT-E-04: audit success
       void AuditTrailService.loginSuccess(ctx);
       void AppError; // silencia warning import potencialmente não-usado

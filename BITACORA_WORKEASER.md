@@ -103,3 +103,19 @@
 - **NO desplegado** — espera aprobación para deploy.
 - **Hash commit**: `a42e3ac`
 
+### 1A-ext — Fix cookie login + consolidación — 2026-08-06
+- **Objetivo**: arreglar bucle de redirección login→dashboard→login y consolidar flags de cookie.
+- **Diagnóstico**: `user-token` se seteaba con `sameSite: "strict"` en LoginBox. El redirect post-login es navegación top-level → el navegador NO envía la cookie Strict → dashboard no la recibe → 401 → redirect a login → bucle.
+- **Archivos modificados**:
+  - `components/LoginBox/index.tsx` — `sameSite: "strict"` → `"Lax"`. `httpOnly` permanece comentado (no viable desde JS cliente). `secure` condicional en window.location.protocol.
+  - `app/Controllers/Http/AuthController.ts` — `response.cookie('user-token', ...)` con `httpOnly: true`, `sameSite: 'lax'`, `secure` derivado de `APP_URL.startsWith('https://')`. Seteado ANTES del response JSON.
+  - `config/app.ts` — cookie defaults: `httpOnly: true`, `sameSite: 'lax'`, `secure` condicional en APP_URL.
+- **Flags finales de la cookie `user-token`**:
+  - `SameSite=Lax` (corrige el bucle; permite envío en navegación top-level, bloquea cross-site de terceros)
+  - `HttpOnly=true` (backend: AuthController + config/app.ts. Frontend: no puede setear httpOnly desde JS — esperado, la copia del backend lo cubre)
+  - `Secure=false` en HTTP (staging actual por IP), `Secure=true` en HTTPS (producción futura). Controlado por `APP_URL` en backend, `window.location.protocol` en frontend.
+- **Configuración centralizada**: 3 archivos (LoginBox para SSR, AuthController para httpOnly, config/app.ts para defaults). Mismos flags, derivados de la misma variable de entorno.
+- **Sub-auditor**: PASS — 5/5 checks (cookie fix, null-guards+states, seed, scope, conservación)
+- **NO desplegado** — espera aprobación explícita de Claudio para deploy.
+- **Hash commit**: *(pendiente)*
+
