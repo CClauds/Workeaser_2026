@@ -237,3 +237,14 @@
 - **Sub-auditor**: PASS — 6/6 items verificados
 - **Hash commit**: `89779aa`
 - **NO desplegado** — espera aprobación de Claudio
+
+### Deploy B2 — Fundación de datos (89779aa) — 2026-08-08
+- **VPS**: 62.238.102.24. API rebuilt, 4/4 UP healthy.
+- **Migraciones**: corridas vía MySQL directo (ESM module resolution issue en Docker persiste)
+- **Tablas creadas**: service_types (6 seed), rooms_units, resellers (6 seed), service_contracts
+- **Tablas modificadas**: locations (+tenant_id), client_accounts (+tenant_id, +contact_*, +pmb_number)
+- **Datos intactos**: 240 clientes, 10 locations
+- **Relación verificada**: cliente 1 tiene contrato Virtual Office RESELLER via Alliance Virtual.
+  Modelo soporta contratos mixtos (DIRECT + RESELLER) para el mismo cliente.
+- **Reversibilidad**: migraciones con down() correcto. SQL directo permite DROP TABLE / ALTER TABLE DROP COLUMN.
+- **Hash commit**: `89779aa`
