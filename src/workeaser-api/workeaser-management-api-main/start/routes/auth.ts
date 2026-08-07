@@ -10,5 +10,6 @@ Route.group(() => {
   Route.post('/resend-email-confirmation', 'AuthController.resendEmailConfirmation').middleware('rateLimit:auth_resend');
   Route.post('/lost-password', 'AuthController.lostPassword').middleware('rateLimit:auth_forgot');
   Route.post('/lost-password-confirmation', 'AuthController.lostPasswordConfirmation').middleware('rateLimit:auth_forgot');
-  Route.post('/import', 'AuthController.import');
+  // POST /api/auth/import — REMOVIDA (1B): ruta muerta sin controller, expuesta sin auth.
+  // La importación real se hace por /api/cowork/clients/import-simple con auth+RELATIONSHIP.
 }).prefix('api/auth');

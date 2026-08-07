@@ -52,10 +52,18 @@ export default class AuthController {
     try {
       const userToken = await UserService.login(auth, payload);
 
+      // 1B: si el usuario debe cambiar contraseña, incluir flag en la respuesta
+      const mustChange = candidate?.mustChangePassword === true;
+
       // HF-SPRINT-E-04: audit success
       void AuditTrailService.loginSuccess(ctx);
       void AppError; // silencia warning import potencialmente não-usado
-      return responseWithSuccess(response, userToken);
+
+      const result = {
+        ...(userToken as any),
+        ...(mustChange ? { must_change_password: true } : {}),
+      };
+      return responseWithSuccess(response, result);
     } catch (err: any) {
       void AuditTrailService.loginFailure(ctx, (payload as any).email, err?.message || 'unknown');
       throw err;

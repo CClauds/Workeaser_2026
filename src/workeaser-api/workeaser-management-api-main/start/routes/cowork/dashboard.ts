@@ -8,4 +8,4 @@ Route.group(() => {
   Route.get('/finance', 'Cowork/DashboardController.financesDashboard');
 })
   .prefix('api/cowork/dashboard')
-  .middleware(['auth']);
+  .middleware(['auth', 'coworkRole']);

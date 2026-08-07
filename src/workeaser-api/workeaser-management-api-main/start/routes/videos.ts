@@ -1,11 +1,17 @@
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('api/videos/*', 'VideosController.show');
+// 1B: GET videos/* ahora requiere auth (antes era público).
+Route.group(() => {
+  Route.get('/*', 'VideosController.show');
+})
+  .prefix('api/videos')
+  .middleware('auth');
+
 Route.group(() => {
   Route.post('/', 'VideosController.store');
 })
   .prefix('api/videos')
-  .middleware('silentAuth');
+  .middleware('auth');
 
 Route.group(() => {
   Route.delete('/*', 'VideosController.delete');

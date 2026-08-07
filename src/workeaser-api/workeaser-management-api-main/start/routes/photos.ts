@@ -1,11 +1,18 @@
 import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('api/photos/*', 'PhotosController.show');
+// 1B: GET photos/* ahora requiere auth (antes era público).
+Route.group(() => {
+  Route.get('/*', 'PhotosController.show');
+})
+  .prefix('api/photos')
+  .middleware('auth');
+
 Route.group(() => {
   Route.post('/', 'PhotosController.store');
 })
   .prefix('api/photos')
-  .middleware('silentAuth');
+  .middleware('auth');
+// Note: silentAuth removido del POST. Auth completo requerido.
 
 Route.group(() => {
   Route.delete('/*', 'PhotosController.delete');

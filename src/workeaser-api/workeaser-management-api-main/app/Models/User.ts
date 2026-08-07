@@ -54,6 +54,10 @@ export default class User extends SoftDeleteBaseModel {
   @column({ serializeAs: null })
   public emailConfirmed: boolean;
 
+  // 1B: força troca de senha no primeiro login (changeme123 fix)
+  @column()
+  public mustChangePassword: boolean;
+
   // HF-SPRINT-D-02: deliverability flags — pular envio se bouncing/complaint
   @column({ serializeAs: null })
   public emailBouncing: boolean;

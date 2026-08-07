@@ -48,6 +48,7 @@ Server.middleware.registerNamed({
   coworkAuthorization: () => import('App/Middleware/CoworkAuthorization'),
   clientAuthorization: () => import('App/Middleware/ClientAuthorization'),
   adminAuthorization: () => import('App/Middleware/AdminAuthorization'),
+  coworkRole: () => import('App/Middleware/CoworkRole'),
   boldsignValidation: () => import('App/Middleware/BoldSignValidation'),
   // Polish Lote (HF-POLISH-02): rate limit in-memory por IP+slot, configurável via env.
   rateLimit: () => import('App/Middleware/RateLimit')

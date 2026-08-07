@@ -6,4 +6,4 @@ Route.group(() => {
   Route.get('/lead/:id', 'Cowork/SearchController.getLeadDetails');
 })
   .prefix('api/cowork/search')
-  .middleware(['auth']);
+  .middleware(['auth', 'coworkRole']);
