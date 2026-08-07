@@ -135,5 +135,11 @@
 - **Health**: healthy, DB connection healthy
 - **Frontend**: 200 OK en puerto 80
 - **Pendiente**: verificación MANUAL de Claudio en navegador (loguearse en http://62.238.102.24 y confirmar que entra al dashboard sin bucle)
+- **Hash commit**: `7101f33`
+
+### Hotfix: Stripe + rate-limit en staging — 2026-08-06
+- **Problema**: `IntegrationError: Missing value for Stripe(): apiKey should be a string` — CoworkingLayout y ClientLayout llamaban `loadStripe(undefined)` sin null-guard.
+- **Fix**: null-guard (`stripeKey ? loadStripe(stripeKey) : null`) en ambos layouts + `NEXT_PUBLIC_STRIPE: pk_test_PLACEHOLDER` en compose staging.
+- **Rate-limit 429**: esperado tras múltiples intentos fallidos de login. Se resuelve solo al expirar la ventana.
 - **Hash commit**: *(pendiente)*
 

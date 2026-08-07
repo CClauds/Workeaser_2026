@@ -12,7 +12,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { SpacesProvider } from "@contexts/SpacesContext";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE);
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE;
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 interface CoworkingLayoutProps {
   children: ReactNode;

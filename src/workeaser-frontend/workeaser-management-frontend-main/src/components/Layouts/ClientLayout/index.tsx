@@ -9,7 +9,8 @@ import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import styled, { ThemeProvider } from "styled-components";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE);
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE;
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 interface ClientLayoutProps {
   children: ReactNode;
