@@ -297,3 +297,9 @@
 - **Verificación**: valid 200, forged 401, dashboard 200, clients v2 200, setup rooms 200.
 - **Hash commit**: `75c5fa0`
 - **Re-deploy**: espera aprobación de Claudio
+
+### Fix guard sesión (httpOnly cookie no legible en JS) — 2026-08-08
+- **CAUSA**: AuthContext.tsx:24 parseCookies() cliente → document.cookie → httpOnly invisible → token=undefined → redirect a /login.
+- **FIX**: useFetch('/me') sin condición de token. Navegador envía httpOnly automático. Si /me 200 → user data → autenticado. Si /me 401 → redirect.
+- **Hash commit**: `0a719a3`
+- **Re-deploy**: espera aprobación de Claudio
