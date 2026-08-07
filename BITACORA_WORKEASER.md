@@ -119,3 +119,21 @@
 - **NO desplegado** — espera aprobación explícita de Claudio para deploy.
 - **Hash commit**: `074c0f4`
 
+### Deploy 1A + 1A-ext a staging — 2026-08-06
+- **VPS**: 62.238.102.24
+- **Commit desplegado**: `074c0f4`
+- **Método**: rsync desde disco → rebuild workeaser-api + frontend
+- **Contenedores**: 4/4 UP healthy (mysql, workeaser-api, admin-api, frontend)
+- **Migración seed**: VIRTUAL_OFFICE (id=7) y MEETROOM (id=8) insertados vía MySQL directo (INSERT IGNORE). La migración via `ace migration:run` sigue teniendo issues ESM.
+- **APP_URL**: `http://62.238.102.24`
+- **Cookie `user-token` observada en staging** (Set-Cookie del deploy real):
+  - `SameSite=Lax` ✅
+  - `HttpOnly` ✅ (seteado por backend AuthController)
+  - `Secure` NO presente ✅ (APP_URL es http://, el código omite Secure correctamente)
+- **API logs**: clean, started server on 0.0.0.0:3333, no errors
+- **Login test**: 200 OK con demo@workeaser.com (cookie flags confirmados en respuesta)
+- **Health**: healthy, DB connection healthy
+- **Frontend**: 200 OK en puerto 80
+- **Pendiente**: verificación MANUAL de Claudio en navegador (loguearse en http://62.238.102.24 y confirmar que entra al dashboard sin bucle)
+- **Hash commit**: *(pendiente)*
+
