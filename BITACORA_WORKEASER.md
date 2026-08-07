@@ -154,3 +154,10 @@
 - **Sub-auditor**: PASS — Fixes A/B/C verificados. Solo 7 archivos modificados, scope respetado.
 - **NO desplegado** — espera aprobación de Claudio para deploy.
 - **Hash commit**: `b6d3f91`
+
+### Corrección 1A Fase 2 — optional chaining + photos 404 — 2026-08-08
+- **FALLO B2**: optional chaining (??) en 6 callbacks .map() (dashboard + 4 servicios). Propiedades ausentes ya no causan TypeError.
+- **FALLO D**: PhotosController devuelve 404 (no 500) cuando el archivo no existe. Thumbnail ya tiene placeholder.
+- **Sub-auditor**: PASS. 6 archivos modificados.
+- **NO desplegado** — espera aprobación de Claudio.
+- **Hash commit**: 597c8d9
