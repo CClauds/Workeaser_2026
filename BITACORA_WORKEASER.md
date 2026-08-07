@@ -220,3 +220,20 @@
 - **Sub-auditor**: PASS — 6/6 checks.
 - **Hash commit**: `dcc7b42`
 - **NO desplegado** — espera aprobación de Claudio
+
+### B2 Fundación de datos — 2026-08-08
+- **Migraciones (6)**: 4 tablas NUEVAS + 2 MODIFICADAS (locations, client_accounts)
+  - `1747500000001`: tenant_id en locations (reversible)
+  - `1747500000002`: tenant_id + contact_* (4) + pmb_number en client_accounts (reversible)
+  - `1747500000003`: service_types (6 tipos seed: Private Office, Virtual Office, Meeting Room, Auditorium, Open Desk, Event On-Demand) con pricing_logic
+  - `1747500000004`: rooms_units (modelo "Venus 101"): room_number, display_name, size_sqft, capacity, base_price_cents. FKs a locations + service_types
+  - `1747500000005`: resellers (6 seed: EWS VO Direct, Alliance Virtual, DaVinci, Hutter, Nelma, Sergio Souza) con commission_bps
+  - `1747500000006`: service_contracts (contrato-servicio con billing_channel POR CONTRATO: DIRECT o RESELLER). FKs a client_accounts, service_types, rooms_units, reseller
+- **Modelos (4 nuevos)**: ServiceType, RoomsUnit, Reseller, ServiceContract
+- **Modelos actualizados (2)**: Location (+tenantId, +hasMany roomsUnits/serviceContracts), ClientAccount (+tenantId, +contact*, +pmbNumber, +hasMany serviceContracts)
+- **REUSADO**: locations (10 centros EWS existentes), client_accounts (240 clientes QBO), cowork_accounts, addresses
+- **Corrección B2.5**: canal de facturación a nivel de CONTRATO-SERVICIO, no de cliente. Un cliente puede tener servicios directos Y por revendedor simultáneamente.
+- **tenant_id en TODAS las tablas** desde raíz (preparación multi-tenant v2.0)
+- **Sub-auditor**: PASS — 6/6 items verificados
+- **Hash commit**: `89779aa`
+- **NO desplegado** — espera aprobación de Claudio
