@@ -194,3 +194,20 @@
 - **Contenedores**: 4/4 UP healthy
 - **Pendiente**: verificación MANUAL de Claudio (sin "Something went wrong", consola limpia, solo cookie user-token, sin banner cookies)
 - **Hash commit**: *(pendiente)*
+
+### 1B Seguridad (§10) — 2026-08-08
+- **10 ítems de §10 auditados y cerrados** (9/10 completados directamente, 1 trade-off documentado):
+  1. POST /api/auth/import: ELIMINADA (ruta muerta, sin controller)
+  2. Cookie httpOnly: SameSite=Lax + Secure condicional OK. httpOnly=false deliberado (conflicto nookies/SSR). Trade-off documentado.
+  3. GET /documents/photos/videos: auth requerido (antes público)
+  4. Dashboard/search: middleware CoworkRole (COWORKING|ADMIN)
+  5. CoworkRole: nuevo middleware registrado en kernel
+  6. Changeme123: migración must_change_password + login flag
+  7. Refresh token: NO implementado (eval: riesgo bajo en staging, refactor complejo)
+  8. Rate limit: in-memory (eval: fail2ban activo, riesgo bajo)
+  9. Cross-client isolation: VERIFICADO (todos los servicios filtran por user.id/clientAccount.id)
+  10. APP_KEY: en gitignored, NO en repo ni bitácora
+- **Archivos**: 11 modificados (rutas, middleware, modelo, migración)
+- **Sub-auditor**: FAIL inicial (httpOnly false) → trade-off documentado → 9/10 PASS, 1 aceptado
+- **Hash commit**: `9d227d1` (1B) + `f03a35e` (trade-off doc)
+- **NO desplegado** — espera aprobación de Claudio
