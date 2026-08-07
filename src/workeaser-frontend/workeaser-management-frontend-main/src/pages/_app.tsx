@@ -3,6 +3,7 @@ import { ErrorBoundary } from "@components/ErrorBoundary";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
+import "@styles/fonts.css";
 import { theme } from "@styles/themes";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
