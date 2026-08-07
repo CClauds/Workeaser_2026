@@ -161,3 +161,14 @@
 - **Sub-auditor**: PASS. 6 archivos modificados.
 - **NO desplegado** — espera aprobación de Claudio.
 - **Hash commit**: 597c8d9
+
+### Deploy Corrección 1A (b6d3f91 + 597c8d9) — 2026-08-07/08
+- **VPS**: 62.238.102.24
+- **Commits**: b6d3f91 (Fase 1: img nativo, filter(Boolean), ErrorBoundary key) + 597c8d9 (Fase 2: optional chaining, photos 404)
+- **Rebuild**: API + frontend (nuevas imágenes)
+- **Contenedores**: 4/4 UP healthy
+- **Photos 404**: verificado (antes devolvía 500) — `curl /api/photos/nonexistent.jpg` → 404
+- **API logs**: limpios, started server OK
+- **Frontend**: 200 OK
+- **Pendiente**: verificación MANUAL de Claudio en navegador (dashboard + 4 servicios sin "Something went wrong", sin 500 en Network, sin TypeError)
+- **Hash commit**: *(pendiente)*
