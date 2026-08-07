@@ -42,6 +42,7 @@ import './routes/cowork/bookingsandagenda';
 import './routes/cowork/calendarintegrations';
 import './routes/cowork/chats';
 import './routes/cowork/clients';
+import './routes/cowork/clients_v2';
 import './routes/cowork/contracts';
 import './routes/cowork/dashboard';
 import './routes/cowork/daypass';
