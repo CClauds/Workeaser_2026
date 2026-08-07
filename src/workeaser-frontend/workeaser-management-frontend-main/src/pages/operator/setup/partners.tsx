@@ -1,58 +1,24 @@
-import OperatorLayout from '@components/OperatorShell/OperatorLayout';
-import { api } from '@services/api';
-import { useFetch } from 'hooks/useFetch';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { parseCookies } from 'nookies';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'user-token': token } = parseCookies(ctx);
-  if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } };
-  return { props: {} };
-};
-
+import { GetServerSideProps } from 'next'; import Head from 'next/head'; import { parseCookies } from 'nookies';
+import { Shell } from '@components/OperatorShell/Shell'; import { useFetch } from 'hooks/useFetch'; import { api } from '@services/api'; import { useState } from 'react'; import { toast } from 'react-toastify';
+export const getServerSideProps: GetServerSideProps = async (ctx) => { const { 'user-token': token } = parseCookies(ctx); if (!token) return { redirect: { destination: '/login?expired=true', permanent: false } }; return { props: {} }; };
 export default function PartnersPage() {
-  const { data, mutate } = useFetch<any>('/cowork/v2/setup/resellers');
-  const [form, setForm] = useState<any>({});
-  const [editing, setEditing] = useState<number | null>(null);
-  const partners: any[] = data ?? [];
-
-  const handleSave = async () => {
-    try {
-      if (editing) { await api.put(`/cowork/v2/setup/resellers/${editing}`, form); toast.success('Updated'); }
-      else { await api.post('/cowork/v2/setup/resellers', form); toast.success('Created'); }
-      mutate(); setForm({}); setEditing(null);
-    } catch { toast.error('Failed to save'); }
-  };
-  const handleDelete = async (id: number) => {
-    if (!confirm('Delete this partner?')) return;
-    await api.delete(`/cowork/v2/setup/resellers/${id}`); mutate(); toast.success('Deleted');
-  };
-  const handleEdit = (p: any) => { setForm({ name: p.name, slug: p.slug, contact_name: p.contact_name, contact_email: p.contact_email, commission_bps: p.commission_bps }); setEditing(p.id); };
-
-  const iStyle: any = { padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: 4, fontSize: 13, width: '100%' };
-  const s: any = { background: '#fff', padding: 20, borderRadius: 8, marginBottom: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.06)' };
-
-  return (<OperatorLayout><Head><title>Partners | Workeaser</title></Head>
-    <div style={{ fontFamily: "'Laca', 'Be Vietnam Pro', sans-serif" }}>
-      <h1 style={{ fontSize: 24, fontWeight: 700, color: '#2B3450', marginBottom: 20 }}>Partners (Resellers)</h1>
-      <div style={s}><h3 style={{margin:'0 0 12px',fontSize:16,fontWeight:600,color:'#2B3450'}}>{editing ? 'Edit Partner' : 'Add Partner'}</h3>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:12}}>
-          <div><label style={{fontSize:11,color:'#64748b'}}>Name *</label><input value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})} style={iStyle}/></div>
-          <div><label style={{fontSize:11,color:'#64748b'}}>Slug *</label><input value={form.slug||''} onChange={e=>setForm({...form,slug:e.target.value})} style={iStyle}/></div>
-          <div><label style={{fontSize:11,color:'#64748b'}}>Contact Name</label><input value={form.contact_name||''} onChange={e=>setForm({...form,contact_name:e.target.value})} style={iStyle}/></div>
-          <div><label style={{fontSize:11,color:'#64748b'}}>Contact Email</label><input value={form.contact_email||''} onChange={e=>setForm({...form,contact_email:e.target.value})} style={iStyle}/></div>
-          <div><label style={{fontSize:11,color:'#64748b'}}>Commission (bps)</label><input type="number" value={form.commission_bps||''} onChange={e=>setForm({...form,commission_bps:Number(e.target.value)})} style={iStyle}/></div>
-        </div>
-        <button onClick={handleSave} style={{background:'#00A2DD',color:'#fff',border:'none',padding:'8px 20px',borderRadius:6,cursor:'pointer',fontSize:13,fontWeight:600,marginRight:8}}>{editing?'Update':'Create'}</button>
-        {editing && <button onClick={()=>{setForm({});setEditing(null);}} style={{background:'#fff',border:'1px solid #cbd5e1',padding:'8px 16px',borderRadius:6,cursor:'pointer',fontSize:13}}>Cancel</button>}
+  const { data, mutate } = useFetch<any>('/cowork/v2/setup/resellers'); const [form,setForm]=useState<any>({}); const [edit,setEdit]=useState<number|null>(null);
+  const list = data ?? [];
+  const save = async () => { try { if(edit){await api.put('/cowork/v2/setup/resellers/'+edit,form);toast.success('Updated');}else{await api.post('/cowork/v2/setup/resellers',form);toast.success('Created');} mutate(); setForm({}); setEdit(null); } catch { toast.error('Failed'); } };
+  return (<Shell><Head><title>Partners | Workeaser</title></Head>
+    <h1 className="text-[24px] font-bold text-[#2B3450] mb-6">Partners</h1>
+    <div className="bg-surface border border-border rounded-lg p-5 mb-4">
+      <h3 className="text-[16px] font-semibold text-[#2B3450] mb-3">{edit?'Edit':'Add'} Partner</h3>
+      <div className="grid grid-cols-3 gap-3 mb-3">
+        {['name','slug','contact_name','contact_email'].map(f=><input key={f} placeholder={f.replace(/_/g,' ')} value={form[f]||''} onChange={e=>setForm({...form,[f]:e.target.value})} className="px-3 py-2 border border-outline-variant rounded-md text-[13px] outline-none" />)}
+        <input type="number" placeholder="Commission (bps)" value={form.commission_bps||''} onChange={e=>setForm({...form,commission_bps:Number(e.target.value)})} className="px-3 py-2 border border-outline-variant rounded-md text-[13px] outline-none" />
       </div>
-      <div style={s}><h3 style={{margin:'0 0 12px',fontSize:16,fontWeight:600,color:'#2B3450'}}>All Partners ({partners.length})</h3>
-        <table style={{width:'100%',borderCollapse:'collapse',fontSize:13}}>
-          <thead><tr style={{textAlign:'left',borderBottom:'2px solid #e2e8f0',fontSize:11,color:'#64748b',textTransform:'uppercase'}}><th style={{padding:'8px 10px'}}>Name</th><th style={{padding:'8px 10px'}}>Contact</th><th style={{padding:'8px 10px'}}>Commission</th><th style={{padding:'8px 10px'}}>Clients</th><th style={{padding:'8px 10px'}}></th></tr></thead>
-          <tbody>{partners.map((p:any)=><tr key={p.id} style={{borderBottom:'1px solid #f1f5f9'}}><td style={{padding:'8px 10px',fontWeight:500}}>{p.name}</td><td style={{padding:'8px 10px'}}>{p.contact_name||'—'}<br/><span style={{fontSize:11,color:'#94a3b8'}}>{p.contact_email||''}</span></td><td style={{padding:'8px 10px'}}>{(p.commission_bps/100).toFixed(2)}%</td><td style={{padding:'8px 10px'}}>{p.$extras?.serviceContracts_count ?? '—'}</td><td style={{padding:'8px 10px'}}><button onClick={()=>handleEdit(p)} style={{background:'none',border:'1px solid #00A2DD',color:'#00A2DD',borderRadius:4,padding:'2px 8px',cursor:'pointer',fontSize:11,marginRight:4}}>Edit</button><button onClick={()=>handleDelete(p.id)} style={{background:'none',border:'1px solid #dc2626',color:'#dc2626',borderRadius:4,padding:'2px 8px',cursor:'pointer',fontSize:11}}>Delete</button></td></tr>)}</tbody>
-        </table></div>
-    </div></OperatorLayout>);
+      <button onClick={save} className="bg-primary text-on-primary px-4 py-2 rounded-md text-[13px] font-semibold cursor-pointer border-none mr-2">{edit?'Update':'Create'}</button>
+      {edit && <button onClick={()=>{setForm({});setEdit(null)}} className="bg-surface border border-border px-4 py-2 rounded-md text-[13px] cursor-pointer">Cancel</button>}
+    </div>
+    <div className="bg-surface border border-border rounded-lg overflow-hidden">
+      <table className="w-full text-[13px] border-collapse"><thead><tr className="bg-[#2B3450] text-white text-left text-[11px] uppercase"><th className="p-3">Name</th><th className="p-3">Contact</th><th className="p-3">Commission</th><th className="p-3"></th></tr></thead>
+      <tbody>{list.map((p:any)=><tr key={p.id} className="border-b border-border"><td className="p-3 font-medium">{p.name}</td><td className="p-3">{p.contact_name||'—'}<br/><span className="text-[11px] text-outline">{p.contact_email||''}</span></td><td className="p-3">{(p.commission_bps/100).toFixed(2)}%</td><td className="p-3"><button onClick={()=>{setForm({name:p.name,slug:p.slug,contact_name:p.contact_name,contact_email:p.contact_email,commission_bps:p.commission_bps});setEdit(p.id)}} className="text-primary bg-transparent border border-primary rounded px-2 py-1 text-[11px] cursor-pointer mr-1">Edit</button><button onClick={async()=>{if(confirm('Delete?')){await api.delete('/cowork/v2/setup/resellers/'+p.id);mutate();toast.success('Deleted')}}} className="text-error bg-transparent border border-error rounded px-2 py-1 text-[11px] cursor-pointer">Delete</button></td></tr>)}</tbody></table>
+    </div>
+  </Shell>);
 }
