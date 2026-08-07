@@ -248,3 +248,10 @@
   Modelo soporta contratos mixtos (DIRECT + RESELLER) para el mismo cliente.
 - **Reversibilidad**: migraciones con down() correcto. SQL directo permite DROP TABLE / ALTER TABLE DROP COLUMN.
 - **Hash commit**: `89779aa`
+
+### B3-A: Shell operador + migración 3 campos — 2026-08-08
+- **Migración**: address/ein/notes en client_accounts (reversible). Modelo ClientAccount actualizado.
+- **Shell**: OperatorSidebar (§7, 2 grupos role-gated), OperatorHeader, OperatorLayout (fix sidebar fijo).
+- **Sub-auditor**: FAIL (firstName→first_name) → corregido → PASS.
+- **Hash commit**: `154064a`
+- **NO desplegado** — espera aprobación de Claudio
