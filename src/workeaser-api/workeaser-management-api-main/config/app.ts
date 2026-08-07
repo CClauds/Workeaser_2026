@@ -105,7 +105,7 @@ export const http: ServerConfig = {
     domain: '',
     path: '/',
     maxAge: '2h',
-    httpOnly: true,
+    httpOnly: false,
     secure: (Env.get('APP_URL', '') as string).startsWith('https://'),
     sameSite: 'lax' as const,
   },

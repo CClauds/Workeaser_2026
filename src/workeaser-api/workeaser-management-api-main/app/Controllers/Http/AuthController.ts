@@ -64,7 +64,7 @@ export default class AuthController {
           : 7200; // 2h default
 
       response.cookie('user-token', tokenData?.token || tokenData, {
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'lax',
         secure: isHttps,
         path: '/',
