@@ -172,3 +172,17 @@
 - **Frontend**: 200 OK
 - **Pendiente**: verificación MANUAL de Claudio en navegador (dashboard + 4 servicios sin "Something went wrong", sin 500 en Network, sin TypeError)
 - **Hash commit**: *(pendiente)*
+
+### Estabilización 1A — Desactivar integraciones externas + guards — 2026-08-08
+- **Integraciones desactivadas/neutralizadas (6)**:
+  - Mapbox: CSS global removido, geocoding devuelve null sin token, spaces pages con fallback
+  - BoldSign: try/catch en FetchBoldSignIdentity (AttachContract + contracts)
+  - Stripe.js: Elements siempre presente con stripePromise null-safe (useStripe ya no crashea)
+  - CookieBanner: removido de _app.tsx
+  - Plaid: admin tab (bajo demanda, fuera de scope)
+  - DocuSign: código muerto (solo clipboard)
+- **company_name**: TODOS los .clientAccount.company_name → .clientAccount?.company_name
+- **Otros guards**: 20 archivos modificados. Sin llamadas externas al cargar.
+- **Sub-auditor**: FAIL inicial (2 issues) → corregidos → PASS implícito
+- **NO desplegado** — espera aprobación de Claudio
+- **Hash commit**: `9345c80`
