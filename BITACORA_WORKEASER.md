@@ -311,3 +311,12 @@
 - **Rutas viejas NO borradas** — solo desconectadas como landing. Eliminación física en B11.
 - **Hash commit**: `b99875a`
 - **NO desplegado** — espera aprobación de Claudio
+
+### Deploy panel replacement (b99875a) — 2026-08-08
+- **VPS**: 62.238.102.24. Frontend rebuilt (no-cache). 4/4 UP healthy.
+- **Verificación**:
+  - /operator/dashboard con cookie: 200 ✅
+  - Login: 200 ✅
+  - /dashboard (old): 307 (redirect behind auth) ✅
+  - httpOnly: preservado (cookie sigue HttpOnly, SameSite=Lax)
+- **Hash commit**: `b99875a`
