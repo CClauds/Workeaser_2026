@@ -117,5 +117,5 @@
 - **Configuración centralizada**: 3 archivos (LoginBox para SSR, AuthController para httpOnly, config/app.ts para defaults). Mismos flags, derivados de la misma variable de entorno.
 - **Sub-auditor**: PASS — 5/5 checks (cookie fix, null-guards+states, seed, scope, conservación)
 - **NO desplegado** — espera aprobación explícita de Claudio para deploy.
-- **Hash commit**: *(pendiente)*
+- **Hash commit**: `074c0f4`
 
