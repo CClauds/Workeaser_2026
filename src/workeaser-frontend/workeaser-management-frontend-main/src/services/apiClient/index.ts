@@ -53,8 +53,15 @@ export const getAPIClient = (
 ) => {
   const { "user-token": token } = parseCookies(ctx);
 
+  // SSR (getServerSideProps): necesita URL absoluta al contenedor API en Docker network.
+  // Cliente (navegador): usa ruta relativa /api → nginx proxy.
+  const isServer = typeof window === 'undefined';
+  const baseURL = isServer
+    ? (process.env.NEXT_PUBLIC_API_URL_INTERNAL || 'http://workeaser-api:3333/api')
+    : (process.env.NEXT_PUBLIC_API_URL || '/api');
+
   const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL,
   });
 
   if (token) {

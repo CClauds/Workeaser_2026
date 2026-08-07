@@ -22,21 +22,27 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({
   componentProps,
 }) => {
   const Main = styled.main`
-    height: calc(100vh - 70px);
-    display: flex;
-    flex-direction: column;
+    display: block;
   `;
 
   return (
     <AuthProvider roles={componentProps?.authRoles}>
       <ThemeProvider theme={theme}>
-        <Elements stripe={stripePromise} options={{ locale: "en" }}>
+        {stripePromise ? (
+          <Elements stripe={stripePromise} options={{ locale: "en" }}>
+            <SpacesProvider>
+              <ClientHeader />
+              <Main>{children}</Main>
+              <ToastContainer />
+            </SpacesProvider>
+          </Elements>
+        ) : (
           <SpacesProvider>
             <ClientHeader />
             <Main>{children}</Main>
             <ToastContainer />
           </SpacesProvider>
-        </Elements>
+        )}
       </ThemeProvider>
     </AuthProvider>
   );

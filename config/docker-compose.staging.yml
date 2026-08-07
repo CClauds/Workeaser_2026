@@ -93,6 +93,5 @@ services:
       args:
         NEXT_PUBLIC_API_URL: /api
         NEXT_PUBLIC_ADMIN_API_URL: /admin-api
-        NEXT_PUBLIC_STRIPE: pk_test_PLACEHOLDER
     ports:
       - '3000:3000'
