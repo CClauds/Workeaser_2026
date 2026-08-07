@@ -24,8 +24,11 @@ export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
   const { "user-token": token } = parseCookies();
   const { cache } = useSWRConfig() as any;
 
+  // 1B.2-httpOnly fix: la cookie es httpOnly → parseCookies() cliente NO la lee.
+  // Siempre llamar /me con withCredentials (el navegador envía la cookie httpOnly).
+  // Si es SSR, parseCookies(ctx) SÍ la lee y pasamos token al primer fetch.
   const { data, error } = useFetch<{ result: UserCoworking[] & UserClient[] }>(
-    token ? "/me" : null
+    "/me"
   );
 
   let user = data ? data.result[0] : null;
@@ -54,9 +57,11 @@ export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
       nextPath = router.asPath === "/" ? "/spaces" : router.asPath;
     }
 
-    if (!token) {
+    // Solo redirigir si /me devolvió error (401 = no autenticado).
+    // Ya NO chequeamos token en JS porque es httpOnly.
+    if (error && !data) {
       toast.warn("Sorry, you are not authenticated.");
-      cache.clear(); // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
+      cache.clear();
       router.push({
         pathname: "/login",
         query: nextPath ? { returnTo: nextPath, expired: true } : {},
@@ -68,7 +73,7 @@ export const AuthProvider = ({ children, roles }: AuthProviderProps) => {
       router.push(nextPath);
       return;
     }
-  }, [role]);
+  }, [role, error, data]);
 
   // if (router.pathname.startsWith("/client") && !roles?.includes(role)) {
   // console.log("CLUENTE<<<<<<<<<<<<<<<<<<<");
