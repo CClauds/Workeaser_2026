@@ -296,15 +296,15 @@ const MeetingRoom = ({ fallback, fallbackNextPage }: MeetingRoomProps) => {
   const tableData = useMemo(
     () =>
       data?.filter(Boolean).map((meetingRoom) => ({
-        thumbnail: meetingRoom.photos[0],
-        name: `${meetingRoom.name}&${meetingRoom.location}`,
-        category: MeetingRoomType[meetingRoom.category],
-        openBalances: meetingRoom.open_balance,
+        thumbnail: meetingRoom?.photos?.[0] ?? null,
+        name: `${meetingRoom?.name ?? ''}&${meetingRoom?.location ?? ''}`,
+        category: MeetingRoomType[meetingRoom?.category] ?? '',
+        openBalances: meetingRoom?.open_balance ?? 0,
         visibility: {
-          value: meetingRoom.visibility ? true : false,
-          id: meetingRoom.id,
+          value: meetingRoom?.visibility ? true : false,
+          id: meetingRoom?.id ?? 0,
         },
-        menu: meetingRoom.id,
+        menu: meetingRoom?.id ?? 0,
       })),
     [data]
   );

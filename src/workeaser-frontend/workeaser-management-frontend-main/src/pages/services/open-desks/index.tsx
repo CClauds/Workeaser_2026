@@ -306,16 +306,16 @@ const DesksPage = ({ fallback, fallbackNextPage }: DesksProps) => {
   const tableData = useMemo(
     () =>
       data?.filter(Boolean).map((desk) => ({
-        thumbnail: desk.photos[0],
-        name: `${desk.name}&${desk.location}`,
-        shareability: desk.shareability,
-        availability: `${desk.available - desk.busy}&${desk.available}`,
-        openBalances: desk.open_balance,
+        thumbnail: desk?.photos?.[0] ?? null,
+        name: `${desk?.name ?? ''}&${desk?.location ?? ''}`,
+        shareability: desk?.shareability ?? false,
+        availability: `${(desk?.available ?? 0) - (desk?.busy ?? 0)}&${desk?.available ?? 0}`,
+        openBalances: desk?.open_balance ?? 0,
         visibility: {
-          value: desk.visibility ? true : false,
-          id: desk.id,
+          value: desk?.visibility ? true : false,
+          id: desk?.id ?? 0,
         },
-        menu: { id: desk.id, disabled: desk.available - desk.busy === 0 },
+        menu: { id: desk?.id ?? 0, disabled: (desk?.available ?? 0) - (desk?.busy ?? 0) === 0 },
       })),
     [data]
   );

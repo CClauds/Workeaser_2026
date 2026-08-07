@@ -22,18 +22,32 @@ export default class PhotosController {
 
       const photo = await Photo.query().where('file', location).first();
       if (!photo) {
-        throw new AppError(AppError.NOT_FOUND, 'File not found');
+        return response.status(404).json({ error: 'Photo not found' });
       }
 
-      const { size } = await Drive.getStats(`photos/${location}`);
-      const stream = await Drive.getStream(`photos/${location}`);
+      // Verify file exists on disk before streaming
+      const filePath = `photos/${location}`;
+      const exists = await Drive.exists(filePath);
+      if (!exists) {
+        return response.status(404).json({ error: 'Photo file not available' });
+      }
 
-      response.type(extname(`photos/${location}`));
+      const { size } = await Drive.getStats(filePath);
+      const stream = await Drive.getStream(filePath);
+
+      response.type(extname(filePath));
       response.header('content-length', size);
 
       return response.stream(stream);
     } catch (error) {
-      return responseWithError(response, error.message);
+      // Return 404 for any missing-file error, not 500
+      if (error?.code === 'ENOENT' || error?.message?.includes('not found') || error?.message?.includes('No such file')) {
+        return response.status(404).json({ error: 'Photo not found' });
+      }
+      if (error instanceof AppError) {
+        return responseWithError(response, error.message);
+      }
+      return response.status(404).json({ error: 'Photo not available' });
     }
   }
 

@@ -302,15 +302,15 @@ const VirtualOfficePage = ({
   const tableData = useMemo(
     () =>
       data?.filter(Boolean).map((virtualOffice) => ({
-        thumbnail: virtualOffice.photos[0],
-        name: `${virtualOffice.name}&${virtualOffice.location}`,
-        activeMembers: virtualOffice.active_members,
-        openBalances: virtualOffice.open_balance,
+        thumbnail: virtualOffice?.photos?.[0] ?? null,
+        name: `${virtualOffice?.name ?? ''}&${virtualOffice?.location ?? ''}`,
+        activeMembers: virtualOffice?.active_members ?? 0,
+        openBalances: virtualOffice?.open_balance ?? 0,
         visibility: {
-          value: virtualOffice.visibility ? true : false,
-          id: virtualOffice.id,
+          value: virtualOffice?.visibility ? true : false,
+          id: virtualOffice?.id ?? 0,
         },
-        menu: virtualOffice.id,
+        menu: virtualOffice?.id ?? 0,
       })),
     [data]
   );

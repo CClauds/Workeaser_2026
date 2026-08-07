@@ -299,16 +299,16 @@ const RoomsPage = ({ fallback, fallbackNextPage }: RoomsProps) => {
   const tableData = useMemo(
     () =>
       data?.filter(Boolean).map((room) => ({
-        id: room.room_local_account_id,
-        thumbnail: room.photo[0],
-        name: `${room.name}&${room.location}`,
-        availability: `${room.available - room.busy}&${room.available}`,
-        openBalances: room.open_balance,
+        id: room?.room_local_account_id ?? 0,
+        thumbnail: room?.photo?.[0] ?? null,
+        name: `${room?.name ?? ''}&${room?.location ?? ''}`,
+        availability: `${(room?.available ?? 0) - (room?.busy ?? 0)}&${room?.available ?? 0}`,
+        openBalances: room?.open_balance ?? 0,
         visibility: {
-          value: room.visibility ? true : false,
-          id: room.id,
+          value: room?.visibility ? true : false,
+          id: room?.id ?? 0,
         },
-        menu: { id: room.id, disabled: room.available - room.busy === 0 },
+        menu: { id: room?.id ?? 0, disabled: (room?.available ?? 0) - (room?.busy ?? 0) === 0 },
       })),
     [data]
   );

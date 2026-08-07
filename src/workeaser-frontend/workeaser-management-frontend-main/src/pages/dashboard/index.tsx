@@ -133,10 +133,10 @@ const Dashboard = ({ fallback }: DashboardProps) => {
   const bookingsData = useMemo(
     () =>
       dashboardData?.upcoming_bookings?.filter(Boolean).map((booking) => ({
-        reservationType: booking.reservation_type,
-        unitRoomName: booking.name,
-        dateAndTime: booking.datetime,
-        menu: booking.id,
+        reservationType: booking?.reservation_type ?? '-',
+        unitRoomName: booking?.name ?? '-',
+        dateAndTime: booking?.datetime ?? '-',
+        menu: booking?.id ?? '',
       })),
     [dashboardData?.upcoming_bookings]
   );
@@ -144,10 +144,10 @@ const Dashboard = ({ fallback }: DashboardProps) => {
   const membersData = useMemo(
     () =>
       dashboardData?.mailbox_requests?.filter(Boolean).map((member) => ({
-        activityType: member.activity_type,
-        memberName: member.name,
-        priorityRequest: member.request,
-        menu: member.id,
+        activityType: member?.activity_type ?? '-',
+        memberName: member?.name ?? '-',
+        priorityRequest: member?.request ?? '-',
+        menu: member?.id ?? '',
       })),
     [dashboardData?.mailbox_requests]
   );
