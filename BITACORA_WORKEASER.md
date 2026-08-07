@@ -262,3 +262,10 @@
 - **Frontend**: All Clients (lista con search, pagination, JOINs) + Add Client (form con N service_contracts, billing_channel por contrato)
 - **Hash commit**: `0988294`
 - **NO desplegado** — espera aprobación de Claudio
+
+### B3-C: Client Detail + Dashboard + 15 operator pages — 2026-08-08
+- **Client Detail**: info + service_contracts list (billing_channel per contract), Quick Access, Pending
+- **Dashboard**: KPIs reales (clients, invoices, locations count)
+- **17 páginas operator**: todas bajo OperatorLayout shell. Placeholders marcados para bloques futuros.
+- **Hash commit**: `61167bf`
+- **NO desplegado** — espera aprobación de Claudio
