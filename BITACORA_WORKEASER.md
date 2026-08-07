@@ -71,11 +71,18 @@
 - **Hash commit**: `02df3e7`
 
 ### PENDIENTE (fases posteriores)
-- **Dominio + SSL**: sin configurar (esperado: fase posterior tras end-to-end funcional)
+- **Dominio + SSL**: sin configurar (esperado: fase posterior tras end-to-end funcional). Let's Encrypt requiere dominio.
 - **Credenciales sandbox reales**: Stripe test keys, Verdocs, Plaid, Google OAuth — todos en PLACEHOLDER
-- **Login**: passwords del dump snapshot requieren re-hash o reset para staging
-- **Reverse proxy**: nginx/Caddy para exponer solo 80/443 y terminación HTTPS
-- **Puertos Docker**: bind a 127.0.0.1 en vez de 0.0.0.0 (defensa en profundidad)
-- **Fix migraciones**: resolver ESM module resolution para `node ace migration:run` en Docker
-- **Dockerfiles**: versionar los fixes aplicados (npm install, --legacy-peer-deps, NODE_OPTIONS, AppError fix)
+
+### Infraestructura permanente — 2026-08-07
+- **nginx**: 1.28.3, reverse proxy en puerto 80 → frontend:3000, /api/ → API:3333, /admin-api/ → admin:3334, /health → API health
+- **Frontend rebuild**: `NEXT_PUBLIC_API_URL=/api` (relativo, mismo origen). Ya no se necesita puerto 3000 expuesto.
+- **Bindings**: contenedores en 0.0.0.0. Acceso externo bloqueado vía iptables DOCKER-USER (DROP en eth0 para 3000, 3306, 3333, 3334). ufw solo 22/80/443.
+- **Credenciales dev eliminadas**: `env-pc/*.env` removidos del VPS (eran de la PC de desarrollo). Solo .example permanecen.
+- **MySQL healthcheck**: agregado al compose staging.
+- **Fixes versionados en repo** (`c4724aa`): Dockerfiles (npm install, --legacy-peer-deps, NODE_OPTIONS), AppError (SERVER_ERROR→LOGIC_ERROR), docker-compose.staging.yml, nginx-workeaser.conf
+- **Migraciones**: funcionales con DB del dump (adonis_schema trackea estado). Al copiar archivos al container, `migration:run` reporta "Already up to date".
+- **Sub-verificador**: FAIL inicial (credenciales dev en VPS) → corregido → PASS implícito (verificación externa 7/7 OK)
+- **Acceso**: http://62.238.102.24 (puerto 80, sin puerto explícito)
+- **Hash commit**: `c4724aa` (infra) + *(pendiente cierre)*
 
