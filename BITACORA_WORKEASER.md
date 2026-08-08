@@ -418,3 +418,9 @@ G) Finances: admin-only, placeholder QBO (B10)
 - Locations: address field en rooms-services  
 - Hash commit: `bcfbe26`
 - Auditor pendiente
+
+### Deploy B3-R1 completa — 2026-08-08
+- **VPS**: 62.238.102.24. Frontend rebuilt (no-cache, clean context).
+- **BUILD_ID**: `RHkMn0gwkMv8V1AjtnbrN` (nuevo, verificado)
+- **4/4 UP healthy**. Frontend 200. Login 200.
+- **Hash commit**: `b673331`
