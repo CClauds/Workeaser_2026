@@ -384,3 +384,8 @@
 - Billing channel: muestra partners por nombre (EWS Direct, Alliance, DaVinci...)
 - Search: server-side filter por company/name/phone/service/room/notes
 - Hash commit: `f9b61d5`
+
+### B3-R1-D: Contracts migration — 2026-08-08
+- Migración: annual_increase_pct (decimal 5,2) + is_price_negotiated (bool) en service_contracts
+- Reversible. Advertida en bitácora.
+- Hash commit: (pending)
