@@ -36,12 +36,20 @@ export function Shell({ children }: { children: ReactNode; title?: string }) {
   const { user, signOut } = useContext(AuthContext);
   const router = useRouter();
   const [expanded, setExpanded] = useState<string | null>('Setup');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const isAdmin = user?.role === 'ADMIN';
   const toggle = (l: string) => setExpanded(p => p === l ? null : l);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className="flex min-h-screen bg-background" style={{fontFamily:"'Laca','Be Vietnam Pro',sans-serif"}}>
-      <aside className="flex flex-col bg-[#2B3450] text-white fixed left-0 top-0 bottom-0 overflow-y-auto z-30" style={{width:240}}>
+      {/* Mobile overlay */}
+      {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-20" onClick={closeSidebar} />}
+      {/* Mobile hamburger */}
+      <button className="lg:hidden fixed top-3 left-3 z-40 bg-[#2B3450] text-white p-2 rounded-md" onClick={()=>setSidebarOpen(!sidebarOpen)}>
+        <span className="material-symbols-outlined text-[24px]">{sidebarOpen?'close':'menu'}</span>
+      </button>
+      <aside className={`flex flex-col bg-[#2B3450] text-white fixed left-0 top-0 bottom-0 overflow-y-auto z-30 transition-transform ${sidebarOpen?'translate-x-0':'-translate-x-full'} lg:translate-x-0`} style={{width:240}}>
         <div className="px-4 py-5 flex items-center gap-2 border-b border-white/10">
           <img src="/workeaser-logo.svg" alt="Workeaser" className="h-7" onError={(e:any)=>{e.target.style.display='none'}} />
           <span className="text-[#00A2DD] font-semibold text-base">Workeaser</span>
@@ -72,15 +80,15 @@ export function Shell({ children }: { children: ReactNode; title?: string }) {
         </nav>
         <div className="p-3 border-t border-white/10 text-[11px] opacity-40 text-center">2026 Workeaser</div>
       </aside>
-      <div style={{marginLeft:240}} className="flex-1 flex flex-col">
-        <header className="h-14 bg-surface border-b border-border flex items-center justify-end px-6">
-          <input type="search" placeholder="Search clients, contracts..." className="px-3 py-1.5 border border-outline-variant rounded-md text-[13px] w-60 mr-4 outline-none"
+      <div style={{marginLeft:240}} className="flex-1 flex flex-col lg:ml-0 ml-0" onClick={closeSidebar}>
+        <header className="h-14 bg-surface border-b border-border flex items-center justify-end px-4 lg:px-6 gap-2">
+          <input type="search" placeholder="Search..." className="hidden sm:block px-3 py-1.5 border border-outline-variant rounded-md text-[13px] w-40 lg:w-60 outline-none"
             onKeyDown={async(e:any)=>{if(e.key==='Enter'){router.push('/operator/clients?search='+encodeURIComponent(e.target.value))}}} />
-          <span className="text-[13px] text-on-surface font-medium mr-2">{user?.first_name} {user?.last_name}</span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full text-white font-semibold uppercase ${user?.role==='ADMIN'?'bg-primary':'bg-success'}`}>{user?.role}</span>
-          <button onClick={async()=>{await signOut();router.push('/login')}} className="ml-2 px-3 py-1 border border-outline-variant rounded text-[12px] text-outline cursor-pointer bg-transparent">Logout</button>
+          <span className="text-[12px] lg:text-[13px] text-on-surface font-medium truncate max-w-[120px]">{user?.first_name} {user?.last_name}</span>
+          <span className={`text-[10px] px-2 py-0.5 rounded-full text-white font-semibold uppercase hidden sm:inline ${user?.role==='ADMIN'?'bg-primary':'bg-success'}`}>{user?.role}</span>
+          <button onClick={async()=>{await signOut();router.push('/login')}} className="px-2 lg:px-3 py-1 border border-outline-variant rounded text-[11px] lg:text-[12px] text-outline cursor-pointer bg-transparent">Logout</button>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-4 lg:p-6">{children}</main>
       </div>
     </div>
   );
