@@ -409,3 +409,12 @@ G) Finances: admin-only, placeholder QBO (B10)
 **Pendiente para B4-B10**: Contracts progressive form, Rooms photo upload, Locations address edit, charts
 
 **Hash commits**: ver arriba
+
+### B3-R1 Cierre — Charts + Responsive + Progressive + Upload — 2026-08-08
+- Dashboard: CSS bar charts con datos reales de API (sin dependencia externa)
+- Shell: responsive con hamburger menu, sidebar colapsable, header adaptativo
+- Progressive form: service type -> location -> room -> price en AddClientModal
+- Rooms: photo upload placeholder en setup
+- Locations: address field en rooms-services  
+- Hash commit: `bcfbe26`
+- Auditor pendiente
