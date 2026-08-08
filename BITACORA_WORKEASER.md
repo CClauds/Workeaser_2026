@@ -389,3 +389,7 @@
 - Migración: annual_increase_pct (decimal 5,2) + is_price_negotiated (bool) en service_contracts
 - Reversible. Advertida en bitácora.
 - Hash commit: 1a26f81
+
+### B3-R1-D: Auditor 6/6 PASS (model fixed)
+- ServiceContract model updated with annualIncreasePct + isPriceNegotiated
+- Hash commit: (pending)
