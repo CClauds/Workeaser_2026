@@ -9,7 +9,7 @@ export default function PartnersPage() {
   return (<Shell><Head><title>Partners | Workeaser</title></Head>
     <h1 className="text-[24px] font-bold text-[#2B3450] mb-6">Partners (Resellers)</h1>
     <div className="bg-surface border border-border rounded-lg p-5 mb-4"><h3 className="text-[16px] font-semibold text-[#2B3450] mb-3">{edit?'Edit':'Add'} Partner</h3>
-      <div className="grid grid-cols-3 gap-3 mb-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
         <input placeholder="Name *" value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})} className={iS} />
         <input placeholder="Slug *" value={form.slug||''} onChange={e=>setForm({...form,slug:e.target.value})} className={iS} />
         <input placeholder="Contact Name" value={form.contact_name||''} onChange={e=>setForm({...form,contact_name:e.target.value})} className={iS} />

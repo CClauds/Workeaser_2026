@@ -12,7 +12,7 @@ export default function RoomsPage() {
     <div className="flex gap-0 mb-4">{tabBtn('rooms','Rooms & Units')}{tabBtn('locations','Locations')}{tabBtn('types','Service Types')}</div>
     {tab==='rooms'&&<div className="bg-surface border border-border rounded-lg p-5 mb-4">
       <h3 className="text-[16px] font-semibold text-[#2B3450] mb-3">Add Room (Venus 101 model)</h3>
-      <div className="grid grid-cols-3 gap-3 mb-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
         <select value={form.location_id||''} onChange={e=>setForm({...form,location_id:e.target.value})} className="px-3 py-2 border border-outline-variant rounded-md text-[13px] outline-none"><option value="">Location *</option>{ll.map((l:any)=><option key={l.id} value={l.id}>{l.name}</option>)}</select>
         <select value={form.service_type_id||''} onChange={e=>setForm({...form,service_type_id:e.target.value})} className="px-3 py-2 border border-outline-variant rounded-md text-[13px] outline-none"><option value="">Service Type *</option>{tl.map((t:any)=><option key={t.id} value={t.id}>{t.name}</option>)}</select>
         <input placeholder="Room Number *" value={form.room_number||''} onChange={e=>setForm({...form,room_number:e.target.value})} className="px-3 py-2 border border-outline-variant rounded-md text-[13px] outline-none" />
