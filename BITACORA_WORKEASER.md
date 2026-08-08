@@ -367,3 +367,9 @@
   → useFetch interceptaba CUALQUIER 401 como sesión expirada → redirect.
 - **FIX**: useFetch solo redirige en 401 de /me. Otros 401 son permisos, no sesión.
 - **Hash commit**: `e77d1ef`
+
+### B3 Ronda 1 Correcciones — 2026-08-08
+- **A) BUGS**: Logo en public/, sidebar accordion single-open, nav simplificada, dashboard KPIs reales
+- **F+G) NUEVO**: Audit Log (admin-only, solo-lectura), Finances (placeholder QBO B10)
+- **Admin group**: Setup, Audit Log, Finances
+- **Hash commit**: `a6e90b9`
