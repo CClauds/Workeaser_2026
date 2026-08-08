@@ -361,3 +361,9 @@
 - **Material Symbols**: ✅ `<link>` cargado, glifos renderizados
 - **Admin**: admin@workeaser.com / admin1234 (role=ADMIN, puede ver Setup)
 - **Hash commit**: `12c3272`
+
+### Fix Session Expired redirect (useFetch 401 scope) — 2026-08-08
+- **CAUSA**: dashboard llama /cowork/finance/invoices → middleware FINANCES → 401
+  → useFetch interceptaba CUALQUIER 401 como sesión expirada → redirect.
+- **FIX**: useFetch solo redirige en 401 de /me. Otros 401 son permisos, no sesión.
+- **Hash commit**: `e77d1ef`
