@@ -23,7 +23,7 @@ export default function AddClientPage() {
         <textarea placeholder="Notes / Observations" value={form.notes||''} onChange={e=>setForm({...form,notes:e.target.value})} className={`${iStyle} mt-3 min-h-[60px]`} />
       </div>
       <div className="bg-surface border border-border rounded-lg p-5 mb-4"><div className="flex justify-between items-center mb-3"><h3 className="text-[16px] font-semibold text-[#2B3450]">Service Contracts</h3><button type="button" onClick={addRow} className="bg-primary text-on-primary px-3 py-1.5 rounded text-[13px] font-semibold cursor-pointer border-none">+ Add Service</button></div>
-      {contracts.map((c,i)=><div key={i} className="border border-border rounded-md p-3 mb-2 grid grid-cols-4 gap-2">
+      {contracts.map((c,i)=><div key={i} className="border border-border rounded-md p-3 mb-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
         <select value={c.service_type_id} onChange={e=>updContract(i,'service_type_id',e.target.value)} className={iStyle}><option value="">Service Type *</option>{svcTypes.map((s:any)=><option key={s.id} value={s.id}>{s.name}</option>)}</select>
         <select value={c.rooms_unit_id} onChange={e=>updContract(i,'rooms_unit_id',e.target.value)} className={iStyle}><option value="">Room (optional)</option>{roomsList.map((r:any)=><option key={r.id} value={r.id}>{r.display_name}</option>)}</select>
         <input type="number" placeholder="Price (cents)" value={c.price_cents||''} onChange={e=>updContract(i,'price_cents',Number(e.target.value))} className={iStyle} />
