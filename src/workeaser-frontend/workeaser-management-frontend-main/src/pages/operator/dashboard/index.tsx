@@ -25,11 +25,11 @@ export default function DashboardPage() {
   ];
   return (<Shell><Head><title>Dashboard | Workeaser</title></Head>
     <h1 className="text-[24px] font-bold text-[#2B3450] mb-6">Dashboard</h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">{kpis.map(kpi=>{const c=kpi.color;return(<div key={kpi.label} className="bg-surface border border-border rounded-lg p-5">
+    <div className="grid grid-cols-4 gap-4 mb-6">{kpis.map(kpi=>{const c=kpi.color;return(<div key={kpi.label} className="bg-surface border border-border rounded-lg p-5">
       <div className="flex items-center gap-2 mb-2"><span className="material-symbols-outlined text-[20px]" style={{color:c}}>{kpi.icon}</span><span className="text-[11px] uppercase tracking-wider text-outline font-semibold">{kpi.label}</span></div>
       <div className="text-[28px] font-bold text-[#2B3450]">{kpi.value}</div>
     </div>)})}</div>
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       <div className="bg-surface border border-border rounded-lg p-5"><h3 className="flex items-center gap-2 text-[14px] font-semibold text-[#2B3450] mb-4"><span className="material-symbols-outlined text-[20px]">bar_chart</span>Overview</h3>
         <Bar value={clientCount} max={maxVal} color="#00A2DD" label="Active Clients" />
         <Bar value={locCount} max={maxVal} color="#10B981" label="Locations" />
