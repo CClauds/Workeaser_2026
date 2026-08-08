@@ -470,3 +470,7 @@ G) Finances: admin-only, placeholder QBO (B10)
 ### FASE 2 GRIDS — 6 páginas — commit (pending)
 - Breakpoints Tailwind: grid-cols-1 sm:grid-cols-2 lg:grid-cols-N
 - Solo className, sin nuevos divs
+
+### FASE 3 MODALES/FORMS — 2 páginas — commit (pending)
+- Modales fullscreen en mobile (max-sm:h-full, max-sm:rounded-none)
+- Formularios heredan grid responsive de FASE 2
