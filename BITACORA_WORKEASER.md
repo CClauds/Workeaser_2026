@@ -393,3 +393,19 @@
 ### B3-R1-D: Auditor 6/6 PASS (model fixed)
 - ServiceContract model updated with annualIncreasePct + isPriceNegotiated
 - Hash commit: c5a1089
+
+### B3-R1 Final — Auditor 12/12 PASS — 2026-08-08
+
+**Commits**: a6e90b9 · 1a26f81 · f9b61d5 · d010627 · c5a1089 · 52e0470
+
+**Items completados**:
+A) Bugs: logo, accordion, nav simplificada, dashboard KPIs reales, search, 3-dot menu
+B+C) Client modal completo + Add Client as modal + billing channel por partner
+D) Contracts: migración annual_increase_pct + is_price_negotiated (reversible)
+E) Setup: Partners commission optional + Users add form con campos completos  
+F) Audit Log: admin-only, solo-lectura
+G) Finances: admin-only, placeholder QBO (B10)
+
+**Pendiente para B4-B10**: Contracts progressive form, Rooms photo upload, Locations address edit, charts
+
+**Hash commits**: ver arriba
