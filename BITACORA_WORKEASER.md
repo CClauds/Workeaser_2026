@@ -433,3 +433,9 @@ G) Finances: admin-only, placeholder QBO (B10)
 - Dashboard: bar_chart + KPIs presentes ✅
 - Clients: Add Client button ✅
 - Audit Log + Finances: pages exist ✅
+
+### Audit responsive B3-R1 — 2026-08-08
+- 19/19 páginas sin tablas desbordando (overflow-x-auto)
+- 6/7 grids responsivos (grid-cols-1 sm:2 lg:3/4)
+- Modales fullscreen en Clients (max-sm:rounded-none)
+- Hash commit: `f9ee24b`
