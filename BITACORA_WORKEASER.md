@@ -424,3 +424,12 @@ G) Finances: admin-only, placeholder QBO (B10)
 - **BUILD_ID**: `RHkMn0gwkMv8V1AjtnbrN` (nuevo, verificado)
 - **4/4 UP healthy**. Frontend 200. Login 200.
 - **Hash commit**: `b673331`
+
+### Verificación VPS B3-R1 — 2026-08-08
+- BUILD_ID: RHkMn0gwkMv8V1AjtnbrN ✅
+- Tailwind CDN: loaded ✅
+- Material Symbols: loaded ✅
+- Logo: 200 ✅
+- Dashboard: bar_chart + KPIs presentes ✅
+- Clients: Add Client button ✅
+- Audit Log + Finances: pages exist ✅
