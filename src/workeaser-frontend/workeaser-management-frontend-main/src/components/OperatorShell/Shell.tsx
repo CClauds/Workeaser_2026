@@ -15,9 +15,10 @@ const NAV_ITEMS = [
       { label: 'Chat', href: '/operator/communication/chat' },
     ]},
     { label: 'Documents', href: '/operator/documents', icon: 'folder' },
-    { label: 'Reports', href: '/operator/reports', icon: 'bar_chart' },
   ]},
   { group: 'ADMIN ONLY', role: 'ADMIN', items: [
+    { label: 'Finances', href: '/operator/finances', icon: 'account_balance' },
+    { label: 'Reports', href: '/operator/reports', icon: 'bar_chart' },
     { label: 'Setup', href: '/operator/setup/partners', icon: 'settings', children: [
       { label: 'Partners', href: '/operator/setup/partners' },
       { label: 'Locations, Rooms & Services', href: '/operator/setup/rooms-services' },
@@ -28,7 +29,6 @@ const NAV_ITEMS = [
       { label: 'Users & Roles', href: '/operator/setup/users-roles' },
     ]},
     { label: 'Audit Log', href: '/operator/audit-log', icon: 'security' },
-    { label: 'Finances', href: '/operator/finances', icon: 'account_balance' },
   ]},
 ];
 
