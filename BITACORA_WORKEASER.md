@@ -439,3 +439,8 @@ G) Finances: admin-only, placeholder QBO (B10)
 - 6/7 grids responsivos (grid-cols-1 sm:2 lg:3/4)
 - Modales fullscreen en Clients (max-sm:rounded-none)
 - Hash commit: `f9ee24b`
+
+### Deploy revert responsive — 2026-08-08
+- BUILD_ID: `tXXUmpCpHJR692XeXlBKE` (estable, revertido a 0f887af)
+- Responsive pospuesto: los cambios de overflow-x-auto rompieron JSX (divs desbalanceados)
+- Sistema funcional: frontend 200, login 200, 4/4 healthy
