@@ -444,3 +444,12 @@ G) Finances: admin-only, placeholder QBO (B10)
 - BUILD_ID: `tXXUmpCpHJR692XeXlBKE` (estable, revertido a 0f887af)
 - Responsive pospuesto: los cambios de overflow-x-auto rompieron JSX (divs desbalanceados)
 - Sistema funcional: frontend 200, login 200, 4/4 healthy
+
+### Responsive B3 — Declaración de alcance — 2026-08-08
+- **10 páginas con contenido real** que llevan responsive en este ciclo:
+  Dashboard, Clients index, Client Detail, Add Client, Contracts, Billing,
+  Partners, Rooms & Services, Users & Roles, Audit Log.
+- **11 placeholders NO llevan responsive en este ciclo** (heredarán al construirse):
+  Contracts New, Bookings, Messages, Chat, Documents, Reports, Finances,
+  Setup Contract Templates, Invoice Settings, Payment Methods, Visual Identity.
+- La entrada operator/index.tsx (redirect) no es página — no requiere responsive.
