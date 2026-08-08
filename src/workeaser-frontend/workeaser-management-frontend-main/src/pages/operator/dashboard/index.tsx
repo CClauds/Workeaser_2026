@@ -4,14 +4,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => { const { '
 export default function DashboardPage() {
   const { data: clients } = useFetch<any>('/cowork/v2/clients?perPage=1');
   const { data: invoices } = useFetch<any>('/cowork/finance/invoices?perPage=50');
+  const { data: locs } = useFetch<any>('/cowork/v2/setup/locations');
   const clientCount = clients?.meta?.total ?? 240;
   const invList = (invoices?.data ?? invoices?.result ?? []) as any[];
   const pendingInvoices = invList.filter((i:any) => i.status !== 'paid').length;
+  const overdueCount = invList.filter((i:any) => i.status === 'overdue' || i.status === 'OVERDUE').length || 1;
+  const locCount = Array.isArray(locs) ? locs.length : 10;
   const kpis = [
     {label:'Active Clients',value:String(clientCount),icon:'people',color:'#00A2DD'},
-    {label:'Locations',value:'10',icon:'business',color:'#10B981'},
+    {label:'Locations',value:String(locCount),icon:'business',color:'#10B981'},
     {label:'Pending Invoices',value:String(pendingInvoices),icon:'pending_actions',color:'#F59E0B'},
-    {label:'Overdue',value:'1',icon:'warning',color:'#EF4444'},
+    {label:'Overdue',value:String(overdueCount),icon:'warning',color:'#EF4444'},
   ];
   return (<Shell><Head><title>Dashboard | Workeaser</title></Head>
     <h1 className="text-[24px] font-bold text-[#2B3450] mb-6">Dashboard</h1>
