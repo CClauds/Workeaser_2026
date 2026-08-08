@@ -30,6 +30,14 @@ export default class ServiceContract extends SoftDeleteBaseModel {
   @column()
   public priceCents: number;
 
+  // B3-R1-D: annual increase percentage (nullable = no auto-increase)
+  @column()
+  public annualIncreasePct: number | null;
+
+  // B3-R1-D: whether price was negotiated vs inherited from room
+  @column()
+  public isPriceNegotiated: boolean;
+
   @column()
   public billingChannel: 'DIRECT' | 'RESELLER';
 
