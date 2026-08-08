@@ -377,3 +377,10 @@
 ### B3-R1 Auditor: 9/9 PASS
 - Dashboard KPIs: Locations y Overdue cableados a API real
 - Hash commit: (pending)
+
+### B3-R1 B+C: Client modal — 7/7 PASS
+- Add Client: modal con 11 campos + N service contracts
+- Client detail: modal con period/rate/channel + 5 action buttons
+- Billing channel: muestra partners por nombre (EWS Direct, Alliance, DaVinci...)
+- Search: server-side filter por company/name/phone/service/room/notes
+- Hash commit: `f9b61d5`
