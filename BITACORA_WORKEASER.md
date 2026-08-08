@@ -453,3 +453,10 @@ G) Finances: admin-only, placeholder QBO (B10)
   Contracts New, Bookings, Messages, Chat, Documents, Reports, Finances,
   Setup Contract Templates, Invoice Settings, Payment Methods, Visual Identity.
 - La entrada operator/index.tsx (redirect) no es página — no requiere responsive.
+
+### Sidebar gating — Reports→Admin, Finances→top — 2026-08-08
+- Reports: movido de Daily Use a Admin Only (Assistant ya no lo ve)
+- Finances: sube al tope de Admin Only (antes estaba al fondo)
+- Admin Only orden: Finances, Reports, Setup, Audit Log
+- Daily Use: 7 items (Dashboard, Clients, Contracts, Bookings, Billing, Communication, Documents)
+- Hash commit: `3a86268`
