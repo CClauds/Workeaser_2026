@@ -373,3 +373,7 @@
 - **F+G) NUEVO**: Audit Log (admin-only, solo-lectura), Finances (placeholder QBO B10)
 - **Admin group**: Setup, Audit Log, Finances
 - **Hash commit**: `a6e90b9`
+
+### B3-R1 Auditor: 9/9 PASS
+- Dashboard KPIs: Locations y Overdue cableados a API real
+- Hash commit: (pending)
