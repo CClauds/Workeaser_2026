@@ -466,3 +466,7 @@ G) Finances: admin-only, placeholder QBO (B10)
   users-roles, clients/[id], clients/index
 - Div balance verificado (0 diff) en cada archivo
 - Sin alterar markup interno de tablas
+
+### FASE 2 GRIDS — 6 páginas — commit (pending)
+- Breakpoints Tailwind: grid-cols-1 sm:grid-cols-2 lg:grid-cols-N
+- Solo className, sin nuevos divs
