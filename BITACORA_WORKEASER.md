@@ -346,3 +346,8 @@
 - Billing: 4 KPI cards, filter toolbar, icons
 - 10 placeholder screens with proper DOM structure
 - Hash commits: bee2240, c8b7c66, eb62afa, (pending)
+
+### Deploy B3 Redesign — 2026-08-09
+- **VPS**: 62.238.102.24. Frontend rebuilt (no-cache). 4/4 UP healthy.
+- **Login**: 200. Frontend: 200.
+- **Hash commit**: `e2e5dca`
