@@ -17,10 +17,10 @@ export default function DashboardPage() {
       <div className="flex gap-2"><button className="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg text-[13px] font-semibold cursor-pointer border-none"><span className="material-symbols-outlined text-[18px]">add</span>Add Client</button>
       <button className="flex items-center gap-1.5 bg-surface border border-border text-on-surface-variant px-4 py-2 rounded-lg text-[13px] font-medium cursor-pointer"><span className="material-symbols-outlined text-[18px]">download</span>Export Report</button></div>
     </div>
-    <div className="grid grid-cols-5 gap-4 mb-6">{kpis.map(kpi=>(<div key={kpi.label} className="bg-surface border border-border rounded-lg p-5">
-      <div className="flex items-center gap-2 mb-2"><span className="material-symbols-outlined text-[20px]" style={{color:kpi.color}}>{kpi.icon}</span><span className="text-[11px] uppercase tracking-wider text-outline font-semibold">{kpi.label}</span></div>
+    <div className="grid grid-cols-5 gap-4 mb-6">{kpis.map(kpi=>{const c=kpi.color;return(<div key={kpi.label} className="bg-surface border border-border rounded-lg p-5">
+      <div className="flex items-center gap-2 mb-2"><span className="material-symbols-outlined text-[20px]" style={{color:c}}>{kpi.icon}</span><span className="text-[11px] uppercase tracking-wider text-outline font-semibold">{kpi.label}</span></div>
       <div className="text-[28px] font-bold text-[#2B3450]">{kpi.value}</div>
-    </div>)))}</div>
+    </div>)})}</div>
     <div className="grid grid-cols-2 gap-4 mb-6">
       <div className="bg-surface border border-border rounded-lg p-5"><h3 className="flex items-center gap-2 text-[14px] font-semibold text-[#2B3450] mb-3"><span className="material-symbols-outlined text-[20px]">bar_chart</span>Clients per Product Category</h3><div className="text-[13px] text-on-surface-variant text-center py-8">Virtual Office 0 · Meeting Room 0 · Open Desk 0 · Private Room 0</div></div>
       <div className="bg-surface border border-border rounded-lg p-5"><h3 className="flex items-center gap-2 text-[14px] font-semibold text-[#2B3450] mb-3"><span className="material-symbols-outlined text-[20px]">pie_chart</span>Invoices per Status</h3><div className="text-[13px] text-on-surface-variant text-center py-8">Overdue: 1 · No active invoices</div></div>

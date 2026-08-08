@@ -55,9 +55,11 @@ export function useFetch<Data=any, Error=AxiosError>(url: string, options: SWRCo
     // console.log(error);
     if (error.response) {
       console.log(error.response);
-      if (error.response.status === 401 && url !== "/me") {
-      // if (error.response.status === 401) {
-        cache.clear(); // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
+      // 1B.2-httpOnly fix: Solo redirigir a /login si /me devuelve 401
+      // (sesión realmente expirada). Un 401 en otros endpoints (ej. invoices
+      // sin módulo FINANCES) es error de permisos, no de sesión.
+      if (error.response.status === 401 && url === "/me") {
+        cache.clear();
         router.push({
           pathname: "/login",
           query: { returnTo: router.asPath, expired: true },
