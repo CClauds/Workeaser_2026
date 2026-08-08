@@ -376,7 +376,7 @@
 
 ### B3-R1 Auditor: 9/9 PASS
 - Dashboard KPIs: Locations y Overdue cableados a API real
-- Hash commit: (pending)
+- Hash commit: 1a26f81
 
 ### B3-R1 B+C: Client modal — 7/7 PASS
 - Add Client: modal con 11 campos + N service contracts
@@ -388,4 +388,4 @@
 ### B3-R1-D: Contracts migration — 2026-08-08
 - Migración: annual_increase_pct (decimal 5,2) + is_price_negotiated (bool) en service_contracts
 - Reversible. Advertida en bitácora.
-- Hash commit: (pending)
+- Hash commit: 1a26f81
