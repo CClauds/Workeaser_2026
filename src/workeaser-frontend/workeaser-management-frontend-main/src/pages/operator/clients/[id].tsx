@@ -82,7 +82,7 @@ export default function ClientDetailPage() {
           {contracts.length === 0 ? (
             <p style={{ color: '#94a3b8', fontSize: 13 }}>No active services.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <div className="overflow-x-auto"><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
                 <tr style={{ textAlign: 'left', borderBottom: '2px solid #e2e8f0', fontSize: 11, color: '#64748b', textTransform: 'uppercase' }}>
                   <th style={{ padding: '8px 10px' }}>Service</th>
@@ -117,7 +117,7 @@ export default function ClientDetailPage() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           )}
         </div>
       </div>
