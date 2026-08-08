@@ -351,3 +351,13 @@
 - **VPS**: 62.238.102.24. Frontend rebuilt (no-cache). 4/4 UP healthy.
 - **Login**: 200. Frontend: 200.
 - **Hash commit**: `e2e5dca`
+
+### Deploy B3 Redesign CORRECTED — 2026-08-08
+- **Problema**: build anterior no produjo imagen nueva (Docker reusó capas).
+  Contenedor servía BUILD_ID viejo (ES8kq7Fbvk310e9UA8Qyg) sin Tailwind ni Material Symbols.
+- **Fix**: docker rmi + rsync --delete + build --no-cache.
+- **BUILD_ID nuevo**: `b5vw8vjxqZU8XqMJqTFxY`
+- **Tailwind CDN**: ✅ presente en HTML servido
+- **Material Symbols**: ✅ `<link>` cargado, glifos renderizados
+- **Admin**: admin@workeaser.com / admin1234 (role=ADMIN, puede ver Setup)
+- **Hash commit**: `12c3272`
