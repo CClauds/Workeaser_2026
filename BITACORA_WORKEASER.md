@@ -460,3 +460,9 @@ G) Finances: admin-only, placeholder QBO (B10)
 - Admin Only orden: Finances, Reports, Setup, Audit Log
 - Daily Use: 7 items (Dashboard, Clients, Contracts, Bookings, Billing, Communication, Documents)
 - Hash commit: `3a86268`
+
+### FASE 1 TABLAS — 8 páginas — commit 116d887
+- overflow-x-auto wrappers en: audit-log, contracts, billing, partners, rooms-services,
+  users-roles, clients/[id], clients/index
+- Div balance verificado (0 diff) en cada archivo
+- Sin alterar markup interno de tablas
